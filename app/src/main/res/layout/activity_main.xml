@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#444444"
+        android:orientation="vertical"
+        tools:context=".ui.MainActivity">
+
+<androidx.appcompat.widget.Toolbar
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        android:background="?attr/colorPrimary"
+        app:titleTextAppearance="@style/TitleBarTextAppearance"
+        app:titleTextColor="#F58181"
+>
+
+</androidx.appcompat.widget.Toolbar>
+
+    <fragment
+             android:id="@+id/fragment"
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="1"
+             android:name="androidx.navigation.fragment.NavHostFragment"
+             app:navGraph="@navigation/bottom_navigation"
+             app:defaultNavHost="true"
+        />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:itemBackground="@color/colorPrimary"
+            app:menu="@menu/bottom_navigation_menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/colorPrimary"
+            app:itemIconTint="#FFF"
+            app:itemTextColor="#FFF"
+            app:labelVisibilityMode="selected"
+            app:layout_constraintStart_toStartOf="parent"
+    />
+
+</LinearLayout>

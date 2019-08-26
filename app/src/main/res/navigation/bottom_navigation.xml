@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/bottom_navigation"
+            app:startDestination="@id/new_bottom">
+    <fragment android:id="@+id/new_bottom" android:name="tk.zedlabs.wallaperapp2019.ui.NewFragment"
+              android:label="fragment_new" tools:layout="@layout/fragment_new"/>
+    <fragment android:id="@+id/popular_bottom" android:name="tk.zedlabs.wallaperapp2019.ui.PopularFragment"
+              android:label="fragment_popular" tools:layout="@layout/fragment_popular"/>
+    <fragment android:id="@+id/saved_bottom" android:name="tk.zedlabs.wallaperapp2019.ui.SavedFragment"
+              android:label="fragment_saved" tools:layout="@layout/fragment_saved"/>
+</navigation>

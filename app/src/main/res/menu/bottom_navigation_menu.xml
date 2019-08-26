@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/popular"
+          android:id="@+id/popular_bottom"
+          android:icon="@drawable/ic_outline_trending_u_24px"
+    />
+    <item android:title="@string/newImages"
+          android:id="@+id/new_bottom"
+    android:icon="@drawable/ic_baseline_arrow_downward_24px"
+    />
+    <item android:title="@string/saved"
+          android:id="@+id/saved_bottom"
+    android:icon="@drawable/ic_baseline_arrow_downward_24px_actual"
+    />
+</menu>
