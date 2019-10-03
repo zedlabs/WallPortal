@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.android.synthetic.main.fragment_new.*
 import kotlinx.android.synthetic.main.fragment_popular.*
 import tk.zedlabs.wallaperapp2019.MainAdapter
 import tk.zedlabs.wallaperapp2019.PostViewModel

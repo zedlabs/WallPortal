@@ -13,7 +13,8 @@ import kotlinx.android.synthetic.main.recyclerview_item.view.*
 import tk.zedlabs.wallaperapp2019.MainAdapter.MyViewHolder
 import tk.zedlabs.wallaperapp2019.models.UnsplashImageDetails
 
-class MainAdapter(onImageListener: OnImageListener) : PagedListAdapter<UnsplashImageDetails, MyViewHolder>(diffCallback) {
+class MainAdapter(onImageListener: OnImageListener) :
+    PagedListAdapter<UnsplashImageDetails, MyViewHolder>(diffCallback) {
 
     private lateinit var ctx : Context
     private var mOnImageListener: OnImageListener
@@ -62,6 +63,7 @@ class MainAdapter(onImageListener: OnImageListener) : PagedListAdapter<UnsplashI
         Glide.with(ctx)
             .load(post?.urls?.regular)
             .into(holder.itemView.imageViewItem)
+
     }
 
 }

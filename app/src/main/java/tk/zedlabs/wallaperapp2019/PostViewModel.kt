@@ -2,6 +2,7 @@ package tk.zedlabs.wallaperapp2019
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
@@ -20,16 +21,16 @@ class PostViewModel : ViewModel() {
     private var popularLiveDataSource: LiveData<PageKeyedDataSource<Int, UnsplashImageDetails>>? = null
 
     init {
-        val postDataSourceFactory = PostDataSourceFactory()
-        val popularDataSourceFactory = PopularDataSourceFactory()
+        val postDataSourceFactory = PostDataSourceFactory(viewModelScope)
+        val popularDataSourceFactory = PopularDataSourceFactory(viewModelScope)
 
         postLiveDataSource = postDataSourceFactory.getPostLiveDataSource()
         popularLiveDataSource = popularDataSourceFactory.getPopularLiveDataSource()
 
         val config: PagedList.Config = (PagedList.Config.Builder()).setEnablePlaceholders(false)
-            .setPageSize(PostDataSource().PAGE_SIZE).build()
+            .setPageSize(PostDataSource(viewModelScope).PAGE_SIZE).build()
         val configPop: PagedList.Config = (PagedList.Config.Builder()).setEnablePlaceholders(false)
-            .setPageSize(PopularDataSource().PAGE_SIZE).build()
+            .setPageSize(PopularDataSource(viewModelScope).PAGE_SIZE).build()
 
         postPagedList = LivePagedListBuilder(postDataSourceFactory, config).build()
         popularPagedList = LivePagedListBuilder(popularDataSourceFactory, configPop).build()

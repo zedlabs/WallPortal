@@ -20,9 +20,6 @@ class SavedFragment : Fragment(),MainAdapter.OnImageListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v = inflater.inflate(R.layout.fragment_saved, container, false)
-        val intent = Intent(this.context,ImageDetails::class.java)
-        startActivity(intent)
-        return v
+        return inflater.inflate(R.layout.fragment_saved, container, false)
     }
 }

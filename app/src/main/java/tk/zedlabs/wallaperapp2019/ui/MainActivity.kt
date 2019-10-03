@@ -14,7 +14,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import kotlinx.android.synthetic.main.activity_main.*
 import tk.zedlabs.wallaperapp2019.*
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
@@ -30,22 +30,22 @@ class MainActivity : AppCompatActivity(){
         val item2 = SecondaryDrawerItem().withIdentifier(2).withName(R.string.drawer_item_new)
         val item3 = SecondaryDrawerItem().withIdentifier(3).withName(R.string.drawer_item_downloads)
 
-             DrawerBuilder()
-            .withActivity(this)
+        DrawerBuilder().withActivity(this)
             .withToolbar(toolbar)
             .addDrawerItems(
-                item1,
-                DividerDrawerItem(),
-                item2,
-                DividerDrawerItem(),
-                item3
+                item1, DividerDrawerItem(),
+                item2, DividerDrawerItem(), item3
             )
             .withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
-                override fun onItemClick(view: View?, position: Int, drawerItem: IDrawerItem<*>): Boolean {
-                    when(drawerItem.identifier.toInt()){
+                override fun onItemClick(
+                    view: View?,
+                    position: Int,
+                    drawerItem: IDrawerItem<*>
+                ): Boolean {
+                    when (drawerItem.identifier.toInt()) {
                         1 -> navController.navigate(R.id.popular_bottom)
-                        2-> navController.navigate(R.id.new_bottom)
-                        3->navController.navigate(R.id.saved_bottom)
+                        2 -> navController.navigate(R.id.new_bottom)
+                        3 -> navController.navigate(R.id.saved_bottom)
                     }
                     return false
                 }
