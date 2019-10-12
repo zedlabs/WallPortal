@@ -1,35 +1,52 @@
 package tk.zedlabs.wallaperapp2019
 
-import android.Manifest
-import android.os.Environment
-import android.util.Log
-import java.io.File
-import android.Manifest.permission
-import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Context
-import androidx.core.app.ActivityCompat
-import android.content.pm.PackageManager
-import android.os.Build
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Environment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
 
-class FileUtils {
-    /* Checks if external storage is available for read and write */
-    fun isExternalStorageWritable(): Boolean {
-        return Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
-    }
+class FileUtils(private val scope: CoroutineScope, private val appContext : Context) {
 
-    /* Checks if external storage is available to at least read */
-    fun isExternalStorageReadable(): Boolean {
-        return Environment.getExternalStorageState() in
-                setOf(Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY)
-    }
-    fun getPublicAlbumStorageDir(albumName: String): File? {
-        // Get the directory for the user's public pictures directory.
-        val file = File(Environment.getExternalStoragePublicDirectory(
-            Environment.DIRECTORY_PICTURES), albumName)
-        if (!file?.mkdirs()) {
-            Log.e("File Creation: ", "Directory not created")
+          fun saveImage(image: Bitmap,id : String): String? {
+            var savedImagePath: String? = null
+            //val random = (0..100).random()
+            val imageFileName = "$id.jpg"
+            val storageDir =
+                File("${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)}/WallPortal")
+            var success = true
+            if (!storageDir.exists()) {
+                success = storageDir.mkdirs()
+            }
+            if (success) {
+                val imageFile = File(storageDir, imageFileName)
+                savedImagePath = imageFile.absolutePath
+
+                scope.launch (Dispatchers.IO) {
+                    try {
+                        val fOut = FileOutputStream(imageFile)
+                        image.compress(Bitmap.CompressFormat.JPEG, 100, fOut)
+                        fOut.close()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                    galleryAddPic(savedImagePath)
+                }
+            }
+            return savedImagePath
         }
-        return file
-    }
 
+         private fun galleryAddPic(imagePath: String) {
+            val mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+            val f = File(imagePath)
+            val contentUri = Uri.fromFile(f)
+            mediaScanIntent.data = contentUri
+            appContext.sendBroadcast(mediaScanIntent)
+
+        }
 }

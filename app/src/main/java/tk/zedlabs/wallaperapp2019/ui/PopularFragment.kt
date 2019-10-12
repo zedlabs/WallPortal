@@ -25,6 +25,10 @@ class PopularFragment : Fragment(),MainAdapter.OnImageListener {
         val intent = Intent(activity ,ImageDetails::class.java)
         val imageDetails = postViewModel.popularPagedList?.value?.get(position)
         val urlLarge = imageDetails?.urls?.full
+        val urlRegular = imageDetails?.urls?.regular
+        val id = imageDetails?.id
+        intent.putExtra("url_regular", urlRegular)
+        intent.putExtra("id", id)
         intent.putExtra("url_large", urlLarge)
         startActivity(intent)
     }
