@@ -16,7 +16,7 @@ class PopularDataSource(private val scope: CoroutineScope) : PageKeyedDataSource
 
     val PAGE_SIZE = 20
     val FIRST_PAGE = 1
-    val accessKey = "e3bc7bf237473a863b587b27220ec9b4a0a6f25e8b1514053c91d212a312b777"
+    val accessKey = "add_api_key_here"
     val orderBy = "popular"
     var  jsonApi : JsonApi
 
