@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
+import android.widget.ProgressBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,9 +14,13 @@ import java.io.FileOutputStream
 
 class FileUtils(private val scope: CoroutineScope, private val appContext : Context) {
 
+
+          fun setWallpaper1(image: Bitmap, id: String){
+            saveImage(image, id)
+
+          }
           fun saveImage(image: Bitmap,id : String): String? {
             var savedImagePath: String? = null
-            //val random = (0..100).random()
             val imageFileName = "$id.jpg"
             val storageDir =
                 File("${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)}/WallPortal")
@@ -27,17 +32,17 @@ class FileUtils(private val scope: CoroutineScope, private val appContext : Cont
                 val imageFile = File(storageDir, imageFileName)
                 savedImagePath = imageFile.absolutePath
 
-                scope.launch (Dispatchers.IO) {
+                //scope.launch (Dispatchers.IO) {
                     try {
                         val fOut = FileOutputStream(imageFile)
-                        image.compress(Bitmap.CompressFormat.JPEG, 100, fOut)
+                        image.compress(Bitmap.CompressFormat.JPEG, 80, fOut)
                         fOut.close()
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
                     galleryAddPic(savedImagePath)
                 }
-            }
+            //}
             return savedImagePath
         }
 

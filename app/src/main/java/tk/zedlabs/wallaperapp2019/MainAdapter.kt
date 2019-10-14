@@ -63,7 +63,6 @@ class MainAdapter(onImageListener: OnImageListener) :
         Glide.with(ctx)
             .load(post?.urls?.regular)
             .into(holder.itemView.imageViewItem)
-
     }
 
 }
