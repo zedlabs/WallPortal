@@ -11,7 +11,7 @@ responsive application and more optimized networking, a good place to see implem
     * [Kotlin](https://kotlinlang.org/) + [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - perform background operation
     * [Retrofit](https://square.github.io/retrofit/) - networking
     * [Jetpack](https://developer.android.com/jetpack)
-        * [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/) - deal with whole in-app navigation
+        * [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/) - deal with whole in-app navigation efficiently
         * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) - notify views about database change
         * [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle) - perform action when lifecycle state changes
         * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - store and manage UI-related data in a lifecycle conscious way
