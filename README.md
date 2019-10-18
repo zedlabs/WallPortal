@@ -27,4 +27,4 @@ responsive application and more optimized networking, a good place to see implem
 
 ### In development
  * Implement courotines
- * Implement Jetpack Animations and Slices
+ * Implement Jetpack Animations
