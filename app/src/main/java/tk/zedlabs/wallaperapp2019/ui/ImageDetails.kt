@@ -68,7 +68,6 @@ class ImageDetails : AppCompatActivity() {
                 fabOpen()
             }
         }
-
         Glide.with(this)
             .load(urlRegular)
             .transform(CenterCrop())
@@ -114,6 +113,8 @@ class ImageDetails : AppCompatActivity() {
     private fun fabClose(){
         textview_mail.visibility = View.INVISIBLE
         textview_share.visibility = View.INVISIBLE
+        textview_mail.startAnimation(fabClose)
+        textview_share.startAnimation(fabClose)
         saw_button.startAnimation(fabClose)
         download_button.startAnimation(fabClose)
         fab.startAnimation(fabAntiClock)
@@ -124,6 +125,8 @@ class ImageDetails : AppCompatActivity() {
     private fun fabOpen(){
         textview_mail.visibility = View.VISIBLE
         textview_share.visibility = View.VISIBLE
+        textview_mail.startAnimation(fabOpen)
+        textview_share.startAnimation(fabOpen)
         saw_button.startAnimation(fabOpen)
         download_button.startAnimation(fabOpen)
         fab.startAnimation(fabClock)

@@ -13,7 +13,4 @@ class ImageDetailViewModel(applicationContext : Context) : ViewModel() {
     fun downloadImage(bitmap : Bitmap,id : String){
         fileUtils.saveImage(bitmap,id)
     }
-    fun setWallpaper(image: Bitmap, id: String){
-        fileUtils.setWallpaper1(image,id)
-    }
 }
