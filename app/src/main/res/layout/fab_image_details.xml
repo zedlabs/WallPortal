@@ -1,89 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+     android:layout_width="match_parent">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="0dp">
 
-    <TextView
-        android:id="@+id/textview_share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="80dp"
-        android:layout_marginBottom="190dp"
-        android:alpha=".8"
-        android:padding="8dp"
-        android:background="#212121"
-        android:text="Set As Wallpaper"
-        android:textColor="#ffffff"
-        android:visibility="invisible" />
+        <TextView
+            android:id="@+id/textview_highRes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/highRes_button"
+            android:layout_alignBottom="@+id/highRes_button"
+            android:layout_toStartOf="@+id/highRes_button"
+            android:alpha=".8"
+            android:background="#212121"
+            android:padding="8dp"
+            android:text="View in Higher Resolution"
+            android:textColor="#ffffff"
+            android:visibility="invisible" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/saw_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="176dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:elevation="16dp"
-        android:focusable="true"
-        android:src="@drawable/ic_set_wall_material"
-        android:visibility="invisible"
-        app:backgroundTint="#ffffff"
-        app:pressedTranslationZ="12dp" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/highRes_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="316dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:elevation="16dp"
+            android:focusable="true"
+            android:src="@drawable/ic_blur_circular"
+            android:visibility="invisible"
+            app:backgroundTint="#ffffff"
+            app:pressedTranslationZ="12dp" />
 
-    <TextView
-        android:id="@+id/textview_mail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="88dp"
-        android:layout_marginBottom="116dp"
-        android:alpha=".8"
-        android:background="#212121"
-        android:padding="8dp"
-        android:text="Download"
-        android:textColor="#ffffff"
-        android:visibility="invisible" />
+        <TextView
+            android:id="@+id/textview_bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/bookmark_button"
+            android:layout_alignBottom="@+id/bookmark_button"
+            android:layout_toStartOf="@+id/bookmark_button"
+            android:alpha=".8"
+            android:background="#212121"
+            android:padding="8dp"
+            android:text="Add To Bookmarks"
+            android:textColor="#ffffff"
+            android:visibility="invisible" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bookmark_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="246dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:elevation="16dp"
+            android:focusable="true"
+            android:src="@drawable/ic_bookmark"
+            android:visibility="invisible"
+            app:backgroundTint="#ffffff"
+            app:pressedTranslationZ="12dp" />
+
+        <TextView
+            android:id="@+id/textview_saw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/saw_button"
+            android:layout_alignBottom="@+id/saw_button"
+            android:layout_toStartOf="@+id/saw_button"
+            android:alpha=".8"
+            android:background="#212121"
+            android:padding="8dp"
+            android:text="Set As Wallpaper"
+            android:textColor="#ffffff"
+            android:visibility="invisible" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/saw_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="176dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:elevation="16dp"
+            android:focusable="true"
+            android:src="@drawable/ic_set_wall_material"
+            android:visibility="invisible"
+            app:backgroundTint="#ffffff"
+            app:pressedTranslationZ="12dp" />
+
+        <TextView
+            android:id="@+id/textview_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/download_button"
+            android:layout_alignBottom="@+id/download_button"
+            android:layout_toStartOf="@+id/download_button"
+            android:alpha=".8"
+            android:background="#212121"
+            android:padding="8dp"
+            android:text="Download"
+            android:textColor="#ffffff"
+            android:visibility="invisible" />
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/download_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="106dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:elevation="16dp"
-        android:focusable="true"
-        android:src="@drawable/ic_baseline_arrow_downward_24px_actual"
-        android:visibility="invisible"
-        app:backgroundTint="#ffffff"
-        app:pressedTranslationZ="12dp" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/download_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="106dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:elevation="16dp"
+            android:focusable="true"
+            android:src="@drawable/ic_baseline_arrow_downward_24px_actual"
+            android:visibility="invisible"
+            app:backgroundTint="#ffffff"
+            app:pressedTranslationZ="12dp" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="32dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:elevation="16dp"
-        android:focusable="true"
-        android:src="@drawable/ic_fab_up_material"
-        android:visibility="visible"
-        app:backgroundTint="#ffffff"
-        app:pressedTranslationZ="12dp" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:elevation="16dp"
+            android:focusable="true"
+            android:src="@drawable/ic_fab_up_material"
+            android:visibility="visible"
+            app:backgroundTint="#ffffff"
+            app:pressedTranslationZ="12dp" />
 
-</RelativeLayout>
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

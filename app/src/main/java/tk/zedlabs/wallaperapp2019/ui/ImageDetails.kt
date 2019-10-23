@@ -111,27 +111,49 @@ class ImageDetails : AppCompatActivity() {
         }
     }
     private fun fabClose(){
-        textview_mail.visibility = View.INVISIBLE
-        textview_share.visibility = View.INVISIBLE
-        textview_mail.startAnimation(fabClose)
-        textview_share.startAnimation(fabClose)
+        textview_down.visibility = View.INVISIBLE
+        textview_saw.visibility = View.INVISIBLE
+        textview_highRes.visibility = View.INVISIBLE
+        textview_bookmark.visibility = View.INVISIBLE
+
+        textview_down.startAnimation(fabClose)
+        textview_saw.startAnimation(fabClose)
+        textview_highRes.startAnimation(fabClose)
+        textview_bookmark.startAnimation(fabClose)
+
         saw_button.startAnimation(fabClose)
         download_button.startAnimation(fabClose)
+        highRes_button.startAnimation(fabClose)
+        bookmark_button.startAnimation(fabClose)
+
         fab.startAnimation(fabAntiClock)
         saw_button.isClickable = false
         download_button.isClickable = false
+        highRes_button.isClickable = false
+        bookmark_button.isClickable = false
         isOpen = false
     }
     private fun fabOpen(){
-        textview_mail.visibility = View.VISIBLE
-        textview_share.visibility = View.VISIBLE
-        textview_mail.startAnimation(fabOpen)
-        textview_share.startAnimation(fabOpen)
+        textview_down.visibility = View.VISIBLE
+        textview_saw.visibility = View.VISIBLE
+        textview_highRes.visibility = View.VISIBLE
+        textview_bookmark.visibility = View.VISIBLE
+
+        textview_down.startAnimation(fabOpen)
+        textview_saw.startAnimation(fabOpen)
+        textview_highRes.startAnimation(fabOpen)
+        textview_bookmark.startAnimation(fabOpen)
+
         saw_button.startAnimation(fabOpen)
         download_button.startAnimation(fabOpen)
+        highRes_button.startAnimation(fabOpen)
+        bookmark_button.startAnimation(fabOpen)
+
         fab.startAnimation(fabClock)
         saw_button.isClickable = true
         download_button.isClickable = true
+        highRes_button.isClickable = true
+        bookmark_button.isClickable = true
         isOpen = true
     }
     private fun setWallpaper1(uri : Uri) {
