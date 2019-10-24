@@ -9,6 +9,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 import tk.zedlabs.wallaperapp2019.MainAdapter.MyViewHolder
 import tk.zedlabs.wallaperapp2019.models.UnsplashImageDetails
@@ -62,6 +63,7 @@ class MainAdapter(onImageListener: OnImageListener) :
         val post = getItem(position)
         Glide.with(ctx)
             .load(post?.urls?.regular)
+            .transition(DrawableTransitionOptions.withCrossFade())
             .into(holder.itemView.imageViewItem)
     }
 
