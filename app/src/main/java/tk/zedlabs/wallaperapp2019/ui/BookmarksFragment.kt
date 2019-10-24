@@ -10,7 +10,7 @@ import tk.zedlabs.wallaperapp2019.MainAdapter
 
 import tk.zedlabs.wallaperapp2019.R
 
-class SavedFragment : Fragment(),MainAdapter.OnImageListener {
+class BookmarksFragment : Fragment(),MainAdapter.OnImageListener {
 
     override fun onImageClick(position: Int) {
         val i = Intent(activity ,ImageDetails::class.java)

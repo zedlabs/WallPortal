@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                     when (drawerItem.identifier.toInt()) {
                         1 -> navController.navigate(R.id.popular_bottom)
                         2 -> navController.navigate(R.id.new_bottom)
-                        3 -> navController.navigate(R.id.saved_bottom)
+                        3 -> navController.navigate(R.id.bookmarks_bottom)
                     }
                     return false
                 }

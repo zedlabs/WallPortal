@@ -10,4 +10,5 @@
     <string name="drawer_item_new">New</string>
     <string name="drawer_item_downloads">Downloads</string>
     <string name="loading_wallpaper">Loading Wallpaper</string>
+    <string name="bookmarks">Bookmarks</string>
 </resources>

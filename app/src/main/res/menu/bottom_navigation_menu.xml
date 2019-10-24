@@ -8,8 +8,8 @@
           android:id="@+id/new_bottom"
     android:icon="@drawable/ic_baseline_arrow_downward_24px"
     />
-    <item android:title="@string/saved"
-          android:id="@+id/saved_bottom"
-    android:icon="@drawable/ic_baseline_arrow_downward_24px_actual"
+    <item android:title="@string/bookmarks"
+          android:id="@+id/bookmarks_bottom"
+    android:icon="@drawable/ic_bookmarks"
     />
 </menu>

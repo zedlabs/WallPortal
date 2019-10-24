@@ -42,7 +42,7 @@
             android:background="@color/colorPrimary"
             app:itemIconTint="#FFF"
             app:itemTextColor="#FFF"
-            app:labelVisibilityMode="selected"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintStart_toStartOf="parent"
     />
 

@@ -7,6 +7,9 @@
               android:label="fragment_new" tools:layout="@layout/fragment_new"/>
     <fragment android:id="@+id/popular_bottom" android:name="tk.zedlabs.wallaperapp2019.ui.PopularFragment"
               android:label="fragment_popular" tools:layout="@layout/fragment_popular"/>
-    <fragment android:id="@+id/saved_bottom" android:name="tk.zedlabs.wallaperapp2019.ui.SavedFragment"
-              android:label="fragment_saved" tools:layout="@layout/fragment_saved"/>
+    <fragment
+        android:id="@+id/bookmarks_bottom"
+        android:name="tk.zedlabs.wallaperapp2019.ui.BookmarksFragment"
+        android:label="fragment_bookmarks"
+        tools:layout="@layout/fragment_saved" />
 </navigation>
