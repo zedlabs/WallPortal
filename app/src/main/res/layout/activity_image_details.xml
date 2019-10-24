@@ -22,15 +22,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/roboto_mono"
-                android:text="Image By : Atonio Whaller"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:shadowColor="@color/accent"
-                android:textSize="18sp" />
     </LinearLayout>
     <include layout="@layout/fab_image_details"/>
     <include layout="@layout/progress_saw"
