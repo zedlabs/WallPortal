@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/bottom_navigation"
-            app:startDestination="@id/new_bottom">
+            app:startDestination="@id/popular_bottom">
     <fragment android:id="@+id/new_bottom" android:name="tk.zedlabs.wallaperapp2019.ui.NewFragment"
               android:label="fragment_new" tools:layout="@layout/fragment_new"/>
     <fragment android:id="@+id/popular_bottom" android:name="tk.zedlabs.wallaperapp2019.ui.PopularFragment"

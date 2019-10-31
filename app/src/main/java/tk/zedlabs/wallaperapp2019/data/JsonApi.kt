@@ -12,7 +12,7 @@ interface JsonApi {
                   @Query("page") page : Int,
                   @Query("per_page") noPages : Int) : Response<List<UnsplashImageDetails>>
 
-    @GET("/photos/curated")
+    @GET("/photos/")
     suspend fun getPopularImages(@Query("client_id") accessKey: String,
                          @Query("page") page : Int,
                          @Query("per_page") noPages : Int,
