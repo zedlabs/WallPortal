@@ -5,8 +5,7 @@
 the goal of this project is to provide a clean ad-free android application using the best practices, and in the process create a 
 responsive application and more optimized networking, a good place to see implementation
 
-<img src="https://github.com/zedlabs/WallPortal/blob/master/Screenshot_1566835536.png" width="200" height="400"> <img src="https://github.com/zedlabs/WallPortal/blob/master/Screenshot_1566835549.png" width="200" height="400"> <img src="https://github.com/zedlabs/WallPortal/blob/master/Screenshot_1566835576.png" width="200" height="400">
-
+<img src="https://github.com/zedlabs/WallPortal/blob/master/Screenshot_1566835536.png" width="200" height="400"> <img src="https://github.com/zedlabs/WallPortal/blob/master/Screenshot_1566835549.png" width="200" height="400"> 
 * Tech-stack
     * [Kotlin](https://kotlinlang.org/) + [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - perform background operation
     * [Retrofit](https://square.github.io/retrofit/) - networking
@@ -26,5 +25,5 @@ responsive application and more optimized networking, a good place to see implem
 
 
 ### In development
- * Implement courotines
+ * Room
  * Implement Jetpack Animations
