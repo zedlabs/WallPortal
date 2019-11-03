@@ -5,12 +5,12 @@
              android:layout_height="match_parent"
              tools:context=".ui.NewFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="2dp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/recyclerView"
-    />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/recyclerView"
+        />
 </FrameLayout>

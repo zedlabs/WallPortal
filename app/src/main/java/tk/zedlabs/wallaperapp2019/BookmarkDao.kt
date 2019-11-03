@@ -8,20 +8,20 @@ import androidx.room.Query
 @Dao
 interface BookmarkDao {
     @Query("SELECT * FROM BookmarkImage")
-    fun getAll(): List<BookmarkImage>
+    suspend fun getAll(): List<BookmarkImage>
 
     @Query("SELECT imageUrlFull FROM BookmarkImage")
-    fun getListFull(): List<String>
+    suspend fun getListFull(): List<String>
 
     @Query("SELECT imageUrlRegular FROM BookmarkImage")
-    fun getListRegular(): List<String>
+    suspend fun getListRegular(): List<String>
 
     @Insert
-    fun insertAll(vararg bookmarkImage: BookmarkImage)
+    suspend fun insertAll(vararg bookmarkImage: BookmarkImage)
 
     @Insert
-    fun insert(bookmarkImage: BookmarkImage)
+    suspend fun insert(bookmarkImage: BookmarkImage)
 
     @Delete
-    fun delete(bookmarkImage: BookmarkImage)
+    suspend fun delete(bookmarkImage: BookmarkImage)
 }

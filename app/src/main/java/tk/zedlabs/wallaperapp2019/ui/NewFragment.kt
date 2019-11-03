@@ -43,7 +43,7 @@ class NewFragment : Fragment(),MainAdapter.OnImageListener{
         super.onViewCreated(view, savedInstanceState)
 
         postViewModel = ViewModelProviders.of(this).get(PostViewModel::class.java)
-        postViewModel.postPagedList?.observe(this, Observer { postList ->
+        postViewModel.postPagedList?.observe(viewLifecycleOwner, Observer { postList ->
             viewAdapter.submitList(postList)
         })
         viewManager = GridLayoutManager(this.context,2)

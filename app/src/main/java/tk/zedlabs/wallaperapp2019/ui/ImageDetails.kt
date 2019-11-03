@@ -15,6 +15,7 @@ import android.view.animation.AnimationUtils.loadAnimation
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.room.Room
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -24,6 +25,8 @@ import kotlinx.android.synthetic.main.activity_image_details.*
 import kotlinx.android.synthetic.main.fab_image_details.*
 import kotlinx.android.synthetic.main.progress_saw.*
 import kotlinx.coroutines.*
+import tk.zedlabs.wallaperapp2019.BookmarkDatabase
+import tk.zedlabs.wallaperapp2019.BookmarkImage
 import tk.zedlabs.wallaperapp2019.BuildConfig
 import tk.zedlabs.wallaperapp2019.ImageDetailViewModel
 import tk.zedlabs.wallaperapp2019.R.anim.*
@@ -87,7 +90,6 @@ class ImageDetails : AppCompatActivity() {
                     override fun onLoadCleared(placeholder: Drawable?) {  }
                 })
         }
-
         saw_button.setOnClickListener {
             progressLayout.visibility = View.VISIBLE
             fabClose()
@@ -108,6 +110,17 @@ class ImageDetails : AppCompatActivity() {
                     }
                     override fun onLoadCleared(placeholder: Drawable?) {  }
                 })
+        }
+        bookmark_button.setOnClickListener {
+            val db = Room.databaseBuilder(
+                applicationContext,
+                BookmarkDatabase::class.java, "bookmark-database"
+            ).build()
+
+            CoroutineScope(Dispatchers.IO).launch {
+                db.bookmarkDao().insert(BookmarkImage(id,urlFull,urlRegular))
+            }
+            Toast.makeText(this,"Added to Bookmarks!",Toast.LENGTH_SHORT).show()
         }
     }
     private fun fabClose(){

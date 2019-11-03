@@ -40,7 +40,7 @@ class PopularFragment : Fragment(),MainAdapter.OnImageListener {
         super.onViewCreated(view, savedInstanceState)
 
         postViewModel = ViewModelProviders.of(this).get(PostViewModel::class.java)
-        postViewModel.popularPagedList?.observe(this, Observer { postList ->
+        postViewModel.popularPagedList?.observe(viewLifecycleOwner, Observer { postList ->
             viewAdapter.submitList(postList)
         })
         viewManager = GridLayoutManager(this.context,2)
