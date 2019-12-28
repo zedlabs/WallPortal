@@ -5,7 +5,7 @@ import kotlinx.coroutines.*
 
 class BookmarkViewModel(private val bookmarksDao: BookmarkDao) : ViewModel() {
 
-    fun getBookMarkImages() : List<BookmarkImage>{
+   suspend fun getBookMarkImages() : List<BookmarkImage>{
         return bookmarksDao.getAll()
     }
 }
