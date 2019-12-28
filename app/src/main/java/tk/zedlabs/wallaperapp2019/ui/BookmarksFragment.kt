@@ -1,5 +1,6 @@
 package tk.zedlabs.wallaperapp2019.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +11,25 @@ import kotlinx.android.synthetic.main.fragment_saved.*
 import kotlinx.coroutines.launch
 import tk.zedlabs.wallaperapp2019.*
 
-class BookmarksFragment : BaseFragment() {
+class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
 
     private lateinit var viewAdapter: BookmarkAdapter
     private lateinit var viewManager: GridLayoutManager
     private lateinit var bookmarkViewModel : BookmarkViewModel
     private lateinit var list : List<BookmarkImage>
+
+    override fun onImageClick(position: Int) {
+        val intent = Intent(activity ,ImageDetails::class.java)
+        val imageDetails = list[position]
+        val urlFull = imageDetails.imageUrlFull
+        val urlRegular = imageDetails.imageUrlRegular
+        val id = imageDetails.imageName
+        intent.putExtra("url_large", urlFull)
+        intent.putExtra("url_regular", urlRegular)
+        intent.putExtra("id", id)
+
+        startActivity(intent)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_saved, container, false)
@@ -27,13 +41,14 @@ class BookmarksFragment : BaseFragment() {
             activity!!.applicationContext,
             BookmarkDatabase::class.java, "bookmark-database"
         ).build()
-        //bookmarkViewModel = ViewModelProviders.of(this).get(BookmarkViewModel()::class.java)
+
         bookmarkViewModel = BookmarkViewModel(db.bookmarkDao())
         viewManager = GridLayoutManager(this.context,2)
+
         launch {
             context?.let {
                 list =  bookmarkViewModel.getBookMarkImages()
-                viewAdapter = BookmarkAdapter(list)
+                viewAdapter = BookmarkAdapter(list, this@BookmarksFragment)
             }
             recyclerViewBookmarked.apply {
                 layoutManager = viewManager

@@ -1,25 +1,52 @@
 package tk.zedlabs.wallaperapp2019
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ImageView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
+import tk.zedlabs.wallaperapp2019.ui.ImageDetails
 
-class BookmarkAdapter(private val bookmarkedImages : List<BookmarkImage>) :
+class BookmarkAdapter(private val bookmarkedImages : List<BookmarkImage>, onImageListener: OnImageListener) :
                         RecyclerView.Adapter<BookmarkAdapter.BookmarkViewHolder>() {
 
     lateinit var ctx : Context
-    class BookmarkViewHolder(imageView: ImageView) : RecyclerView.ViewHolder(imageView)
+    private var mOnImageListener: OnImageListener
+
+    init {
+        this.mOnImageListener = onImageListener
+    }
+
+    class BookmarkViewHolder(imageView: ImageView, onImageListener: OnImageListener) :
+                    RecyclerView.ViewHolder(imageView), View.OnClickListener{
+
+        var onImageListener : OnImageListener
+        init {
+            this.onImageListener = onImageListener
+            imageView.setOnClickListener(this)
+        }
+        override fun onClick(v: View?) {
+            onImageListener.onImageClick(adapterPosition)
+        }
+    }
+
+    interface OnImageListener{
+        fun onImageClick(position: Int)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarkViewHolder {
         val imageView = LayoutInflater.from(parent.context)
             .inflate(R.layout.recyclerview_item, parent, false) as ImageView
         ctx = parent.context
-        return BookmarkViewHolder(imageView)
+
+        return BookmarkViewHolder(imageView, mOnImageListener)
     }
 
     override fun getItemCount(): Int {
