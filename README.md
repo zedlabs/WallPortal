@@ -24,6 +24,10 @@ responsive application and more optimized networking, a good place to see implem
     * [Gradle Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html)
 
 
-### In development
- * Room
- * Implement Jetpack Animations
+### Build
+ * reqeuest and insert the API key from unsplash.com in the data sources
+ 
+ ### Contributing
+ * contributions are welcome for animations, UI fixes, completing production requirements for unsplash.com
+ * create issues for feature requests
+ 
