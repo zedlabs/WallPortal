@@ -25,7 +25,7 @@ responsive application and more optimized networking, a good place to see implem
 
 
 ### Build
- * reqeuest and insert the API key from unsplash.com in the data sources
+ * request and insert the API key from unsplash.com in the data sources
  
  ### Contributing
  * contributions are welcome for animations, UI fixes, completing production requirements for unsplash.com
