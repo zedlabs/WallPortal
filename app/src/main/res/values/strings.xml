@@ -11,4 +11,8 @@
     <string name="drawer_item_downloads">Downloads</string>
     <string name="loading_wallpaper">Loading Wallpaper</string>
     <string name="bookmarks">Bookmarks</string>
+    <string name="remove_string">remove</string>
+    <string name="remove_from_bookmarks">Remove Bookmark</string>
+    <string name="image_already_bookmarked">Image already bookmarked</string>
+    <string name="remove_from_bookmarks_qm">Remove from bookmarks?</string>
 </resources>

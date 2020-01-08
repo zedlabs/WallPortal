@@ -1,6 +1,7 @@
 package tk.zedlabs.wallaperapp2019.ui
 
 import android.app.WallpaperManager
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
@@ -80,6 +81,9 @@ class ImageDetails : AppCompatActivity() {
             .placeholder(circularProgressDrawable)
             .into(photo_view)
 
+        if(activity == "BookmarkActivity"){
+            textview_bookmark.text = getString(R.string.remove_from_bookmarks)
+        }
         download_button.setOnClickListener {
             fabClose()
             Glide.with(this)
@@ -125,12 +129,12 @@ class ImageDetails : AppCompatActivity() {
                 val idList = db.bookmarkDao().getId()
                 for (id1 in idList) {
                     if (id == id1) {
-                        unique = false
-                        val mySnackbar = Snackbar.make(
-                            myConstraintLayout,
-                            "Image already bookmarked",
-                            Snackbar.LENGTH_LONG
-                        )
+                        unique = false; var s1 = getString(R.string.image_already_bookmarked)
+                        if(activity == "BookmarkActivity"){s1 = getString(R.string.remove_from_bookmarks_qm)}
+                        val mySnackbar = Snackbar.make( myConstraintLayout,s1,Snackbar.LENGTH_LONG)
+                        mySnackbar.setAction(getString(R.string.remove_string),
+                            RemoveListener(applicationContext, BookmarkImage(id,urlFull,urlRegular)))
+                        mySnackbar.setActionTextColor(getColor(R.color.snackBarAction))
                         mySnackbar.show()
                         break
                     }
@@ -213,4 +217,20 @@ class ImageDetails : AppCompatActivity() {
             startActivity(Intent.createChooser(wallpaperIntent, "Set as wallpaper"))
         }
     }
+
+    class RemoveListener(private val ac : Context,private val bm : BookmarkImage) : View.OnClickListener {
+
+        override fun onClick(v: View) {
+            CoroutineScope(Dispatchers.IO).launch {
+                val db2 = Room.databaseBuilder(ac,BookmarkDatabase::class.java, "bookmark-database").build()
+                db2.bookmarkDao().delete(bm)
+                withContext(Dispatchers.Main){
+                    Toast.makeText(ac, "Removed from Bookmarks", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 }
+
+
+

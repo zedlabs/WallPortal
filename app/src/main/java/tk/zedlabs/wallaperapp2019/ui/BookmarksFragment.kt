@@ -33,7 +33,6 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
         intent.putExtra("url_regular", urlRegular)
         intent.putExtra("id", id)
         intent.putExtra("Activity", "BookmarkActivity")
-
         startActivity(intent)
     }
 
