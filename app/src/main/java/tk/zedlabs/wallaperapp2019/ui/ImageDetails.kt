@@ -21,14 +21,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_image_details.*
 import kotlinx.android.synthetic.main.fab_image_details.*
 import kotlinx.android.synthetic.main.progress_saw.*
 import kotlinx.coroutines.*
-import tk.zedlabs.wallaperapp2019.BookmarkDatabase
-import tk.zedlabs.wallaperapp2019.BookmarkImage
+import tk.zedlabs.wallaperapp2019.repository.BookmarkDatabase
+import tk.zedlabs.wallaperapp2019.repository.BookmarkImage
 import tk.zedlabs.wallaperapp2019.BuildConfig
-import tk.zedlabs.wallaperapp2019.ImageDetailViewModel
+import tk.zedlabs.wallaperapp2019.R
+import tk.zedlabs.wallaperapp2019.viewmodel.ImageDetailViewModel
 import tk.zedlabs.wallaperapp2019.R.anim.*
 import tk.zedlabs.wallaperapp2019.R.layout
 import java.io.File
@@ -49,7 +51,8 @@ class ImageDetails : AppCompatActivity() {
         val urlFull = intent.getStringExtra("url_large")
         val urlRegular = intent.getStringExtra("url_regular")
         val id = intent.getStringExtra("id")
-        val imageDetailViewModel = ImageDetailViewModel(applicationContext)
+        val activity = intent.getStringExtra("Activity")
+        val imageDetailViewModel =ImageDetailViewModel(applicationContext)
 
         val uri=FileProvider.getUriForFile(this@ImageDetails,BuildConfig.APPLICATION_ID +".fileprovider",
             File("${getExternalStoragePublicDirectory(DIRECTORY_PICTURES)}/WallPortal/$id.jpg"))
@@ -112,16 +115,37 @@ class ImageDetails : AppCompatActivity() {
                 })
         }
         bookmark_button.setOnClickListener {
+            fabClose()
             val db = Room.databaseBuilder(
                 applicationContext,
                 BookmarkDatabase::class.java, "bookmark-database"
             ).build()
-
+            var unique = true
             CoroutineScope(Dispatchers.IO).launch {
-                db.bookmarkDao().insert(BookmarkImage(id,urlFull,urlRegular))
+                val idList = db.bookmarkDao().getId()
+                for (id1 in idList) {
+                    if (id == id1) {
+                        unique = false
+                        val mySnackbar = Snackbar.make(
+                            myConstraintLayout,
+                            "Image already bookmarked",
+                            Snackbar.LENGTH_LONG
+                        )
+                        mySnackbar.show()
+                        break
+                    }
+                }
+                if(unique){
+                    db.bookmarkDao().insert(BookmarkImage(id, urlFull, urlRegular))
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@ImageDetails, "Added to Bookmarks!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
             }
-            Toast.makeText(this,"Added to Bookmarks!",Toast.LENGTH_SHORT).show()
         }
+
+
     }
     private fun fabClose(){
         textview_down.visibility = View.INVISIBLE

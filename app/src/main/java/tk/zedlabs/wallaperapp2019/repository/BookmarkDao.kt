@@ -1,9 +1,10 @@
-package tk.zedlabs.wallaperapp2019
+package tk.zedlabs.wallaperapp2019.repository
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import tk.zedlabs.wallaperapp2019.repository.BookmarkImage
 
 @Dao
 interface BookmarkDao {
@@ -15,6 +16,9 @@ interface BookmarkDao {
 
     @Query("SELECT imageUrlRegular FROM BookmarkImage")
     suspend fun getListRegular(): List<String>
+
+    @Query("SELECT imageName FROM BookmarkImage")
+    suspend fun getId(): List<String>
 
     @Insert
     suspend fun insertAll(vararg bookmarkImage: BookmarkImage)

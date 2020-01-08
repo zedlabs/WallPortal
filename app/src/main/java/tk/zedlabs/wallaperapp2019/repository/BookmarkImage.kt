@@ -1,4 +1,4 @@
-package tk.zedlabs.wallaperapp2019
+package tk.zedlabs.wallaperapp2019.repository
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

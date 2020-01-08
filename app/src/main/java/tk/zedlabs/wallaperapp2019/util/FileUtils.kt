@@ -1,4 +1,4 @@
-package tk.zedlabs.wallaperapp2019
+package tk.zedlabs.wallaperapp2019.util
 
 import android.content.Context
 import android.content.Intent

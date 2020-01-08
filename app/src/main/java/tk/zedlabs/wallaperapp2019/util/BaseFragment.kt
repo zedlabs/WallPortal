@@ -1,4 +1,4 @@
-package tk.zedlabs.wallaperapp2019
+package tk.zedlabs.wallaperapp2019.util
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

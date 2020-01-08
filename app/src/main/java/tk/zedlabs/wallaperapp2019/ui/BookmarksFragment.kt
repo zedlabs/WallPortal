@@ -10,6 +10,11 @@ import androidx.room.Room
 import kotlinx.android.synthetic.main.fragment_saved.*
 import kotlinx.coroutines.launch
 import tk.zedlabs.wallaperapp2019.*
+import tk.zedlabs.wallaperapp2019.repository.BookmarkDatabase
+import tk.zedlabs.wallaperapp2019.repository.BookmarkImage
+import tk.zedlabs.wallaperapp2019.util.BaseFragment
+import tk.zedlabs.wallaperapp2019.util.BookmarkAdapter
+import tk.zedlabs.wallaperapp2019.viewmodel.BookmarkViewModel
 
 class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
 
@@ -27,6 +32,7 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
         intent.putExtra("url_large", urlFull)
         intent.putExtra("url_regular", urlRegular)
         intent.putExtra("id", id)
+        intent.putExtra("Activity", "BookmarkActivity")
 
         startActivity(intent)
     }
@@ -42,13 +48,13 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
             BookmarkDatabase::class.java, "bookmark-database"
         ).build()
 
-        bookmarkViewModel = BookmarkViewModel(db.bookmarkDao())
+        bookmarkViewModel =BookmarkViewModel(db.bookmarkDao())
         viewManager = GridLayoutManager(this.context,2)
 
         launch {
             context?.let {
-                list =  bookmarkViewModel.getBookMarkImages()
-                viewAdapter = BookmarkAdapter(list, this@BookmarksFragment)
+                list =  bookmarkViewModel.getBookMarkImages().asReversed()
+                viewAdapter = BookmarkAdapter(list,this@BookmarksFragment)
             }
             recyclerViewBookmarked.apply {
                 layoutManager = viewManager

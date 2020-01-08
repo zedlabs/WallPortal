@@ -10,12 +10,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_popular.*
-import tk.zedlabs.wallaperapp2019.MainAdapter
-import tk.zedlabs.wallaperapp2019.PostViewModel
+import tk.zedlabs.wallaperapp2019.util.MainAdapter
+import tk.zedlabs.wallaperapp2019.viewmodel.PostViewModel
 
 import tk.zedlabs.wallaperapp2019.R
 
-class PopularFragment : Fragment(),MainAdapter.OnImageListener {
+class PopularFragment : Fragment(), MainAdapter.OnImageListener {
 
     private lateinit var viewAdapter: MainAdapter
     private lateinit var viewManager: GridLayoutManager
@@ -30,6 +30,7 @@ class PopularFragment : Fragment(),MainAdapter.OnImageListener {
         intent.putExtra("url_regular", urlRegular)
         intent.putExtra("id", id)
         intent.putExtra("url_large", urlFull)
+        intent.putExtra("Activity", "PopularActivity")
         startActivity(intent)
     }
     override fun onCreateView(inflater: LayoutInflater,

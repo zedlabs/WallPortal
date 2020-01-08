@@ -1,4 +1,4 @@
-package tk.zedlabs.wallaperapp2019
+package tk.zedlabs.wallaperapp2019.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.LiveData

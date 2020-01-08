@@ -31,8 +31,8 @@ android {
 }
 
 dependencies {
-    def room_version = "2.2.1"
-    def nav_dep = "2.2.0-rc01"
+    def room_version = "2.2.3"
+    def nav_dep = "2.2.0-rc04"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -43,7 +43,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     //recyclerView
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     //glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
@@ -61,7 +61,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     //Paging
-    implementation "androidx.paging:paging-runtime:2.1.0"
+    implementation "androidx.paging:paging-runtime:2.1.1"
     //Material-New version causing issues with other libs
     implementation "com.google.android.material:material:1.1.0-alpha10"
     // Navigation
