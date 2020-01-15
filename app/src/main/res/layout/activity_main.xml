@@ -35,14 +35,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:itemBackground="@color/colorPrimary"
             app:menu="@menu/bottom_navigation_menu"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@color/colorPrimary"
-            app:itemIconTint="#FFF"
-            app:itemTextColor="#FFF"
-            app:labelVisibilityMode="labeled"
+            app:itemIconTint="@drawable/bottom_navigation_selector"
+            app:itemTextColor="@color/md_grey_400"
+            app:labelVisibilityMode="selected"
+            app:itemRippleColor="@color/snackBarAction"
             app:layout_constraintStart_toStartOf="parent"
     />
 

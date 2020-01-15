@@ -3,5 +3,7 @@
     <color name="colorPrimary">#444444</color>
     <color name="colorPrimaryDark">#D3D3D3</color>
     <color name="colorAccent">#444444</color>
-    <color name="snackBarAction">#F48444</color>
+    <color name="snackBarAction">#F58181</color>
+    <color name="bottomNavButtonColor">#BCBCBC</color>
+    <color name="bottomNavTextColor">#BCBCBC</color>
 </resources>
