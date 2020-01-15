@@ -18,11 +18,11 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/highRes_button"
             android:layout_toStartOf="@+id/highRes_button"
-            android:alpha=".8"
             android:layout_marginRight="-10dp"
             android:layout_marginTop="10dp"
-            android:background="#212121"
+            android:background="@drawable/rounded_corner_textview"
             android:padding="8dp"
+            android:alpha=".9"
             android:text="View in Higher Resolution"
             android:textColor="#ffffff"
             android:visibility="invisible" />
@@ -41,7 +41,7 @@
             android:focusable="true"
             android:src="@drawable/ic_blur_circular"
             android:visibility="invisible"
-            app:backgroundTint="#ffffff"
+            app:backgroundTint="@color/md_grey_600"
             app:pressedTranslationZ="12dp" />
 
         <TextView
@@ -50,13 +50,13 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/bookmark_button"
             android:layout_toStartOf="@+id/bookmark_button"
-            android:alpha=".8"
-            android:background="#212121"
+            android:background="@drawable/rounded_corner_textview"
             android:layout_marginTop="10dp"
             android:padding="8dp"
             android:layout_marginRight="-2dp"
             android:text="Add To Bookmarks"
             android:textColor="#ffffff"
+            android:alpha=".9"
             android:visibility="invisible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -73,7 +73,7 @@
             android:focusable="true"
             android:src="@drawable/ic_bookmark"
             android:visibility="invisible"
-            app:backgroundTint="#ffffff"
+            app:backgroundTint="@color/md_grey_600"
             app:pressedTranslationZ="12dp" />
 
         <TextView
@@ -82,11 +82,11 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/saw_button"
             android:layout_toStartOf="@+id/saw_button"
-            android:alpha=".8"
             android:layout_marginTop="10dp"
-            android:background="#212121"
+            android:background="@drawable/rounded_corner_textview"
             android:padding="8dp"
             android:text="Set As Wallpaper"
+            android:alpha=".9"
             android:textColor="#ffffff"
             android:visibility="invisible" />
 
@@ -104,7 +104,7 @@
             android:focusable="true"
             android:src="@drawable/ic_set_wall_material"
             android:visibility="invisible"
-            app:backgroundTint="#ffffff"
+            app:backgroundTint="@color/md_grey_600"
             app:pressedTranslationZ="12dp" />
 
         <TextView
@@ -113,12 +113,12 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/download_button"
             android:layout_toStartOf="@+id/download_button"
-            android:alpha=".8"
-            android:background="#212121"
+            android:background="@drawable/rounded_corner_textview"
             android:layout_marginTop="10dp"
             android:layout_marginRight="8dp"
             android:text="Download"
             android:padding="8dp"
+            android:alpha=".9"
             android:textColor="#ffffff"
             android:visibility="invisible" />
 
@@ -137,11 +137,12 @@
             android:focusable="true"
             android:src="@drawable/ic_baseline_arrow_downward_24px_actual"
             android:visibility="invisible"
-            app:backgroundTint="#ffffff"
+            app:backgroundTint="@color/md_grey_600"
             app:pressedTranslationZ="12dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
+            style="@style/Widget.MaterialComponents.FloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -153,8 +154,9 @@
             android:elevation="16dp"
             android:focusable="true"
             android:src="@drawable/ic_fab_up_material"
+            app:rippleColor="@color/md_grey_400"
             android:visibility="visible"
-            app:backgroundTint="#ffffff"
+            app:backgroundTint="#EC7454"
             app:pressedTranslationZ="12dp" />
 
     </RelativeLayout>
