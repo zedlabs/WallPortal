@@ -3,16 +3,15 @@
     <string name="popular">Popular</string>
     <string name="saved">Saved</string>
     <string name="newImages">New</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="drawer_item_popular">Popular</string>
     <string name="drawer_item_new">New</string>
-    <string name="drawer_item_downloads">Downloads</string>
+    <string name="drawer_item_bookmarks">Bookmarks</string>
     <string name="loading_wallpaper">Loading Wallpaper</string>
     <string name="bookmarks">Bookmarks</string>
     <string name="remove_string">remove</string>
     <string name="remove_from_bookmarks">Remove Bookmark</string>
     <string name="image_already_bookmarked">Image already bookmarked</string>
     <string name="remove_from_bookmarks_qm">Remove from bookmarks?</string>
+    <string name="About_string">About</string>
 </resources>
