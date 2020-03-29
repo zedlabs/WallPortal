@@ -7,6 +7,6 @@
             android:interpolator="@android:anim/linear_interpolator"
             android:pivotX="50%"
             android:pivotY="50%"
-            android:duration="400" >
+            android:duration="300" >
     </rotate>
 </set>

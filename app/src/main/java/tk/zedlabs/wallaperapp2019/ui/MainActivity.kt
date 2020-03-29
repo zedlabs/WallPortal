@@ -1,6 +1,7 @@
 package tk.zedlabs.wallaperapp2019.ui
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,7 +17,6 @@ import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import kotlinx.android.synthetic.main.activity_main.*
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                         1 -> navController.navigate(R.id.popular_bottom)
                         2 -> navController.navigate(R.id.new_bottom)
                         3 -> navController.navigate(R.id.bookmarks_bottom)
-                        4 -> Toast.makeText(this@MainActivity, "Under Development",Toast.LENGTH_SHORT).show()
+                        4 -> {startActivity(Intent(this@MainActivity, Main2Activity::class.java))}
                     }
                     return false
                 }

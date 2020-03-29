@@ -12,4 +12,12 @@
         <item name="android:fontFamily">@font/fugaz_one</item>
         <item name="android:textSize">36sp</item>
     </style>
+
+    <style name="ButtonStyleHorizontalScroll" >
+        <item name="android:textSize">11dp</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="fontFamily">@font/roboto_mono</item>
+        <item name="elevation">20dp</item>
+        <item name="android:layout_margin">6dp</item>
+    </style>
 </resources>

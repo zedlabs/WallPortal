@@ -5,8 +5,9 @@
               android:layout_height="match_parent">
 
     <TextView
-            android:text="TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/textView"
-            android:fontFamily="@font/fugaz_one"/>
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_slab_light"
+        android:text="TextView" />
 </LinearLayout>

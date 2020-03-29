@@ -148,9 +148,8 @@ class ImageDetails : AppCompatActivity() {
 
             }
         }
-
-
     }
+
     private fun fabClose(){
         textview_down.visibility = View.INVISIBLE
         textview_saw.visibility = View.INVISIBLE

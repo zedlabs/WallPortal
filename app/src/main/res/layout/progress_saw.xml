@@ -4,14 +4,16 @@
     android:id="@+id/progressLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:alpha="0.8"
-        android:background="@color/md_white_1000"
-        android:backgroundTint="@color/md_white_1000"
+        android:alpha="0.95"
+        android:background="@color/md_grey_900"
+        android:backgroundTint="@color/md_grey_900"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,9 +24,11 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:fontFamily="@font/roboto_mono"
-            android:padding="16dp"
+            android:textColor="@color/md_white_1000"
+            android:paddingTop="16dp"
+            android:paddingEnd="16dp"
+            android:paddingStart="32dp"
             android:text="@string/loading_wallpaper"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -36,10 +40,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:indeterminate="true"
-            android:paddingLeft="52dp"
+            android:paddingLeft="32dp"
             android:paddingTop="16dp"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/snackBarAction"
             android:paddingBottom="16dp"
-            android:paddingRight="52dp" />
+            android:paddingRight="32dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/large_image_warning"
+            android:textColor="@color/md_white_1000"
+            android:textSize="12sp"
+            android:padding='16dp'
+            android:layout_gravity="center"
+            android:fontFamily="@font/roboto_slab_light"/>
 
 
     </LinearLayout>

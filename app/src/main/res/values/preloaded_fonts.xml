@@ -8,6 +8,8 @@
         <item>@font/fugaz_one</item>
         <item>@font/grand_hotel</item>
         <item>@font/roboto_mono</item>
+        <item>@font/roboto_slab</item>
+        <item>@font/roboto_slab_light</item>
         <item>@font/stint_ultra_expanded</item>
     </array>
 </resources>

@@ -8,13 +8,9 @@ import tk.zedlabs.wallaperapp2019.util.FileUtils
 
 class ImageDetailViewModel(applicationContext : Context) : ViewModel() {
 
-     private val fileUtils : FileUtils =
-         FileUtils(
-             viewModelScope,
-             applicationContext
-         )
+     private val fileUtils : FileUtils = FileUtils(viewModelScope,applicationContext)
 
     fun downloadImage(bitmap : Bitmap,id : String){
-    fileUtils.saveImage(bitmap,id)
-}
+        fileUtils.saveImage(bitmap,id)
+    }
 }
