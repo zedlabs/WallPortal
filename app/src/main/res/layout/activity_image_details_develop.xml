@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="tk.zedlabs.wallaperapp2019.ui.Main2Activity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -22,9 +23,10 @@
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
             <ImageView
+                android:id="@+id/photo_view_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/jake_nackos_unsplash"
+                android:background="@drawable/wallpaper_example"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="pin"/>
 
@@ -41,6 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scrollbars="none"
+                android:background="@color/colorPrimary"
                 app:layout_constraintTop_toTopOf="parent"
                 >
             <LinearLayout
@@ -51,14 +54,14 @@
                 >
 
                     <Button
-                        android:id="@+id/set_as_wallpaper_button"
+                        android:id="@+id/saw_button_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/ButtonStyleHorizontalScroll"
                         android:text="@string/set_as_wallpaper"
                         />
                     <Button
-                        android:id="@+id/download_image_button"
+                        android:id="@+id/download_button_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/ButtonStyleHorizontalScroll"
@@ -66,7 +69,7 @@
                          />
 
                 <Button
-                    android:id="@+id/higer_res_view_button"
+                    android:id="@+id/highRes_button_1"
                     style="@style/ButtonStyleHorizontalScroll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -74,7 +77,7 @@
                     android:text="@string/view_original" />
 
                 <Button
-                    android:id="@+id/add_to_bookmark_button"
+                    android:id="@+id/bookmark_button_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/ButtonStyleHorizontalScroll"
@@ -84,54 +87,59 @@
             </LinearLayout>
         </HorizontalScrollView>
 
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/photographer_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="monospace"
+                    android:text="Paul Sereif"
+                    android:textColor="@color/md_white_1000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView_on"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/md_white_1000"
+                    android:text=" on"
+                    app:layout_constraintStart_toEndOf="@+id/photographer_name"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/unsplash_permalink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/md_white_1000"
+                    android:text="@string/unsplash_com"
+                    app:layout_constraintStart_toEndOf="@+id/textView_on"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <!--<include layout="@layout/content_scrolling" />-->
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/photographer_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="monospace"
-                android:text="Paul Sereif"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView_on"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="monospace"
-                android:text=" on"
-                app:layout_constraintStart_toEndOf="@+id/photographer_name"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/unsplash_permalink"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="monospace"
-                android:text=" Unsplash.com"
-                app:layout_constraintStart_toEndOf="@+id/textView_on"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

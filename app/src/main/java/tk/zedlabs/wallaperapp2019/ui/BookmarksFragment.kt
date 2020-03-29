@@ -24,7 +24,7 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
     private lateinit var list : List<BookmarkImage>
 
     override fun onImageClick(position: Int) {
-        val intent = Intent(activity ,ImageDetails::class.java)
+        val intent = Intent(activity ,Main2Activity::class.java)
         val imageDetails = list[position]
         val urlFull = imageDetails.imageUrlFull
         val urlRegular = imageDetails.imageUrlRegular
