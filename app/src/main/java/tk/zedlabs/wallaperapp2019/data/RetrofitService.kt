@@ -7,11 +7,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 public object RetrofitService {
 
-     var logging   = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
-     var client : OkHttpClient = OkHttpClient.Builder().addInterceptor(logging).build()
+     private val logging   = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
+     private val client : OkHttpClient = OkHttpClient.Builder().addInterceptor(logging).build()
+     private val wallHavenAddress = "https://wallhaven.cc/"
+    //https://api.unsplash.com/
 
     private var retrofit : Retrofit = Retrofit.Builder()
-        .baseUrl("https://api.unsplash.com/")
+        .baseUrl(wallHavenAddress)
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()

@@ -5,17 +5,18 @@ import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import kotlinx.coroutines.CoroutineScope
 import tk.zedlabs.wallaperapp2019.models.UnsplashImageDetails
+import tk.zedlabs.wallaperapp2019.models.WallHavenResponse
 
-class PostDataSourceFactory(private val scope: CoroutineScope) : DataSource.Factory<Int, UnsplashImageDetails>() {
+class PostDataSourceFactory(private val scope: CoroutineScope) : DataSource.Factory<Int, WallHavenResponse>() {
 
-    private val postLiveDataSource : MutableLiveData<PageKeyedDataSource<Int, UnsplashImageDetails>> = MutableLiveData()
+    private val postLiveDataSource : MutableLiveData<PageKeyedDataSource<Int, WallHavenResponse>> = MutableLiveData()
 
-    override fun create(): DataSource<Int, UnsplashImageDetails> {
+    override fun create(): DataSource<Int, WallHavenResponse> {
         val postDataSource = PostDataSource(scope)
         postLiveDataSource.postValue(postDataSource)
         return postDataSource
     }
-    fun getPostLiveDataSource() : MutableLiveData<PageKeyedDataSource<Int, UnsplashImageDetails>>{
+    fun getPostLiveDataSource() : MutableLiveData<PageKeyedDataSource<Int, WallHavenResponse>>{
         return postLiveDataSource
     }
 }

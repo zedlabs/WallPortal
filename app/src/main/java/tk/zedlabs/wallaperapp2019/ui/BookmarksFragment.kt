@@ -43,7 +43,7 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val db = Room.databaseBuilder(
-            activity!!.applicationContext,
+            requireActivity().applicationContext,
             BookmarkDatabase::class.java, "bookmark-database"
         ).build()
 

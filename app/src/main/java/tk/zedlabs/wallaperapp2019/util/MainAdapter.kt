@@ -14,9 +14,10 @@ import kotlinx.android.synthetic.main.recyclerview_item.view.*
 import tk.zedlabs.wallaperapp2019.R
 import tk.zedlabs.wallaperapp2019.util.MainAdapter.MyViewHolder
 import tk.zedlabs.wallaperapp2019.models.UnsplashImageDetails
+import tk.zedlabs.wallaperapp2019.models.WallHavenResponse
 
 class MainAdapter(onImageListener: OnImageListener) :
-    PagedListAdapter<UnsplashImageDetails, MyViewHolder>(diffCallback) {
+    PagedListAdapter<WallHavenResponse, MyViewHolder>(diffCallback) {
 
     private lateinit var ctx : Context
     private var mOnImageListener: OnImageListener
@@ -44,11 +45,11 @@ class MainAdapter(onImageListener: OnImageListener) :
 
     companion object {
 
-        private val diffCallback = object : DiffUtil.ItemCallback<UnsplashImageDetails>() {
-            override fun areItemsTheSame(oldItem: UnsplashImageDetails, newItem: UnsplashImageDetails): Boolean =
+        private val diffCallback = object : DiffUtil.ItemCallback<WallHavenResponse>() {
+            override fun areItemsTheSame(oldItem: WallHavenResponse, newItem: WallHavenResponse): Boolean =
                 oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: UnsplashImageDetails, newItem: UnsplashImageDetails): Boolean =
+            override fun areContentsTheSame(oldItem: WallHavenResponse, newItem: WallHavenResponse): Boolean =
                 oldItem.equals(newItem)
         }
     }
@@ -63,7 +64,7 @@ class MainAdapter(onImageListener: OnImageListener) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val post = getItem(position)
         Glide.with(ctx)
-            .load(post?.urls?.regular)
+            .load(post?.thumbs?.large)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(holder.itemView.imageViewItem)
     }

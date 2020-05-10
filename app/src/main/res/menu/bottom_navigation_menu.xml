@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-     >
-    <item android:title="@string/popular"
-          android:id="@+id/popular_bottom"
-          android:icon="@drawable/ic_baseline_arrow_downward_24px"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+<item android:title="@string/popular"
+    android:id="@+id/popular_bottom"
+    android:icon="@drawable/ic_baseline_arrow_downward_24px"
     />
-    <item android:title="@string/newImages"
-        
-          android:id="@+id/new_bottom"
-          android:icon="@drawable/ic_fire"
+<item android:title="@string/newImages"
+
+    android:id="@+id/new_bottom"
+    android:icon="@drawable/ic_fire"
     />
-    <item android:title="@string/bookmarks"
-          android:id="@+id/bookmarks_bottom"
-          android:icon="@drawable/ic_bookmark_border"
+<item android:title="@string/bookmarks"
+    android:id="@+id/bookmarks_bottom"
+    android:icon="@drawable/ic_bookmark_border"
     />
 </menu>

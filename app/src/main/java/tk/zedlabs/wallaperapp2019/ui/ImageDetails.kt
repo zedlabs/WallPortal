@@ -24,6 +24,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_image_details.*
+import kotlinx.android.synthetic.main.activity_image_details_develop.*
 import kotlinx.android.synthetic.main.fab_image_details.*
 import kotlinx.android.synthetic.main.progress_saw.*
 import kotlinx.coroutines.*
@@ -131,7 +132,7 @@ class ImageDetails : AppCompatActivity() {
                     if (id == id1) {
                         unique = false; var s1 = getString(R.string.image_already_bookmarked)
                         if(activity == "BookmarkActivity"){s1 = getString(R.string.remove_from_bookmarks_qm)}
-                        val mySnackbar = Snackbar.make( myConstraintLayout,s1,Snackbar.LENGTH_LONG)
+                        val mySnackbar = Snackbar.make( myCoordinatorLayout,s1,Snackbar.LENGTH_LONG)
                         mySnackbar.setAction(getString(R.string.remove_string),
                             RemoveListener(applicationContext, BookmarkImage(id,urlFull,urlRegular)))
                         mySnackbar.setActionTextColor(getColor(R.color.snackBarAction))

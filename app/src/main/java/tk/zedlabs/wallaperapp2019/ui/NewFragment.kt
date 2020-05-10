@@ -23,8 +23,8 @@ class NewFragment : Fragment(), MainAdapter.OnImageListener{
     override fun onImageClick(position: Int) {
         val intent = Intent(activity ,Main2Activity::class.java)
         val imageDetails = postViewModel.postPagedList?.value?.get(position)
-        val urlFull = imageDetails?.urls?.full
-        val urlRegular = imageDetails?.urls?.regular
+        val urlFull = imageDetails?.path
+        val urlRegular = imageDetails?.thumbs?.original
         val id = imageDetails?.id
         intent.putExtra("url_large", urlFull)
         intent.putExtra("url_regular", urlRegular)
