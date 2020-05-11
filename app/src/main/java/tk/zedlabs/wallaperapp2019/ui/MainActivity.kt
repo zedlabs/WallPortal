@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigation.setupWithNavController(navController)
 
         val item1 = SecondaryDrawerItem().withIdentifier(1).withName(R.string.drawer_item_popular)
-        val item2 = SecondaryDrawerItem().withIdentifier(2).withName(R.string.drawer_item_new)
+        val item2 = SecondaryDrawerItem().withIdentifier(2).withName(getString(R.string.curated))
         val item3 = SecondaryDrawerItem().withIdentifier(3).withName(R.string.drawer_item_bookmarks)
         val item4 = SecondaryDrawerItem().withIdentifier(4).withName(getString(R.string.About_string))
         item1.textColor = ColorHolder.fromColorRes(R.color.md_white_1000)

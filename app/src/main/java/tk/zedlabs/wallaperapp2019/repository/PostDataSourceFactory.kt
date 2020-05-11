@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import kotlinx.coroutines.CoroutineScope
-import tk.zedlabs.wallaperapp2019.models.UnsplashImageDetails
 import tk.zedlabs.wallaperapp2019.models.WallHavenResponse
 
 class PostDataSourceFactory(private val scope: CoroutineScope) : DataSource.Factory<Int, WallHavenResponse>() {

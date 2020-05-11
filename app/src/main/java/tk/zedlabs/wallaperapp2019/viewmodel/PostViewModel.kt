@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
-import tk.zedlabs.wallaperapp2019.models.UnsplashImageDetails
 import tk.zedlabs.wallaperapp2019.models.WallHavenResponse
 import tk.zedlabs.wallaperapp2019.repository.PopularDataSource
 import tk.zedlabs.wallaperapp2019.repository.PopularDataSourceFactory

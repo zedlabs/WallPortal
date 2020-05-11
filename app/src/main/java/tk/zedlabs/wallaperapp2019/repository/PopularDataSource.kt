@@ -5,11 +5,8 @@ import androidx.paging.PageKeyedDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Response
 import tk.zedlabs.wallaperapp2019.data.JsonApi
 import tk.zedlabs.wallaperapp2019.data.RetrofitService
-import tk.zedlabs.wallaperapp2019.models.UnsplashImageDetails
 import tk.zedlabs.wallaperapp2019.models.WallHavenResponse
 import java.lang.Exception
 

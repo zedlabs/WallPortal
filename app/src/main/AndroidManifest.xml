@@ -16,11 +16,14 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".ui.OriginalResolutionActivity"
-            android:parentActivityName=".ui.MainActivity"/>
+            android:parentActivityName=".ui.Main2Activity"
+            android:theme="@style/AppTheme2"/>
 
-        <activity android:name=".ui.Main2Activity" />
-        <activity android:name=".ui.ImageDetails" />
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.Main2Activity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".ui.MainActivity"
+                android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

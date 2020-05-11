@@ -13,7 +13,6 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 import tk.zedlabs.wallaperapp2019.R
 import tk.zedlabs.wallaperapp2019.util.MainAdapter.MyViewHolder
-import tk.zedlabs.wallaperapp2019.models.UnsplashImageDetails
 import tk.zedlabs.wallaperapp2019.models.WallHavenResponse
 
 class MainAdapter(onImageListener: OnImageListener) :

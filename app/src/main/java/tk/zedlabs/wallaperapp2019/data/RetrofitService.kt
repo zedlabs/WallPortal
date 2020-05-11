@@ -5,12 +5,11 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-public object RetrofitService {
+object RetrofitService {
 
      private val logging   = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
      private val client : OkHttpClient = OkHttpClient.Builder().addInterceptor(logging).build()
-     private val wallHavenAddress = "https://wallhaven.cc/"
-    //https://api.unsplash.com/
+     private const val wallHavenAddress = "https://wallhaven.cc/"
 
     private var retrofit : Retrofit = Retrofit.Builder()
         .baseUrl(wallHavenAddress)
