@@ -24,10 +24,8 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_image_details.*
 import kotlinx.android.synthetic.main.activity_image_details_develop.*
 import kotlinx.android.synthetic.main.activity_original_resolution.*
-import kotlinx.android.synthetic.main.fab_image_details.*
 import kotlinx.android.synthetic.main.progress_saw.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
