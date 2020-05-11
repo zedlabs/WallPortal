@@ -25,6 +25,6 @@ the goal of this project is to create a responsive application and with optimize
  * request and insert the API key from unsplash.com in the data sources
  
  ### Contributing
- * contributions are welcome for animations, UI fixes, completing production requirements for unsplash.com
+ * contributions are welcome for animations, UI fixes
  * create issues for feature requests
  
