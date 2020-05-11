@@ -19,10 +19,6 @@ the goal of this project is to create a responsive application and with optimize
     * Clean Architecture
     * MVVM
     * [Android Architecture components](https://developer.android.com/topic/libraries/architecture) ([ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel), [LiveData](https://developer.android.com/topic/libraries/architecture/livedata), [Navigation](https://developer.android.com/jetpack/androidx/releases/navigation))
-
-
-### Build
- * request and insert the API key from unsplash.com in the data sources
  
  ### Contributing
  * contributions are welcome for animations, UI fixes
