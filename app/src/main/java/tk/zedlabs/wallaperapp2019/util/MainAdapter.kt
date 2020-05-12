@@ -63,7 +63,7 @@ class MainAdapter(onImageListener: OnImageListener) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val post = getItem(position)
         Glide.with(ctx)
-            .load(post?.thumbs?.large)
+            .load(post?.thumbs?.small)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(holder.itemView.imageViewItem)
     }

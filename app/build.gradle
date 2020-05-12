@@ -72,4 +72,6 @@ dependencies {
     //materialDrawer
     implementation "com.mikepenz:materialdrawer:7.0.0-rc07"
     implementation "com.mikepenz:materialdrawer-nav:7.0.0-rc07"
+    //palette
+    implementation 'com.android.support:palette-v7:29.0.0'
 }
