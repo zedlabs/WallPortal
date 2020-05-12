@@ -23,6 +23,8 @@ class OriginalResolutionActivity : AppCompatActivity() {
         val i = intent
         val url = i.getStringExtra("imageUrl")
 
+        title = "Wallportal"
+
         Glide
             .with(this)
             .asBitmap()
