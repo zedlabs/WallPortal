@@ -2,7 +2,8 @@
 [![Kotlin Version](https://img.shields.io/badge/Kotlin-1.3.41-blue.svg)](https://kotlinlang.org)
 ###### *Minimal Wallpapers for Android*
 
-the goal of this project is to create a responsive application and with optimized networking, a good place to see implementation
+the goal of this project is to create a responsive application and with optimized networking, a good place to see implementation.
+moved to wallhaven.cc api from unsplashed api due to rate limits.
 
 <img src="https://github.com/zedlabs/WallPortal/blob/master/main_page.png" width="200" height="400"> <img src="https://github.com/zedlabs/WallPortal/blob/master/with_slider_open.png" width="200" height="400"> <img src="https://github.com/zedlabs/WallPortal/blob/master/inside_activity.png" width="200" height="400"> 
 
