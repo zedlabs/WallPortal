@@ -1,6 +1,5 @@
 package tk.zedlabs.wallaperapp2019.util
 
-import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -18,37 +17,37 @@ import tk.zedlabs.wallaperapp2019.models.WallHavenResponse
 class MainAdapter(onImageListener: OnImageListener) :
     PagedListAdapter<WallHavenResponse, MyViewHolder>(diffCallback) {
 
-    private lateinit var ctx : Context
-    private var mOnImageListener: OnImageListener
+    private var mOnImageListener: OnImageListener = onImageListener
 
-    init {
-        this.mOnImageListener = onImageListener
-    }
+    class MyViewHolder(imageView: ImageView, var onImageListener: OnImageListener) :
+        RecyclerView.ViewHolder(imageView), View.OnClickListener {
 
-    class MyViewHolder(imageView: ImageView,onImageListener: OnImageListener) :
-        RecyclerView.ViewHolder(imageView),View.OnClickListener {
-
-        var onImageListener : OnImageListener
         init {
-            this.onImageListener = onImageListener
             imageView.setOnClickListener(this)
         }
+
         override fun onClick(v: View?) {
             onImageListener.onImageClick(adapterPosition)
         }
     }
 
-    interface OnImageListener{
+    interface OnImageListener {
         fun onImageClick(position: Int)
     }
 
     companion object {
 
         private val diffCallback = object : DiffUtil.ItemCallback<WallHavenResponse>() {
-            override fun areItemsTheSame(oldItem: WallHavenResponse, newItem: WallHavenResponse): Boolean =
+            override fun areItemsTheSame(
+                oldItem: WallHavenResponse,
+                newItem: WallHavenResponse
+            ): Boolean =
                 oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: WallHavenResponse, newItem: WallHavenResponse): Boolean =
+            override fun areContentsTheSame(
+                oldItem: WallHavenResponse,
+                newItem: WallHavenResponse
+            ): Boolean =
                 oldItem.equals(newItem)
         }
     }
@@ -56,13 +55,12 @@ class MainAdapter(onImageListener: OnImageListener) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val imageView = LayoutInflater.from(parent.context)
             .inflate(R.layout.recyclerview_item, parent, false) as ImageView
-        ctx = parent.context
-        return MyViewHolder(imageView,mOnImageListener)
+        return MyViewHolder(imageView, mOnImageListener)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val post = getItem(position)
-        Glide.with(ctx)
+        Glide.with(holder.itemView.context)
             .load(post?.thumbs?.small)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(holder.itemView.imageViewItem)

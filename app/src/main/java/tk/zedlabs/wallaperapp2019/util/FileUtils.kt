@@ -14,11 +14,10 @@ import java.io.FileOutputStream
 
 class FileUtils(private val scope: CoroutineScope, private val appContext : Context) {
 
-
           fun setWallpaper1(image: Bitmap, id: String){
             saveImage(image, id)
-
           }
+
           fun saveImage(image: Bitmap,id : String): String? {
             var savedImagePath: String? = null
             val imageFileName = "$id.jpg"

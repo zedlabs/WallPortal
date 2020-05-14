@@ -14,14 +14,14 @@ import tk.zedlabs.wallaperapp2019.util.MainAdapter
 import tk.zedlabs.wallaperapp2019.viewmodel.PostViewModel
 import tk.zedlabs.wallaperapp2019.R
 
-class NewFragment : Fragment(), MainAdapter.OnImageListener{
+class NewFragment : Fragment(), MainAdapter.OnImageListener {
 
     private lateinit var viewAdapter: MainAdapter
     private lateinit var viewManager: GridLayoutManager
-    private lateinit var postViewModel : PostViewModel
+    private lateinit var postViewModel: PostViewModel
 
     override fun onImageClick(position: Int) {
-        val intent = Intent(activity ,Main2Activity::class.java)
+        val intent = Intent(activity, Main2Activity::class.java)
         val imageDetails = postViewModel.postPagedList?.value?.get(position)
         val urlFull = imageDetails?.path
         val urlRegular = imageDetails?.thumbs?.original
@@ -31,13 +31,13 @@ class NewFragment : Fragment(), MainAdapter.OnImageListener{
         intent.putExtra("id", id)
         intent.putExtra("Activity", "NewActivity")
 
-
         startActivity(intent)
     }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?, savedInstanceState: Bundle?): View?
-            = inflater.inflate(R.layout.fragment_new, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_new, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,7 +46,7 @@ class NewFragment : Fragment(), MainAdapter.OnImageListener{
         postViewModel.postPagedList?.observe(viewLifecycleOwner, Observer { postList ->
             viewAdapter.submitList(postList)
         })
-        viewManager = GridLayoutManager(this.context,2)
+        viewManager = GridLayoutManager(this.context, 2)
         viewAdapter = MainAdapter(this)
         recyclerView.apply {
             layoutManager = viewManager

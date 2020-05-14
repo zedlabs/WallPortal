@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),1)
         }
 
-
         //change to app name and remove this
         toolbar.title = "WALLPORTAL"
         navController = Navigation.findNavController(this, R.id.fragment)
@@ -72,6 +71,5 @@ class MainActivity : AppCompatActivity() {
             .withSliderBackgroundColorRes(R.color.colorPrimary)
             .withSelectedItem(-1)
             .build()
-
     }
 }
