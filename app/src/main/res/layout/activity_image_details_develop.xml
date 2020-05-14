@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="tk.zedlabs.wallaperapp2019.ui.activity.DetailActivity">
+    tools:context="tk.zedlabs.wallportal.ui.activity.DetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
