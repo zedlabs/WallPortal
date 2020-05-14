@@ -1,6 +1,5 @@
-package tk.zedlabs.wallaperapp2019.ui
+package tk.zedlabs.wallaperapp2019.ui.activity
 
-import android.R.attr
 import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -13,31 +12,30 @@ import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.activity_original_resolution.*
 import tk.zedlabs.wallaperapp2019.R
 
-
 class OriginalResolutionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_original_resolution)
 
-        val i = intent
-        val url = i.getStringExtra("imageUrl")
-
-        title = "Wallportal"
+        title = getString(R.string.app_name)
 
         Glide
             .with(this)
             .asBitmap()
-            .load(url)
+            .load(intent.getStringExtra("imageUrl"))
             .fitCenter()
             .listener(object : RequestListener<Bitmap?> {
 
-                override fun onResourceReady( resource: Bitmap?,model: Any?,target:Target<Bitmap?>?,
-                    dataSource: com.bumptech.glide.load.DataSource?,isFirstResource: Boolean): Boolean {
-                    if (resource!=null){
+                override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap?>?,
+                    dataSource: com.bumptech.glide.load.DataSource?, isFirstResource: Boolean): Boolean {
+                    if (resource != null) {
                         val p: Palette = Palette.from(resource).generate()
-                        or_res_cl.setBackgroundColor(p.getDarkVibrantColor(
-                            ContextCompat.getColor(this@OriginalResolutionActivity, R.color.md_grey_600)))
+                        or_res_cl.setBackgroundColor(
+                            p.getDarkVibrantColor(
+                                ContextCompat.getColor(this@OriginalResolutionActivity, R.color.md_grey_600)
+                            )
+                        )
                     }
                     return false
                 }

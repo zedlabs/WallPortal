@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="tk.zedlabs.wallaperapp2019.ui.Main2Activity">
+    tools:context="tk.zedlabs.wallaperapp2019.ui.activity.DetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -26,7 +26,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
                 android:scaleType="centerCrop"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin"
+                tools:background="@drawable/header_art" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

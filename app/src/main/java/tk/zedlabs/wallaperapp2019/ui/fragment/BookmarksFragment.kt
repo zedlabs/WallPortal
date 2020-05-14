@@ -1,4 +1,4 @@
-package tk.zedlabs.wallaperapp2019.ui
+package tk.zedlabs.wallaperapp2019.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import tk.zedlabs.wallaperapp2019.*
 import tk.zedlabs.wallaperapp2019.repository.BookmarkDatabase
 import tk.zedlabs.wallaperapp2019.repository.BookmarkImage
+import tk.zedlabs.wallaperapp2019.ui.activity.DetailActivity
 import tk.zedlabs.wallaperapp2019.util.BaseFragment
 import tk.zedlabs.wallaperapp2019.util.BookmarkAdapter
 import tk.zedlabs.wallaperapp2019.viewmodel.BookmarkViewModel
@@ -24,7 +25,7 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
     private lateinit var list: List<BookmarkImage>
 
     override fun onImageClick(position: Int) {
-        val intent = Intent(activity, Main2Activity::class.java)
+        val intent = Intent(activity, DetailActivity::class.java)
         val imageDetails = list[position]
         val urlFull = imageDetails.imageUrlFull
         val urlRegular = imageDetails.imageUrlRegular

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.BookmarksFragment">
+    tools:context=".ui.fragment.BookmarksFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewBookmarked"
