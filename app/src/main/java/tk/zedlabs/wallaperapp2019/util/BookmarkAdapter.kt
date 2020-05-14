@@ -15,7 +15,6 @@ import tk.zedlabs.wallaperapp2019.repository.BookmarkImage
 class BookmarkAdapter(private var bookmarkedImages : List<BookmarkImage>, onImageListener: OnImageListener) :
                         RecyclerView.Adapter<BookmarkAdapter.BookmarkViewHolder>() {
 
-
     lateinit var ctx : Context
     private var mOnImageListener: OnImageListener
 
@@ -61,7 +60,5 @@ class BookmarkAdapter(private var bookmarkedImages : List<BookmarkImage>, onImag
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(holder.itemView.imageViewItem)
     }
-
-
 
 }

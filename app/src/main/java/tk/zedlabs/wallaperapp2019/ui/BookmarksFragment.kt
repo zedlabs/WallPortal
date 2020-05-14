@@ -20,11 +20,11 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
 
     private lateinit var viewAdapter: BookmarkAdapter
     private lateinit var viewManager: GridLayoutManager
-    private lateinit var bookmarkViewModel : BookmarkViewModel
-    private lateinit var list : List<BookmarkImage>
+    private lateinit var bookmarkViewModel: BookmarkViewModel
+    private lateinit var list: List<BookmarkImage>
 
     override fun onImageClick(position: Int) {
-        val intent = Intent(activity ,Main2Activity::class.java)
+        val intent = Intent(activity, Main2Activity::class.java)
         val imageDetails = list[position]
         val urlFull = imageDetails.imageUrlFull
         val urlRegular = imageDetails.imageUrlRegular
@@ -36,7 +36,11 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
         startActivity(intent)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_saved, container, false)
     }
 
@@ -47,20 +51,18 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
             BookmarkDatabase::class.java, "bookmark-database"
         ).build()
 
-        bookmarkViewModel =BookmarkViewModel(db.bookmarkDao())
-        viewManager = GridLayoutManager(this.context,2)
+        bookmarkViewModel = BookmarkViewModel(db.bookmarkDao())
+        viewManager = GridLayoutManager(this.context, 2)
 
         launch {
             context?.let {
-                list =  bookmarkViewModel.getBookMarkImages().asReversed()
-                viewAdapter = BookmarkAdapter(list,this@BookmarksFragment)
+                list = bookmarkViewModel.getBookMarkImages().asReversed()
+                viewAdapter = BookmarkAdapter(list, this@BookmarksFragment)
             }
             recyclerViewBookmarked.apply {
                 layoutManager = viewManager
                 adapter = viewAdapter
             }
-           }
-
-
+        }
     }
 }

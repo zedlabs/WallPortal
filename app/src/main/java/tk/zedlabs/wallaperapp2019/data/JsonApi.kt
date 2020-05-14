@@ -8,9 +8,10 @@ import tk.zedlabs.wallaperapp2019.models.MainResponse
 interface JsonApi {
 
     @GET("/api/v1/search/")
-    suspend fun getImageList(@Query("q") queryParam : String,
-                             @Query("sorting") sorting : String,
-                             @Query("page") page: Int) : Response<MainResponse>
-
+    suspend fun getImageList(
+        @Query("q") queryParam: String,
+        @Query("sorting") sorting: String,
+        @Query("page") page: Int
+    ): Response<MainResponse>
 
 }

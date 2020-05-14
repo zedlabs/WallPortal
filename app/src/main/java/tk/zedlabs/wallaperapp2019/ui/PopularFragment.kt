@@ -19,10 +19,10 @@ class PopularFragment : Fragment(), MainAdapter.OnImageListener {
 
     private lateinit var viewAdapter: MainAdapter
     private lateinit var viewManager: GridLayoutManager
-    private lateinit var postViewModel : PostViewModel
+    private lateinit var postViewModel: PostViewModel
 
     override fun onImageClick(position: Int) {
-        val intent = Intent(activity ,Main2Activity::class.java)
+        val intent = Intent(activity, Main2Activity::class.java)
         val imageDetails = postViewModel.popularPagedList?.value?.get(position)
         val urlFull = imageDetails?.path
         val urlRegular = imageDetails?.thumbs?.original
@@ -33,9 +33,11 @@ class PopularFragment : Fragment(), MainAdapter.OnImageListener {
         intent.putExtra("Activity", "PopularActivity")
         startActivity(intent)
     }
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?, savedInstanceState: Bundle?): View?
-            = inflater.inflate(R.layout.fragment_popular, container, false)
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_popular, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,7 +46,7 @@ class PopularFragment : Fragment(), MainAdapter.OnImageListener {
         postViewModel.popularPagedList?.observe(viewLifecycleOwner, Observer { postList ->
             viewAdapter.submitList(postList)
         })
-        viewManager = GridLayoutManager(this.context,2)
+        viewManager = GridLayoutManager(this.context, 2)
         viewAdapter = MainAdapter(this)
         recyclerViewPopular.apply {
             layoutManager = viewManager
