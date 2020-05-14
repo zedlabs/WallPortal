@@ -5,6 +5,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.NewFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewConnectivity"
+        android:text="@string/no_internet"
+        android:fontFamily="@font/roboto_mono"
+        android:textColor="@color/md_white_1000"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:background="@color/md_red_500"
+        android:padding="6dp"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

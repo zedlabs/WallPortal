@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.room.Room
+import kotlinx.android.synthetic.main.fragment_new.*
 import kotlinx.android.synthetic.main.fragment_saved.*
 import kotlinx.coroutines.launch
 import tk.zedlabs.wallportal.*
@@ -15,6 +16,7 @@ import tk.zedlabs.wallportal.repository.BookmarkImage
 import tk.zedlabs.wallportal.ui.activity.DetailActivity
 import tk.zedlabs.wallportal.util.BaseFragment
 import tk.zedlabs.wallportal.util.BookmarkAdapter
+import tk.zedlabs.wallportal.util.ConnectivityHelper
 import tk.zedlabs.wallportal.viewmodel.BookmarkViewModel
 
 class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
@@ -47,6 +49,15 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val c = ConnectivityHelper(this.requireContext())
+        if (c.isConnectedToNetwork()) {
+            if(textViewConnectivityBookmark.visibility == View.VISIBLE)
+                textViewConnectivityBookmark.visibility = View.GONE
+        }
+        else {
+            textViewConnectivityBookmark.visibility = View.VISIBLE
+        }
         val db = Room.databaseBuilder(
             requireActivity().applicationContext,
             BookmarkDatabase::class.java, "bookmark-database"

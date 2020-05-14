@@ -20,6 +20,7 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import kotlinx.android.synthetic.main.activity_main.*
 import tk.zedlabs.wallportal.R
+import tk.zedlabs.wallportal.util.ConnectivityHelper
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,11 +29,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR)
             != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),1)
         }
+
 
         toolbar.title = getString(R.string.app_name)
         navController = Navigation.findNavController(this, R.id.fragment)
@@ -60,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                         1 -> navController.navigate(R.id.popular_bottom)
                         2 -> navController.navigate(R.id.new_bottom)
                         3 -> navController.navigate(R.id.bookmarks_bottom)
-                        4 -> {startActivity(Intent(this@MainActivity, DetailActivity::class.java))}
+                        4 -> { }//TODO: implement about page
                     }
                     return false
                 }

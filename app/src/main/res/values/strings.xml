@@ -20,4 +20,6 @@
     <string name="add_to_bookmark">Add to bookmark</string>
     <string name="curated">New</string>
     <string name="set_as_wallpaper">set as wallpaper</string>
+    <string name="no_internet">No Internet Connection, please check and try again!</string>
+    <string name="currently_offline">Currently Offline.</string>
 </resources>

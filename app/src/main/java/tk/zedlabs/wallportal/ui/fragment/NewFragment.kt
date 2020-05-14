@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_new.*
 import tk.zedlabs.wallportal.util.MainAdapter
 import tk.zedlabs.wallportal.viewmodel.PostViewModel
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.ui.activity.DetailActivity
+import tk.zedlabs.wallportal.util.ConnectivityHelper
 
 class NewFragment : Fragment(), MainAdapter.OnImageListener {
 
@@ -42,6 +44,15 @@ class NewFragment : Fragment(), MainAdapter.OnImageListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val c = ConnectivityHelper(this.requireContext())
+        if (c.isConnectedToNetwork()) {
+            if(textViewConnectivity.visibility == View.VISIBLE)
+                textViewConnectivity.visibility = View.GONE
+        }
+        else {
+            textViewConnectivity.visibility = View.VISIBLE
+        }
 
         postViewModel = ViewModelProviders.of(this).get(PostViewModel::class.java)
         postViewModel.postPagedList?.observe(viewLifecycleOwner, Observer { postList ->
