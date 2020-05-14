@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".ui.BookmarksFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.BookmarksFragment">
 
-   <androidx.recyclerview.widget.RecyclerView
-       android:layout_marginTop="2dp"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:orientation="vertical"
-       android:id="@+id/recyclerViewBookmarked"
-       />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewBookmarked"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="2dp"
+        android:orientation="vertical"
+        tools:listitem="@layout/recyclerview_item" />
 
 </FrameLayout>
