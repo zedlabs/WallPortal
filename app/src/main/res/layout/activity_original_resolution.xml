@@ -5,7 +5,7 @@
     android:id="@+id/or_res_cl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.OriginalResolutionActivity">
+    tools:context=".ui.activity.OriginalResolutionActivity">
 
     <ImageView
         android:id="@+id/image_view_original"

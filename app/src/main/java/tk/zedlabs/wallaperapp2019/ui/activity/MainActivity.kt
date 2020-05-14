@@ -1,12 +1,11 @@
-package tk.zedlabs.wallaperapp2019.ui
+package tk.zedlabs.wallaperapp2019.ui.activity
 
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
@@ -20,7 +19,7 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import kotlinx.android.synthetic.main.activity_main.*
-import tk.zedlabs.wallaperapp2019.*
+import tk.zedlabs.wallaperapp2019.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,8 +34,7 @@ class MainActivity : AppCompatActivity() {
                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),1)
         }
 
-        //change to app name and remove this
-        toolbar.title = "WALLPORTAL"
+        toolbar.title = getString(R.string.app_name)
         navController = Navigation.findNavController(this, R.id.fragment)
         bottomNavigation.setupWithNavController(navController)
 
@@ -62,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                         1 -> navController.navigate(R.id.popular_bottom)
                         2 -> navController.navigate(R.id.new_bottom)
                         3 -> navController.navigate(R.id.bookmarks_bottom)
-                        4 -> {startActivity(Intent(this@MainActivity, Main2Activity::class.java))}
+                        4 -> {startActivity(Intent(this@MainActivity, DetailActivity::class.java))}
                     }
                     return false
                 }

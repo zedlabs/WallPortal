@@ -15,14 +15,14 @@
         android:supportsRtl="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".ui.OriginalResolutionActivity"
-            android:parentActivityName=".ui.Main2Activity"
+            android:name=".ui.activity.OriginalResolutionActivity"
+            android:parentActivityName=".ui.activity.DetailActivity"
             android:theme="@style/AppTheme2"/>
 
-        <activity android:name=".ui.Main2Activity"
+        <activity android:name=".ui.activity.DetailActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".ui.MainActivity"
+        <activity android:name=".ui.activity.MainActivity"
                 android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
