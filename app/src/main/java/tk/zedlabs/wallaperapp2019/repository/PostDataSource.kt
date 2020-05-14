@@ -14,15 +14,9 @@ class PostDataSource(private val scope: CoroutineScope) : PageKeyedDataSource<In
 
     val PAGE_SIZE = 24
     val FIRST_PAGE = 1
-    val accessKey = "e3bc7bf237473a863b587b27220ec9b4a0a6f25e8b1514053c91d212a312b777"
-    val orderBy = "random"
-    var  jsonApi : JsonApi
     val queryParam = "vaporwave||retrowave||noir||outrun||cyberpunk||japan"
     val sorting = "views"
-
-    init {
-        jsonApi = RetrofitService.createService(JsonApi::class.java)
-    }
+    var  jsonApi : JsonApi = RetrofitService.createService(JsonApi::class.java)
 
     override fun loadInitial(params: LoadInitialParams<Int>,callback: LoadInitialCallback<Int, WallHavenResponse>) {
 
