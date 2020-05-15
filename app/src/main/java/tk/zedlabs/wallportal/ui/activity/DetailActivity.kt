@@ -149,17 +149,16 @@ class DetailActivity : AppCompatActivity() {
             startActivity(intent1)
         }
 
-        GlobalScope.launch(Dispatchers.IO) {
+        GlobalScope.launch(Dispatchers.Main) {
            setupDetails(imageDetailViewModel.getImageDetails(id!!).body()?.imageDetails)
         }
     }
 
     private fun setupDetails(imageDetails: ImageDetails?) {
-        Log.e("detailsActivity", imageDetails?.path1+"")
-        //uploader
-        //resolution
-        //views
-        //category
+        uploader_tv.text = imageDetails!!.uploader!!.username
+        resolution_tv.text = imageDetails.resolution
+        views_tv.text = imageDetails.views.toString()
+        categories_tv.text = imageDetails.category
     }
 
     private fun setUpInitialImage(urlRegular: String) {

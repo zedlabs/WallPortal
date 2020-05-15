@@ -9,5 +9,4 @@ class ImageDetailsRepository {
 
     suspend fun getData(id: String) = jsonApi.getImageDetails(id)
 
-
 }
