@@ -43,19 +43,19 @@ class MainActivity : AppCompatActivity() {
 
         val item1 = SecondaryDrawerItem().withIdentifier(1).withName(R.string.drawer_item_popular).apply {
             this.textColor = ColorHolder.fromColorRes(R.color.md_white_1000)
-            this.selectedTextColor = ColorHolder.fromColorRes(R.color.md_white_1000)
+            this.selectedTextColor = ColorHolder.fromColorRes(R.color.mainAccent)
         }
         val item2 = SecondaryDrawerItem().withIdentifier(2).withName(R.string.curated).apply {
             this.textColor = ColorHolder.fromColorRes(R.color.md_white_1000)
-            this.selectedTextColor = ColorHolder.fromColorRes(R.color.md_white_1000)
+            this.selectedTextColor = ColorHolder.fromColorRes(R.color.mainAccent)
         }
         val item3 = SecondaryDrawerItem().withIdentifier(3).withName(R.string.drawer_item_bookmarks).apply {
             this.textColor = ColorHolder.fromColorRes(R.color.md_white_1000)
-            this.selectedTextColor = ColorHolder.fromColorRes(R.color.md_white_1000)
+            this.selectedTextColor = ColorHolder.fromColorRes(R.color.mainAccent)
         }
         val item4 = SecondaryDrawerItem().withIdentifier(4).withName(R.string.About_string).apply {
             this.textColor = ColorHolder.fromColorRes(R.color.md_white_1000)
-            this.selectedTextColor = ColorHolder.fromColorRes(R.color.md_white_1000)
+            this.selectedTextColor = ColorHolder.fromColorRes(R.color.mainAccent)
         }
 
         val headerResult = AccountHeaderBuilder().withActivity(this)
