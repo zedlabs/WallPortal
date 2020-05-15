@@ -2,9 +2,12 @@ package tk.zedlabs.wallportal.ui.activity
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.palette.graphics.Palette
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
@@ -30,6 +33,7 @@ class OriginalResolutionActivity : AppCompatActivity() {
                 override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap?>?,
                     dataSource: com.bumptech.glide.load.DataSource?, isFirstResource: Boolean): Boolean {
                     if (resource != null) {
+                        textViewLoading.visibility = View.GONE
                         val p: Palette = Palette.from(resource).generate()
                         or_res_cl.setBackgroundColor(
                             p.getDarkVibrantColor(
@@ -41,6 +45,8 @@ class OriginalResolutionActivity : AppCompatActivity() {
                 }
 
                 override fun onLoadFailed(e: GlideException?,model: Any?,target: Target<Bitmap?>?,isFirstResource: Boolean): Boolean {
+                    Toast.makeText(this@OriginalResolutionActivity, e.toString(), Toast.LENGTH_SHORT).show()
+                    textViewLoading.text = getString(R.string.failed_to_load)
                     return false
                 }
             })

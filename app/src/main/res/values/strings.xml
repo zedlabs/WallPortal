@@ -22,4 +22,5 @@
     <string name="set_as_wallpaper">set as wallpaper</string>
     <string name="no_internet">No Internet Connection, please check and try again!</string>
     <string name="currently_offline">Currently Offline.</string>
+    <string name="failed_to_load">Failed to Load current Image.</string>
 </resources>

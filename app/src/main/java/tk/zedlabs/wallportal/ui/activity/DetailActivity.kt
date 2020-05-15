@@ -23,12 +23,10 @@ import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_image_details.*
 import kotlinx.android.synthetic.main.progress_saw.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import tk.zedlabs.wallportal.BuildConfig
 import tk.zedlabs.wallportal.R
+import tk.zedlabs.wallportal.models.ImageDetails
 import tk.zedlabs.wallportal.repository.BookmarkDatabase
 import tk.zedlabs.wallportal.repository.BookmarkImage
 import tk.zedlabs.wallportal.viewmodel.ImageDetailViewModel
@@ -51,6 +49,7 @@ class DetailActivity : AppCompatActivity() {
             this@DetailActivity, BuildConfig.APPLICATION_ID + ".fileprovider",
             File("${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)}/WallPortal/$id.jpg")
         )
+
         imageDetailViewModel = ImageDetailViewModel(applicationContext)
         setUpInitialImage(urlFull ?: "")
 
@@ -150,6 +149,17 @@ class DetailActivity : AppCompatActivity() {
             startActivity(intent1)
         }
 
+        GlobalScope.launch(Dispatchers.IO) {
+           setupDetails(imageDetailViewModel.getImageDetails(id!!).body()?.imageDetails)
+        }
+    }
+
+    private fun setupDetails(imageDetails: ImageDetails?) {
+        Log.e("detailsActivity", imageDetails?.path1+"")
+        //uploader
+        //resolution
+        //views
+        //category
     }
 
     private fun setUpInitialImage(urlRegular: String) {
@@ -164,6 +174,7 @@ class DetailActivity : AppCompatActivity() {
             .transform(FitCenter())
             .placeholder(circularProgressDrawable)
             .into(photo_view_1)
+
     }
 
     private fun setWallpaper1(uri: Uri) {
