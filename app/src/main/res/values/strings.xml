@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WALLPORTAL</string>
+    <string name="app_name">Wallportal</string>
     <string name="popular">Popular</string>
     <string name="saved">Saved</string>
     <string name="newImages">New</string>
@@ -15,13 +15,12 @@
     <string name="remove_from_bookmarks_qm">Remove from bookmarks?</string>
     <string name="About_string">About</string>
     <string name="large_image_warning">Large images may take longer to load on slow connections.</string>
-    <string name="placeholder_tom">Cruise is an outspoken advocate for the Church of Scientology and its associated social programs. He became involved with Scientology in 1990 through his first wife, Mimi Rogers.[96] Cruise struggled with dyslexia at an early age[97] and has said that Scientology, specifically the L. Ron Hubbard Study Tech, helped him overcome dyslexia.[98]
-Cruise\'s advocacy of Scientology, In addition to promoting various programs that introduce people to Scientology, Cruise has campaigned for Scientology to be recognized as a religion in Europe. In 2005, the Paris city council revealed that Cruise had lobbied officials Nicolas Sarkozy and Jean-Claude Gaudin. They described him as a militant spokesman for Scientology, and barred any further dealings with him.[99][100]
-Cruise co-founded and raised donations for Downtown Medical to offer New York City 9/11 rescue workers detoxification therapy based on the works of L. Ron Hubbard. This drew criticism from the medical profession[101] and from firefighters.[102]
-For such activities, Scientology leader David Miscavige created the Scientology Freedom Medal of Valor and awarded it to Cruise in late 2004.[103] </string>
-    <string name="set_as_wallpaper">set as wallpaper</string>
     <string name="download">Download</string>
     <string name="view_original">view original resolution</string>
     <string name="add_to_bookmark">Add to bookmark</string>
-    <string name="curated">Curated</string>
+    <string name="curated">New</string>
+    <string name="set_as_wallpaper">set as wallpaper</string>
+    <string name="no_internet">No Internet Connection, please check and try again!</string>
+    <string name="currently_offline">Currently Offline.</string>
+    <string name="failed_to_load">Failed to Load current Image.</string>
 </resources>

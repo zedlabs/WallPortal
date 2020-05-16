@@ -6,4 +6,5 @@
     <color name="snackBarAction">#EC7454</color>
     <color name="bottomNavButtonColor">#BCBCBC</color>
     <color name="bottomNavTextColor">#BCBCBC</color>
+    <color name="mainAccent">#9BFAE3</color>
 </resources>

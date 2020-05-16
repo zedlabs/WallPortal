@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
-        <item>@font/annie_use_your_telescope</item>
+        <item>@font/allerta</item>
         <item>@font/bowlby_one_sc</item>
         <item>@font/bubblegum_sans</item>
         <item>@font/fredoka_one</item>
         <item>@font/fugaz_one</item>
-        <item>@font/grand_hotel</item>
         <item>@font/roboto_mono</item>
         <item>@font/roboto_slab</item>
         <item>@font/roboto_slab_light</item>

@@ -5,6 +5,24 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.PopularFragment">
 
+    <include
+        android:id="@+id/progress_pop"
+        layout="@layout/progress_saw"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewConnectivityPop"
+        android:text="@string/no_internet"
+        android:fontFamily="@font/roboto_mono"
+        android:textColor="@color/md_white_1000"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:background="@color/md_red_500"
+        android:padding="6dp"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPopular"
         android:layout_width="match_parent"

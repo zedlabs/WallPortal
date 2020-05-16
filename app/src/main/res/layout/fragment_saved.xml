@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.BookmarksFragment">
+    android:orientation="vertical"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewConnectivityBookmark"
+        android:text="@string/currently_offline"
+        android:fontFamily="@font/roboto_mono"
+        android:textColor="@color/md_white_1000"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:background="@color/md_red_500"
+        android:padding="6dp"
+        />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewBookmarked"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="2dp"
-        android:orientation="vertical"
-        tools:listitem="@layout/recyclerview_item" />
+        tools:context=".ui.fragment.BookmarksFragment">
 
-</FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewBookmarked"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="2dp"
+            android:orientation="vertical"
+            tools:listitem="@layout/recyclerview_item" />
+
+    </FrameLayout>
+</LinearLayout>

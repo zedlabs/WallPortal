@@ -17,9 +17,10 @@
             android:layout_height="50dp"
             android:background="?attr/colorPrimary"
             app:titleTextAppearance="@style/TitleBarTextAppearance"
-            app:titleTextColor="#F58181">
+            app:titleTextColor="#9BFAE3">
 
         </androidx.appcompat.widget.Toolbar>
+
 
         <fragment
             android:id="@+id/fragment"
@@ -40,6 +41,7 @@
         android:background="@color/colorPrimary"
         app:itemIconTint="@drawable/bottom_navigation_selector"
         app:itemRippleColor="@color/snackBarAction"
+        android:theme="@style/Widget.BottomNavigationView"
         app:itemTextColor="@color/md_white_1000"
         app:labelVisibilityMode="selected"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
