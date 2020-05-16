@@ -1,15 +1,14 @@
 package tk.zedlabs.wallportal.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
 import tk.zedlabs.wallportal.models.WallHavenResponse
-import tk.zedlabs.wallportal.repository.PopularDataSource
 import tk.zedlabs.wallportal.repository.PopularDataSourceFactory
-import tk.zedlabs.wallportal.repository.PostDataSource
+import tk.zedlabs.wallportal.repository.PostDataSource.Companion.PAGE_SIZE
 import tk.zedlabs.wallportal.repository.PostDataSourceFactory
 
 class PostViewModel : ViewModel() {
@@ -28,7 +27,7 @@ class PostViewModel : ViewModel() {
         popularLiveDataSource = popularDataSourceFactory.getPopularLiveDataSource()
 
         val config: PagedList.Config = (PagedList.Config.Builder())
-            .setPageSize(PostDataSource(viewModelScope).PAGE_SIZE)
+            .setPageSize(PAGE_SIZE)
             .setEnablePlaceholders(true)
             .setInitialLoadSizeHint(24)
             .setPrefetchDistance(24)
@@ -36,7 +35,7 @@ class PostViewModel : ViewModel() {
 
         val configPop: PagedList.Config = (PagedList.Config.Builder())
             .setEnablePlaceholders(true)
-            .setPageSize(PopularDataSource(viewModelScope).PAGE_SIZE)
+            .setPageSize(PAGE_SIZE)
             .build()
 
         postPagedList = LivePagedListBuilder(postDataSourceFactory, config).build()

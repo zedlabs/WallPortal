@@ -1,6 +1,5 @@
 package tk.zedlabs.wallportal.util
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,47 +12,38 @@ import kotlinx.android.synthetic.main.recyclerview_item.view.*
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.repository.BookmarkImage
 
-class BookmarkAdapter(private var bookmarkedImages : List<BookmarkImage>, onImageListener: OnImageListener) :
-                        RecyclerView.Adapter<BookmarkAdapter.BookmarkViewHolder>() {
+class BookmarkAdapter(
+    private var bookmarkedImages: List<BookmarkImage>,
+    private val onImageListener: OnImageListener
+) : RecyclerView.Adapter<BookmarkAdapter.BookmarkViewHolder>() {
 
-    lateinit var ctx : Context
-    private var mOnImageListener: OnImageListener
+    inner class BookmarkViewHolder(imageView: ImageView, onImageListener: OnImageListener) :
+        RecyclerView.ViewHolder(imageView), View.OnClickListener {
 
-    init {
-        this.mOnImageListener = onImageListener
-    }
-
-    class BookmarkViewHolder(imageView: ImageView, onImageListener: OnImageListener) :
-                    RecyclerView.ViewHolder(imageView), View.OnClickListener{
-
-        var onImageListener : OnImageListener
         init {
-            this.onImageListener = onImageListener
             imageView.setOnClickListener(this)
         }
+
         override fun onClick(v: View?) {
             onImageListener.onImageClick(adapterPosition)
         }
     }
 
-    interface OnImageListener{
+    interface OnImageListener {
         fun onImageClick(position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarkViewHolder {
         val imageView = LayoutInflater.from(parent.context)
             .inflate(R.layout.recyclerview_item, parent, false) as ImageView
-        ctx = parent.context
 
         return BookmarkViewHolder(
             imageView,
-            mOnImageListener
+            onImageListener
         )
     }
 
-    override fun getItemCount(): Int {
-                return bookmarkedImages.size
-    }
+    override fun getItemCount() = bookmarkedImages.size
 
     override fun onBindViewHolder(holder: BookmarkViewHolder, position: Int) {
 
@@ -62,7 +52,7 @@ class BookmarkAdapter(private var bookmarkedImages : List<BookmarkImage>, onImag
         circularProgressDrawable.centerRadius = 30f
         circularProgressDrawable.start()
 
-        Glide.with(ctx)
+        Glide.with(holder.itemView.context)
             .load(bookmarkedImages[position].imageUrlRegular!!)
             .placeholder(circularProgressDrawable)
             .transition(DrawableTransitionOptions.withCrossFade())

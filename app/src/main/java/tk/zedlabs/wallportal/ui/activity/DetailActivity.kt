@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.lifecycle.Observer
 import androidx.room.Room
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
@@ -50,12 +51,20 @@ class DetailActivity : AppCompatActivity() {
             File("${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)}/WallPortal/$id.jpg")
         )
 
-        imageDetailViewModel = ImageDetailViewModel(applicationContext)
+        val db = Room.databaseBuilder(
+            this,
+            BookmarkDatabase::class.java,
+            "bookmark-database"
+        ).build()
+
+        imageDetailViewModel = ImageDetailViewModel(applicationContext, db.bookmarkDao())
         setUpInitialImage(urlFull ?: "")
 
-        if (activity == "BookmarkActivity") {
-            bookmark_button_1.text = getString(R.string.remove_from_bookmarks)
-        }
+        imageDetailViewModel.checkIsBookmark(urlRegular ?: "")
+
+        imageDetailViewModel.isBookmark.observe(this, Observer { isBookmark ->
+            bookmark_button_1.text = if (isBookmark) getString(R.string.remove_from_bookmarks) else getString(R.string.add_to_bookmark)
+        })
 
         download_button_1.setOnClickListener {
             Glide.with(this)
@@ -103,10 +112,6 @@ class DetailActivity : AppCompatActivity() {
         }
 
         bookmark_button_1.setOnClickListener {
-            val db = Room.databaseBuilder(
-                applicationContext,
-                BookmarkDatabase::class.java, "bookmark-database"
-            ).build()
             var unique = true
             CoroutineScope(Dispatchers.IO).launch {
                 val idList = db.bookmarkDao().getId()
@@ -139,7 +144,6 @@ class DetailActivity : AppCompatActivity() {
                         ).show()
                     }
                 }
-
             }
         }
 
