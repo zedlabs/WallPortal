@@ -16,7 +16,6 @@ import tk.zedlabs.wallportal.util.ConnectivityHelper
 import tk.zedlabs.wallportal.util.MainAdapter
 import tk.zedlabs.wallportal.viewmodel.PostViewModel
 
-
 class PopularFragment : Fragment(), MainAdapter.OnImageListener {
 
     private lateinit var viewAdapter: MainAdapter
@@ -65,6 +64,5 @@ class PopularFragment : Fragment(), MainAdapter.OnImageListener {
         }
 
     }
-
 
 }

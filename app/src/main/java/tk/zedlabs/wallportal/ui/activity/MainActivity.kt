@@ -1,7 +1,6 @@
 package tk.zedlabs.wallportal.ui.activity
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
@@ -20,7 +19,6 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import kotlinx.android.synthetic.main.activity_main.*
 import tk.zedlabs.wallportal.R
-import tk.zedlabs.wallportal.util.ConnectivityHelper
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +33,6 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),1)
         }
-
 
         toolbar.title = getString(R.string.app_name)
         navController = Navigation.findNavController(this, R.id.fragment)
