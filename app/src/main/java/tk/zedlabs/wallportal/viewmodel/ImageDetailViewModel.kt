@@ -34,7 +34,7 @@ class ImageDetailViewModel(
         viewModelScope.launch {
             val bookmarks = bookmarksDao.getAll()
             bookmarks.map {
-                isBookmark.postValue(it.imageUrlRegular == imageUrl)
+                if (it.imageUrlRegular == imageUrl) isBookmark.postValue(true)
             }
         }
     }

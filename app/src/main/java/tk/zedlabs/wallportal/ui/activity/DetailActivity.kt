@@ -143,6 +143,7 @@ class DetailActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
+                    runOnUiThread { this@DetailActivity.recreate() }
                 }
             }
         }
@@ -166,7 +167,6 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setUpInitialImage(urlRegular: String) {
-
         val circularProgressDrawable = CircularProgressDrawable(this)
         circularProgressDrawable.strokeWidth = 10f
         circularProgressDrawable.centerRadius = 50f
@@ -202,7 +202,7 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    class RemoveListener(private val ac: Context, private val bm: BookmarkImage) :
+    inner class RemoveListener(private val ac: Context, private val bm: BookmarkImage) :
         View.OnClickListener {
 
         override fun onClick(v: View) {
@@ -215,6 +215,7 @@ class DetailActivity : AppCompatActivity() {
                     Toast.makeText(ac, "Removed from Bookmarks", Toast.LENGTH_SHORT).show()
                 }
             }
+            this@DetailActivity.recreate()
         }
     }
 }
