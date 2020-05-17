@@ -17,7 +17,7 @@ import tk.zedlabs.wallportal.repository.BookmarkImage
 import tk.zedlabs.wallportal.ui.activity.DetailActivity
 import tk.zedlabs.wallportal.util.BaseFragment
 import tk.zedlabs.wallportal.util.BookmarkAdapter
-import tk.zedlabs.wallportal.util.ConnectivityHelper
+import tk.zedlabs.wallportal.util.isConnectedToNetwork
 import tk.zedlabs.wallportal.viewmodel.BookmarkViewModel
 
 class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
@@ -49,9 +49,7 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val connectivityHelper = ConnectivityHelper(this.requireContext())
-
-        when (connectivityHelper.isConnectedToNetwork()) {
+        when (context?.isConnectedToNetwork()) {
             true -> if (textViewConnectivityBookmark.visibility == VISIBLE) textViewConnectivityBookmark.visibility = GONE
             false -> textViewConnectivityBookmark.visibility = VISIBLE
         }

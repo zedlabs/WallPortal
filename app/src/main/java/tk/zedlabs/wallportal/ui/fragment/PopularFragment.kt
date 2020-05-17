@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -12,8 +14,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_popular.*
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.ui.activity.DetailActivity
-import tk.zedlabs.wallportal.util.ConnectivityHelper
 import tk.zedlabs.wallportal.util.MainAdapter
+import tk.zedlabs.wallportal.util.isConnectedToNetwork
 import tk.zedlabs.wallportal.viewmodel.PostViewModel
 
 class PopularFragment : Fragment(), MainAdapter.OnImageListener {
@@ -43,13 +45,9 @@ class PopularFragment : Fragment(), MainAdapter.OnImageListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val c = ConnectivityHelper(this.requireContext())
-        if (c.isConnectedToNetwork()) {
-            if(textViewConnectivityPop.visibility == View.VISIBLE)
-                textViewConnectivityPop.visibility = View.GONE
-        }
-        else {
-            textViewConnectivityPop.visibility = View.VISIBLE
+        when (context?.isConnectedToNetwork()) {
+            true -> if (textViewConnectivityPop.visibility == VISIBLE) textViewConnectivityPop.visibility = GONE
+            false -> textViewConnectivityPop.visibility = VISIBLE
         }
 
         postViewModel = ViewModelProviders.of(this).get(PostViewModel::class.java)

@@ -2,20 +2,21 @@ package tk.zedlabs.wallportal.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_new.*
-import tk.zedlabs.wallportal.util.MainAdapter
-import tk.zedlabs.wallportal.viewmodel.PostViewModel
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.ui.activity.DetailActivity
-import tk.zedlabs.wallportal.util.ConnectivityHelper
+import tk.zedlabs.wallportal.util.MainAdapter
+import tk.zedlabs.wallportal.util.isConnectedToNetwork
+import tk.zedlabs.wallportal.viewmodel.PostViewModel
 
 class NewFragment : Fragment(), MainAdapter.OnImageListener {
 
@@ -45,13 +46,9 @@ class NewFragment : Fragment(), MainAdapter.OnImageListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val c = ConnectivityHelper(this.requireContext())
-        if (c.isConnectedToNetwork()) {
-            if(textViewConnectivity.visibility == View.VISIBLE)
-                textViewConnectivity.visibility = View.GONE
-        }
-        else {
-            textViewConnectivity.visibility = View.VISIBLE
+        when (requireContext().isConnectedToNetwork()) {
+            true -> if (textViewConnectivity.visibility == VISIBLE) textViewConnectivity.visibility = GONE
+            false -> textViewConnectivity.visibility = VISIBLE
         }
 
         postViewModel = ViewModelProviders.of(this).get(PostViewModel::class.java)
