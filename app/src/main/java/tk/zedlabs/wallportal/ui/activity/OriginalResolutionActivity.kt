@@ -3,17 +3,16 @@ package tk.zedlabs.wallportal.ui.activity
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.palette.graphics.Palette
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.activity_original_resolution.*
 import tk.zedlabs.wallportal.R
+import tk.zedlabs.wallportal.util.shortToast
 
 class OriginalResolutionActivity : AppCompatActivity() {
 
@@ -45,7 +44,7 @@ class OriginalResolutionActivity : AppCompatActivity() {
                 }
 
                 override fun onLoadFailed(e: GlideException?,model: Any?,target: Target<Bitmap?>?,isFirstResource: Boolean): Boolean {
-                    Toast.makeText(this@OriginalResolutionActivity, e.toString(), Toast.LENGTH_SHORT).show()
+                    shortToast(e?.message ?: "")
                     textViewLoading.text = getString(R.string.failed_to_load)
                     return false
                 }
