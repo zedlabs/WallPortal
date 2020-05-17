@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -30,6 +29,7 @@ import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.models.ImageDetails
 import tk.zedlabs.wallportal.repository.BookmarkDatabase
 import tk.zedlabs.wallportal.repository.BookmarkImage
+import tk.zedlabs.wallportal.util.shortToast
 import tk.zedlabs.wallportal.viewmodel.ImageDetailViewModel
 import java.io.File
 
@@ -76,12 +76,11 @@ class DetailActivity : AppCompatActivity() {
                         transition: Transition<in Bitmap>?
                     ) {
                         imageDetailViewModel.downloadImage(resource, id)
-                        Toast.makeText(this@DetailActivity, "Download Started", Toast.LENGTH_SHORT)
-                            .show()
+                        shortToast("Download Started")
                     }
 
                     override fun onLoadCleared(placeholder: Drawable?) {
-                        Toast.makeText(this@DetailActivity, "Downloaded!", Toast.LENGTH_SHORT).show()
+                        shortToast("Downloaded!")
                     }
                 })
         }
@@ -137,12 +136,9 @@ class DetailActivity : AppCompatActivity() {
                 if (unique) {
                     db.bookmarkDao().insert(BookmarkImage(id, urlFull, urlRegular))
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(
-                            this@DetailActivity,
-                            "Added to Bookmarks!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        shortToast("Added to Bookmarks!")
                     }
+                    runOnUiThread { this@DetailActivity.recreate() }
                 }
             }
         }
@@ -166,7 +162,6 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setUpInitialImage(urlRegular: String) {
-
         val circularProgressDrawable = CircularProgressDrawable(this)
         circularProgressDrawable.strokeWidth = 10f
         circularProgressDrawable.centerRadius = 50f
@@ -202,7 +197,7 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    class RemoveListener(private val ac: Context, private val bm: BookmarkImage) :
+    inner class RemoveListener(private val ac: Context, private val bm: BookmarkImage) :
         View.OnClickListener {
 
         override fun onClick(v: View) {
@@ -212,9 +207,10 @@ class DetailActivity : AppCompatActivity() {
                         .build()
                 db2.bookmarkDao().delete(bm)
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(ac, "Removed from Bookmarks", Toast.LENGTH_SHORT).show()
+                    shortToast("Removed from Bookmarks")
                 }
             }
+            this@DetailActivity.recreate()
         }
     }
 }

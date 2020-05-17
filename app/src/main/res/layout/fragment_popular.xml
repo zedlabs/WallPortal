@@ -11,17 +11,16 @@
         android:visibility="gone" />
 
     <TextView
+        android:id="@+id/textViewConnectivityPop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textViewConnectivityPop"
-        android:text="@string/no_internet"
+        android:background="@color/md_red_500"
         android:fontFamily="@font/roboto_mono"
+        android:padding="6dp"
+        android:text="@string/no_internet"
         android:textColor="@color/md_white_1000"
         android:textSize="16sp"
-        android:visibility="gone"
-        android:background="@color/md_red_500"
-        android:padding="6dp"
-        />
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPopular"
