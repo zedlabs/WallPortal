@@ -4,13 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.room.Room
-import kotlinx.android.synthetic.main.fragment_new.*
 import kotlinx.android.synthetic.main.fragment_saved.*
 import kotlinx.coroutines.launch
-import tk.zedlabs.wallportal.*
+import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.repository.BookmarkDatabase
 import tk.zedlabs.wallportal.repository.BookmarkImage
 import tk.zedlabs.wallportal.ui.activity.DetailActivity
@@ -43,21 +44,21 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_saved, container, false)
-    }
+    ): View? = inflater.inflate(R.layout.fragment_saved, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val c = ConnectivityHelper(this.requireContext())
-        if (c.isConnectedToNetwork()) {
-            if(textViewConnectivityBookmark.visibility == View.VISIBLE)
-                textViewConnectivityBookmark.visibility = View.GONE
+        val connectivityHelper = ConnectivityHelper(this.requireContext())
+
+        when (connectivityHelper.isConnectedToNetwork()) {
+            true -> if (textViewConnectivityBookmark.visibility == VISIBLE) textViewConnectivityBookmark.visibility = GONE
+            false -> textViewConnectivityBookmark.visibility = VISIBLE
         }
-        else {
-            textViewConnectivityBookmark.visibility = View.VISIBLE
-        }
+    }
+
+    override fun onResume() {
+        super.onResume()
         val db = Room.databaseBuilder(
             requireActivity().applicationContext,
             BookmarkDatabase::class.java, "bookmark-database"

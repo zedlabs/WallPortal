@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
     <TextView
+        android:id="@+id/textViewConnectivityBookmark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textViewConnectivityBookmark"
-        android:text="@string/currently_offline"
+        android:background="@color/md_red_500"
         android:fontFamily="@font/roboto_mono"
+        android:padding="6dp"
+        android:text="@string/currently_offline"
         android:textColor="@color/md_white_1000"
         android:textSize="16sp"
         android:visibility="gone"
-        android:background="@color/md_red_500"
-        android:padding="6dp"
-        />
+        tools:visibility="visible" />
 
     <FrameLayout
         android:layout_width="match_parent"
