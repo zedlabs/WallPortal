@@ -17,7 +17,7 @@ class ImageDetailViewModel(
     private val bookmarksDao: BookmarkDao
 ) : ViewModel() {
 
-    private val fileUtils: FileUtils = FileUtils(viewModelScope, applicationContext)
+    private val fileUtils: FileUtils = FileUtils(applicationContext)
     val repository: ImageDetailsRepository = ImageDetailsRepository()
 
     val isBookmark = MutableLiveData<Boolean>().apply { this.value = false }

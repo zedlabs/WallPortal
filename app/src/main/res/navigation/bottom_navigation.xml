@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools" android:id="@+id/bottom_navigation"
-app:startDestination="@id/popular_bottom">
-<fragment android:id="@+id/new_bottom" android:name="tk.zedlabs.wallportal.ui.fragment.NewFragment"
-    android:label="fragment_new" tools:layout="@layout/fragment_new"/>
-<fragment android:id="@+id/popular_bottom" android:name="tk.zedlabs.wallportal.ui.fragment.PopularFragment"
-    android:label="fragment_popular" tools:layout="@layout/fragment_popular"/>
-<fragment
-    android:id="@+id/bookmarks_bottom"
-    android:name="tk.zedlabs.wallportal.ui.fragment.BookmarksFragment"
-    android:label="fragment_bookmarks"
-    tools:layout="@layout/fragment_saved" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_navigation"
+    app:startDestination="@id/popular_bottom">
+    <fragment
+        android:id="@+id/new_bottom"
+        android:name="tk.zedlabs.wallportal.ui.fragment.NewFragment"
+        android:label="fragment_new"
+        tools:layout="@layout/fragment_new" />
+    <fragment
+        android:id="@+id/popular_bottom"
+        android:name="tk.zedlabs.wallportal.ui.fragment.PopularFragment"
+        android:label="fragment_popular"
+        tools:layout="@layout/fragment_popular" />
+    <fragment
+        android:id="@+id/bookmarks_bottom"
+        android:name="tk.zedlabs.wallportal.ui.fragment.BookmarksFragment"
+        android:label="fragment_bookmarks"
+        tools:layout="@layout/fragment_saved" />
 </navigation>
