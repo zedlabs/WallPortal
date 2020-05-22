@@ -24,6 +24,8 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_image_details.*
 import kotlinx.android.synthetic.main.progress_saw.*
 import kotlinx.coroutines.*
+import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.core.parameter.parametersOf
 import tk.zedlabs.wallportal.BuildConfig
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.models.ImageDetails
@@ -57,8 +59,9 @@ class DetailActivity : AppCompatActivity() {
             "bookmark-database"
         ).build()
 
-        imageDetailViewModel = ImageDetailViewModel(applicationContext, db.bookmarkDao())
         setUpInitialImage(urlFull ?: "")
+
+        imageDetailViewModel = getViewModel { parametersOf() }
 
         imageDetailViewModel.checkIsBookmark(urlRegular ?: "")
 

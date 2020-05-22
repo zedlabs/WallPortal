@@ -8,11 +8,11 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.room.Room
 import kotlinx.android.synthetic.main.fragment_saved.*
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.core.parameter.parametersOf
 import tk.zedlabs.wallportal.R
-import tk.zedlabs.wallportal.repository.BookmarkDatabase
 import tk.zedlabs.wallportal.repository.BookmarkImage
 import tk.zedlabs.wallportal.ui.activity.DetailActivity
 import tk.zedlabs.wallportal.util.BaseFragment
@@ -57,12 +57,9 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
 
     override fun onResume() {
         super.onResume()
-        val db = Room.databaseBuilder(
-            requireActivity().applicationContext,
-            BookmarkDatabase::class.java, "bookmark-database"
-        ).build()
 
-        bookmarkViewModel = BookmarkViewModel(db.bookmarkDao())
+        bookmarkViewModel = getViewModel { parametersOf() }
+
         viewManager = GridLayoutManager(this.context, 2)
 
         launch {

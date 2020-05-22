@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/or_res_cl"
-    android:background="@color/md_grey_600"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/md_grey_600"
     tools:context=".ui.activity.OriginalResolutionActivity">
 
     <ImageView
@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/header_art" />
 
     <TextView
         android:id="@+id/textViewLoading"

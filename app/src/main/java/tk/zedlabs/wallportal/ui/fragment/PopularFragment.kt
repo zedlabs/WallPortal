@@ -9,9 +9,10 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_popular.*
+import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.core.parameter.parametersOf
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.ui.activity.DetailActivity
 import tk.zedlabs.wallportal.util.MainAdapter
@@ -50,7 +51,7 @@ class PopularFragment : Fragment(), MainAdapter.OnImageListener {
             false -> textViewConnectivityPop.visibility = VISIBLE
         }
 
-        postViewModel = ViewModelProviders.of(this).get(PostViewModel::class.java)
+        postViewModel = getViewModel { parametersOf() }
         postViewModel.popularPagedList?.observe(viewLifecycleOwner, Observer { postList ->
             viewAdapter.submitList(postList)
         })
@@ -60,7 +61,5 @@ class PopularFragment : Fragment(), MainAdapter.OnImageListener {
             layoutManager = viewManager
             adapter = viewAdapter
         }
-
     }
-
 }

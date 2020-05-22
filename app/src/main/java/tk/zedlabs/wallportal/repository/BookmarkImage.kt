@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class BookmarkImage(
-        @PrimaryKey val imageName : String,
-        @ColumnInfo val imageUrlFull : String?,
-        @ColumnInfo val imageUrlRegular : String?
-    )
+    @PrimaryKey val imageName: String,
+    @ColumnInfo val imageUrlFull: String?,
+    @ColumnInfo val imageUrlRegular: String?
+)
