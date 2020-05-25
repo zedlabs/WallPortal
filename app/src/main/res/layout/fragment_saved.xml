@@ -31,5 +31,18 @@
             android:orientation="vertical"
             tools:listitem="@layout/recyclerview_item" />
 
+        <TextView
+            android:id="@+id/textViewEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/roboto_mono"
+            android:text="@string/bookmarks_is_empty"
+            android:textColor="@color/md_white_1000"
+            android:textSize="16sp"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
     </FrameLayout>
+
 </LinearLayout>

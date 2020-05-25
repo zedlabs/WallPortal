@@ -68,6 +68,7 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
         launch {
             context?.let {
                 list = bookmarkViewModel.getBookMarkImages().asReversed()
+                if (list.isNullOrEmpty()) textViewEmpty.visibility = VISIBLE
                 viewAdapter = BookmarkAdapter(list, this@BookmarksFragment)
             }
             recyclerViewBookmarked.apply {
