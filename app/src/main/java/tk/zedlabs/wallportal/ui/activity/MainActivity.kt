@@ -65,9 +65,21 @@ class MainActivity : AppCompatActivity() {
             .withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
                 override fun onItemClick(view: View?,position: Int,drawerItem: IDrawerItem<*>): Boolean {
                     when (drawerItem.identifier.toInt()) {
-                        1 -> navController.navigate(R.id.popular_bottom)
-                        2 -> navController.navigate(R.id.new_bottom)
-                        3 -> navController.navigate(R.id.bookmarks_bottom)
+                        1 -> {
+                            navController.apply {
+                                if (currentDestination?.id?.equals(R.id.popular_bottom) == false) navigate(R.id.popular_bottom)
+                            }
+                        }
+                        2 -> {
+                            navController.apply {
+                                if (currentDestination?.id?.equals(R.id.new_bottom) == false) navigate(R.id.new_bottom)
+                            }
+                        }
+                        3 -> {
+                            navController.apply {
+                                if (currentDestination?.id?.equals(R.id.bookmarks_bottom) == false) navigate(R.id.bookmarks_bottom)
+                            }
+                        }
                         4 -> { }//TODO: implement about page
                     }
                     return false
