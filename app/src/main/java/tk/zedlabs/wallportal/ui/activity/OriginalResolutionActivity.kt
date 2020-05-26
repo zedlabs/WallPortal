@@ -33,6 +33,7 @@ class OriginalResolutionActivity : AppCompatActivity() {
                     dataSource: com.bumptech.glide.load.DataSource?, isFirstResource: Boolean): Boolean {
                     if (resource != null) {
                         textViewLoading.visibility = View.GONE
+                        progressBar.visibility = View.GONE
                         val p: Palette = Palette.from(resource).generate()
                         or_res_cl.setBackgroundColor(
                             p.getDarkVibrantColor(
