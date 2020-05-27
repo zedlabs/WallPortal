@@ -25,3 +25,4 @@ moved to wallhaven.cc api from unsplashed api due to rate limits.
  * contributions are welcome for animations, UI fixes
  * create issues for feature requests
  
+Code Review by GDE Filip Babic ( 40:00 ) - https://www.raywenderlich.com/10527046-review-my-stuff/lessons/3
