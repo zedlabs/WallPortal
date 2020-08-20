@@ -25,6 +25,10 @@ android {
     packagingOptions {
         exclude 'META-INF/library-core_release.kotlin_module'
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -71,4 +75,8 @@ dependencies {
     implementation "com.mikepenz:materialdrawer-nav:7.0.0-rc07"
     //palette
     implementation 'com.android.support:palette-v7:29.0.0'
+    //DI
+    implementation "com.google.dagger:hilt-android:2.28-alpha"
+    kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
+
 }
