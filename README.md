@@ -24,4 +24,10 @@ moved to wallhaven.cc api from unsplashed api due to rate limits.
  ### Contributing
  * contributions are welcome for animations, UI fixes
  * create issues for feature requests
+ * new featues and livraries only in beta branch.
  
+  ### ToDo
+   * dagger
+   * better architecture
+ 
+Code Review by GDE Filip Babic ( 40:00 ) - https://www.raywenderlich.com/10527046-review-my-stuff/lessons/3
