@@ -33,6 +33,7 @@ import tk.zedlabs.wallportal.models.ImageDetails
 import tk.zedlabs.wallportal.repository.BookmarkDatabase
 import tk.zedlabs.wallportal.repository.BookmarkImage
 import tk.zedlabs.wallportal.util.shortToast
+import tk.zedlabs.wallportal.viewmodel.BookmarkViewModel
 import tk.zedlabs.wallportal.viewmodel.ImageDetailViewModel
 import java.io.File
 
@@ -40,6 +41,8 @@ import java.io.File
 class DetailActivity : AppCompatActivity() {
 
     val imageDetailViewModel: ImageDetailViewModel by viewModels()
+    val bookMarkViewModel: BookmarkViewModel by viewModels()
+
     private val args: DetailActivityArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,13 +57,6 @@ class DetailActivity : AppCompatActivity() {
             this@DetailActivity, BuildConfig.APPLICATION_ID + ".fileprovider",
             File("${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)}/WallPortal/$id.jpg")
         )
-
-        //todo 2 remove
-        val db = Room.databaseBuilder(
-            this,
-            BookmarkDatabase::class.java,
-            "bookmark-database"
-        ).build()
 
         setUpInitialImage(urlFull ?: "")
 
@@ -119,7 +115,7 @@ class DetailActivity : AppCompatActivity() {
             //todo move coroutines to viewModel
             //todo add remove bookmark logic to back-up and refresh list.
             CoroutineScope(Dispatchers.IO).launch {
-                val idList = db.bookmarkDao().getId()
+                val idList = bookMarkViewModel.getIdList()
                 for (id1 in idList) {
                     if (id == id1) {
                         unique = false;
@@ -130,7 +126,7 @@ class DetailActivity : AppCompatActivity() {
                         val mySnackbar = Snackbar.make(myCoordinatorLayout, s1, Snackbar.LENGTH_LONG)
                         mySnackbar.setAction(
                             getString(R.string.remove_string),
-                            RemoveListener(applicationContext, BookmarkImage(id, urlFull, urlRegular))
+                            RemoveListener(BookmarkImage(id, urlFull, urlRegular))
                         )
                         mySnackbar.setActionTextColor(
                             ContextCompat.getColor(this@DetailActivity, R.color.snackBarAction)
@@ -140,7 +136,7 @@ class DetailActivity : AppCompatActivity() {
                     }
                 }
                 if (unique) {
-                    db.bookmarkDao().insert(BookmarkImage(id, urlFull, urlRegular))
+                    bookMarkViewModel.insertBookMarkImage(BookmarkImage(id, urlFull, urlRegular))
                     withContext(Dispatchers.Main) {
                         shortToast("Added to Bookmarks!")
                     }
@@ -161,7 +157,6 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setupDetails(imageDetails: ImageDetails?) {
-        //todo make more kotlin-y
         uploader_tv.text = imageDetails!!.uploader!!.username
         resolution_tv.text = imageDetails.resolution
         views_tv.text = imageDetails.views.toString()
@@ -206,15 +201,11 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    inner class RemoveListener(private val ac: Context, private val bm: BookmarkImage) :
+    inner class RemoveListener(private val bm: BookmarkImage) :
         View.OnClickListener {
-        //todo move to viewModel
         override fun onClick(v: View) {
             CoroutineScope(Dispatchers.IO).launch {
-                val db2 =
-                    Room.databaseBuilder(ac, BookmarkDatabase::class.java, "bookmark-database")
-                        .build()
-                db2.bookmarkDao().delete(bm)
+                bookMarkViewModel.delete(bm)
                 withContext(Dispatchers.Main) {
                     shortToast("Removed from Bookmarks")
                 }
