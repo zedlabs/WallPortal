@@ -8,6 +8,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_saved.*
@@ -27,17 +28,8 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
     private lateinit var list: List<BookmarkImage>
 
     override fun onImageClick(position: Int) {
-        //todo navigation args
-        val intent = Intent(activity, DetailActivity::class.java)
-        val imageDetails = list[position]
-        val urlFull = imageDetails.imageUrlFull
-        val urlRegular = imageDetails.imageUrlRegular
-        val id = imageDetails.imageName
-        intent.putExtra("url_large", urlFull)
-        intent.putExtra("url_regular", urlRegular)
-        intent.putExtra("id", id)
-        intent.putExtra("Activity", "BookmarkActivity")
-        startActivity(intent)
+        val action = BookmarksFragmentDirections.actionBookmarksBottomToDetailActivity(list[position], "BookmarkActivity")
+        findNavController().navigate(action)
     }
 
     override fun onCreateView(

@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
+import androidx.navigation.navArgs
 import androidx.room.Room
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
@@ -39,17 +40,16 @@ import java.io.File
 class DetailActivity : AppCompatActivity() {
 
     val imageDetailViewModel: ImageDetailViewModel by viewModels()
+    private val args: DetailActivityArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image_details)
 
-        //todo 1 cleanup
-        val intent = intent
-        val urlFull = intent.getStringExtra("url_large")
-        val urlRegular = intent.getStringExtra("url_regular")
-        val id = intent.getStringExtra("id")
-        val activity = intent.getStringExtra("Activity")
+        val urlFull = args.listItem.imageUrlFull
+        val urlRegular = args.listItem.imageUrlRegular
+        val id = args.listItem.imageName
+        val activity = args.sender
         val uri = FileProvider.getUriForFile(
             this@DetailActivity, BuildConfig.APPLICATION_ID + ".fileprovider",
             File("${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)}/WallPortal/$id.jpg")

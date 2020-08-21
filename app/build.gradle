@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 
 android {
@@ -74,6 +75,7 @@ dependencies {
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_dep"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_dep"
+
     //photoView
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     //materialDrawer

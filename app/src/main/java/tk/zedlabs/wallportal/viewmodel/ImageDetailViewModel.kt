@@ -24,12 +24,10 @@ class ImageDetailViewModel @ViewModelInject constructor(
         fileUtils.saveImage(bitmap, id)
     }
 
-    //add caching in the repository function
     suspend fun getImageDetails(id: String): Response<Data> {
         return repository.getData(id)
     }
 
-    //move to repository and fetch from there
     fun checkIsBookmark(imageUrl: String) {
         viewModelScope.launch {
             val bookmarks = bookmarksDao.getAll()

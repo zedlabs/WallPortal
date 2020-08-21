@@ -14,9 +14,6 @@ import javax.inject.Inject
 class FileUtils @Inject
 constructor(private val appContext: Application) {
 
-    fun setWallpaper1(image: Bitmap, id: String) {
-        saveImage(image, id)
-    }
 
     fun saveImage(image: Bitmap, id: String): String? {
         var savedImagePath: String? = null
@@ -31,7 +28,6 @@ constructor(private val appContext: Application) {
             val imageFile = File(storageDir, imageFileName)
             savedImagePath = imageFile.absolutePath
 
-            //scope.launch (Dispatchers.IO) {
             try {
                 val fOut = FileOutputStream(imageFile)
                 image.compress(Bitmap.CompressFormat.JPEG, 80, fOut)
@@ -41,7 +37,6 @@ constructor(private val appContext: Application) {
             }
             galleryAddPic(savedImagePath)
         }
-        //}
         return savedImagePath
     }
 

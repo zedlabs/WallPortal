@@ -11,5 +11,23 @@ app:startDestination="@id/popular_bottom">
     android:id="@+id/bookmarks_bottom"
     android:name="tk.zedlabs.wallportal.ui.fragment.BookmarksFragment"
     android:label="fragment_bookmarks"
-    tools:layout="@layout/fragment_saved" />
+    tools:layout="@layout/fragment_saved" >
+    <action
+        android:id="@+id/action_bookmarks_bottom_to_detailActivity"
+        app:destination="@id/detailActivity" />
+</fragment>
+    <activity
+        android:id="@+id/detailActivity"
+        android:name="tk.zedlabs.wallportal.ui.activity.DetailActivity"
+        android:label="activity_image_details"
+        tools:layout="@layout/activity_image_details" >
+        <argument
+            android:name="listItem"
+            app:argType="tk.zedlabs.wallportal.repository.BookmarkImage"
+            />
+        <argument
+            android:name="sender"
+            app:argType="string"
+            android:defaultValue=" " />
+    </activity>
 </navigation>
