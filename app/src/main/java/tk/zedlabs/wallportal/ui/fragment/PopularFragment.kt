@@ -8,6 +8,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,8 +24,7 @@ import tk.zedlabs.wallportal.viewmodel.PostViewModel
 class PopularFragment : Fragment(), MainAdapter.OnImageListener {
 
     private lateinit var viewAdapter: MainAdapter
-    private lateinit var viewManager: GridLayoutManager
-    private lateinit var postViewModel: PostViewModel
+    private val postViewModel: PostViewModel by viewModels()
 
     override fun onImageClick(position: Int) {
         val intent = Intent(activity, DetailActivity::class.java)
@@ -52,14 +52,12 @@ class PopularFragment : Fragment(), MainAdapter.OnImageListener {
             false -> textViewConnectivityPop.visibility = VISIBLE
         }
 
-        postViewModel = ViewModelProviders.of(this).get(PostViewModel::class.java)
         postViewModel.popularPagedList?.observe(viewLifecycleOwner, Observer { postList ->
             viewAdapter.submitList(postList)
         })
-        viewManager = GridLayoutManager(this.context, 2)
         viewAdapter = MainAdapter(this)
         recyclerViewPopular.apply {
-            layoutManager = viewManager
+            layoutManager = GridLayoutManager(this.context, 2)
             adapter = viewAdapter
         }
 

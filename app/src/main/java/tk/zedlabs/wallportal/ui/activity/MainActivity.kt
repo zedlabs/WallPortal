@@ -40,5 +40,6 @@ class MainActivity : AppCompatActivity() {
         navController = Navigation.findNavController(this, R.id.fragment)
         bottomNavigation.setupWithNavController(navController)
 
+        //todo add settings bottom navigation tab
     }
 }

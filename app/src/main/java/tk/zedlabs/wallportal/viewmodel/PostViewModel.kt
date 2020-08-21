@@ -19,6 +19,14 @@ class PostViewModel : ViewModel() {
     var popularPagedList: LiveData<PagedList<WallHavenResponse>>? = null
     private var popularLiveDataSource: LiveData<PageKeyedDataSource<Int, WallHavenResponse>>? = null
 
+
+    private val config: PagedList.Config = (PagedList.Config.Builder())
+        .setPageSize(PAGE_SIZE)
+        .setEnablePlaceholders(true)
+        .setInitialLoadSizeHint(24)
+        .setPrefetchDistance(24)
+        .build()
+
     init {
         val postDataSourceFactory = PostDataSourceFactory(viewModelScope)
         val popularDataSourceFactory = PopularDataSourceFactory(viewModelScope)
@@ -26,19 +34,7 @@ class PostViewModel : ViewModel() {
         postLiveDataSource = postDataSourceFactory.getPostLiveDataSource()
         popularLiveDataSource = popularDataSourceFactory.getPopularLiveDataSource()
 
-        val config: PagedList.Config = (PagedList.Config.Builder())
-            .setPageSize(PAGE_SIZE)
-            .setEnablePlaceholders(true)
-            .setInitialLoadSizeHint(24)
-            .setPrefetchDistance(24)
-            .build()
-
-        val configPop: PagedList.Config = (PagedList.Config.Builder())
-            .setEnablePlaceholders(true)
-            .setPageSize(PAGE_SIZE)
-            .build()
-
         postPagedList = LivePagedListBuilder(postDataSourceFactory, config).build()
-        popularPagedList = LivePagedListBuilder(popularDataSourceFactory, configPop).build()
+        popularPagedList = LivePagedListBuilder(popularDataSourceFactory, config).build()
     }
 }

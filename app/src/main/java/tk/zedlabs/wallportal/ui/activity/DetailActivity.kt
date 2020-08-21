@@ -117,6 +117,7 @@ class DetailActivity : AppCompatActivity() {
         bookmark_button_1.setOnClickListener {
             var unique = true
             //todo move coroutines to viewModel
+            //todo add remove bookmark logic to back-up and refresh list.
             CoroutineScope(Dispatchers.IO).launch {
                 val idList = db.bookmarkDao().getId()
                 for (id1 in idList) {

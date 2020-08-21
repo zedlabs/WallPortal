@@ -9,12 +9,10 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.room.Room
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_saved.*
 import kotlinx.coroutines.launch
 import tk.zedlabs.wallportal.R
-import tk.zedlabs.wallportal.repository.BookmarkDatabase
 import tk.zedlabs.wallportal.repository.BookmarkImage
 import tk.zedlabs.wallportal.ui.activity.DetailActivity
 import tk.zedlabs.wallportal.util.BaseFragment
@@ -25,8 +23,6 @@ import tk.zedlabs.wallportal.viewmodel.BookmarkViewModel
 @AndroidEntryPoint
 class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
 
-    private lateinit var viewAdapter: BookmarkAdapter
-    private lateinit var viewManager: GridLayoutManager
     private val bookmarkViewModel: BookmarkViewModel by viewModels()
     private lateinit var list: List<BookmarkImage>
 
@@ -57,6 +53,7 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
             true -> if (textViewConnectivityBookmark.visibility == VISIBLE) textViewConnectivityBookmark.visibility = GONE
             false -> textViewConnectivityBookmark.visibility = VISIBLE
         }
+        //todo move coroutine to Vm and maybe need to move to onResume or add swipe refresh layout
         launch {
             context?.let {
                 list = bookmarkViewModel.getBookMarkImages().asReversed()
@@ -67,14 +64,5 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
                 adapter = BookmarkAdapter(list, this@BookmarksFragment)
             }
         }
-    }
-
-    override fun onResume() {
-        //todo move to vm
-        super.onResume()
-        //bookmarkViewModel = BookmarkViewModel(db.bookmarkDao())
-        //viewManager =
-
-
     }
 }
