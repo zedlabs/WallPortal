@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_new.*
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.ui.activity.DetailActivity
@@ -18,6 +19,7 @@ import tk.zedlabs.wallportal.util.MainAdapter
 import tk.zedlabs.wallportal.util.isConnectedToNetwork
 import tk.zedlabs.wallportal.viewmodel.PostViewModel
 
+@AndroidEntryPoint
 class NewFragment : Fragment(), MainAdapter.OnImageListener {
 
     private lateinit var viewAdapter: MainAdapter

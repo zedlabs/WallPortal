@@ -11,14 +11,17 @@ import tk.zedlabs.wallportal.models.Data
 import tk.zedlabs.wallportal.repository.BookmarkDao
 import tk.zedlabs.wallportal.repository.ImageDetailsRepository
 import tk.zedlabs.wallportal.util.FileUtils
+import javax.inject.Inject
 
-class ImageDetailViewModel(
-    applicationContext: Context,
-    private val bookmarksDao: BookmarkDao
+class ImageDetailViewModel @Inject constructor(
+    //applicationContext: Context,
+    private val fileUtils: FileUtils,
+    private val bookmarksDao: BookmarkDao,
+    private val repository: ImageDetailsRepository
 ) : ViewModel() {
 
-    private val fileUtils: FileUtils = FileUtils(viewModelScope, applicationContext)
-    val repository: ImageDetailsRepository = ImageDetailsRepository()
+    //private val fileUtils: FileUtils = FileUtils(viewModelScope, applicationContext)
+    //val repository: ImageDetailsRepository = ImageDetailsRepository()
 
     val isBookmark = MutableLiveData<Boolean>().apply { this.value = false }
 
@@ -26,10 +29,12 @@ class ImageDetailViewModel(
         fileUtils.saveImage(bitmap, id)
     }
 
+    //add caching in the repository function
     suspend fun getImageDetails(id: String): Response<Data> {
         return repository.getData(id)
     }
 
+    //move to repository and fetch from there
     fun checkIsBookmark(imageUrl: String) {
         viewModelScope.launch {
             val bookmarks = bookmarksDao.getAll()

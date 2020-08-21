@@ -9,6 +9,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.room.Room
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_saved.*
 import kotlinx.coroutines.launch
 import tk.zedlabs.wallportal.R
@@ -20,6 +21,7 @@ import tk.zedlabs.wallportal.util.BookmarkAdapter
 import tk.zedlabs.wallportal.util.isConnectedToNetwork
 import tk.zedlabs.wallportal.viewmodel.BookmarkViewModel
 
+@AndroidEntryPoint
 class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
 
     private lateinit var viewAdapter: BookmarkAdapter

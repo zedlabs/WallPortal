@@ -21,6 +21,7 @@ import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_image_details.*
 import kotlinx.android.synthetic.main.progress_saw.*
 import kotlinx.coroutines.*
@@ -33,6 +34,7 @@ import tk.zedlabs.wallportal.util.shortToast
 import tk.zedlabs.wallportal.viewmodel.ImageDetailViewModel
 import java.io.File
 
+@AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
 
     lateinit var imageDetailViewModel: ImageDetailViewModel

@@ -10,10 +10,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_original_resolution.*
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.util.shortToast
 
+/*
+refactor this activity to an fragment to provide in androidx.navigation and provide the arguments as navargs
+*/
+
+@AndroidEntryPoint
 class OriginalResolutionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
