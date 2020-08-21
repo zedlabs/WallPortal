@@ -4,9 +4,17 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools" android:id="@+id/bottom_navigation"
 app:startDestination="@id/popular_bottom">
 <fragment android:id="@+id/new_bottom" android:name="tk.zedlabs.wallportal.ui.fragment.NewFragment"
-    android:label="fragment_new" tools:layout="@layout/fragment_new"/>
+    android:label="fragment_new" tools:layout="@layout/fragment_new">
+    <action
+        android:id="@+id/action_new_bottom_to_detailActivity"
+        app:destination="@id/detailActivity" />
+</fragment>
 <fragment android:id="@+id/popular_bottom" android:name="tk.zedlabs.wallportal.ui.fragment.PopularFragment"
-    android:label="fragment_popular" tools:layout="@layout/fragment_popular"/>
+    android:label="fragment_popular" tools:layout="@layout/fragment_popular">
+    <action
+        android:id="@+id/action_popular_bottom_to_detailActivity"
+        app:destination="@id/detailActivity" />
+</fragment>
 <fragment
     android:id="@+id/bookmarks_bottom"
     android:name="tk.zedlabs.wallportal.ui.fragment.BookmarksFragment"
