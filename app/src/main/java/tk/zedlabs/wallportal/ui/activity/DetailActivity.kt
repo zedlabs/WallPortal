@@ -1,41 +1,47 @@
 package tk.zedlabs.wallportal.ui.activity
 
 import android.app.WallpaperManager
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.opengl.ETC1.getWidth
 import android.os.Bundle
 import android.os.Environment
+import android.transition.CircularPropagation
+import android.transition.Fade
 import android.util.Log
 import android.view.View
+import android.view.ViewAnimationUtils
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.navigation.navArgs
-import androidx.room.Room
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import androidx.transition.Explode
+import androidx.transition.TransitionManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.activity_image_details.*
 import kotlinx.android.synthetic.main.progress_saw.*
 import kotlinx.coroutines.*
 import tk.zedlabs.wallportal.BuildConfig
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.models.ImageDetails
-import tk.zedlabs.wallportal.repository.BookmarkDatabase
 import tk.zedlabs.wallportal.repository.BookmarkImage
 import tk.zedlabs.wallportal.util.shortToast
 import tk.zedlabs.wallportal.viewmodel.BookmarkViewModel
 import tk.zedlabs.wallportal.viewmodel.ImageDetailViewModel
 import java.io.File
+import kotlin.math.hypot
 
 @AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
@@ -157,6 +163,11 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setupDetails(imageDetails: ImageDetails?) {
+
+        val fade: androidx.transition.Fade = androidx.transition.Fade()
+        fade.duration = 600
+        TransitionManager.beginDelayedTransition(nsw, fade)
+        image_details_tech_card.visibility = View.VISIBLE
         uploader_tv.text = imageDetails?.uploader?.username
         resolution_tv.text = imageDetails?.resolution
         views_tv.text = imageDetails?.views.toString()

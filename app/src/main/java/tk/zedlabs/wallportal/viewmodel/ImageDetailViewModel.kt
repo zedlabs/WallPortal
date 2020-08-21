@@ -5,7 +5,9 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Response
 import tk.zedlabs.wallportal.models.Data
 import tk.zedlabs.wallportal.repository.BookmarkDao
@@ -25,7 +27,9 @@ class ImageDetailViewModel @ViewModelInject constructor(
     }
 
     suspend fun getImageDetails(id: String): Response<Data> {
-        return repository.getData(id)
+        return withContext(Dispatchers.IO){
+            repository.getData(id)
+        }
     }
 
     fun checkIsBookmark(imageUrl: String) {
