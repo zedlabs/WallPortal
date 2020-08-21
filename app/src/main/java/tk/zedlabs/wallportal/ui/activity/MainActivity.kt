@@ -40,56 +40,5 @@ class MainActivity : AppCompatActivity() {
         navController = Navigation.findNavController(this, R.id.fragment)
         bottomNavigation.setupWithNavController(navController)
 
-        val item1 = SecondaryDrawerItem().withIdentifier(1).withName(R.string.drawer_item_popular).apply {
-            this.textColor = ColorHolder.fromColorRes(R.color.md_white_1000)
-            this.selectedTextColor = ColorHolder.fromColorRes(R.color.mainAccent)
-        }
-        val item2 = SecondaryDrawerItem().withIdentifier(2).withName(R.string.curated).apply {
-            this.textColor = ColorHolder.fromColorRes(R.color.md_white_1000)
-            this.selectedTextColor = ColorHolder.fromColorRes(R.color.mainAccent)
-        }
-        val item3 = SecondaryDrawerItem().withIdentifier(3).withName(R.string.drawer_item_bookmarks).apply {
-            this.textColor = ColorHolder.fromColorRes(R.color.md_white_1000)
-            this.selectedTextColor = ColorHolder.fromColorRes(R.color.mainAccent)
-        }
-        val item4 = SecondaryDrawerItem().withIdentifier(4).withName(R.string.About_string).apply {
-            this.textColor = ColorHolder.fromColorRes(R.color.md_white_1000)
-            this.selectedTextColor = ColorHolder.fromColorRes(R.color.mainAccent)
-        }
-
-        val headerResult = AccountHeaderBuilder().withActivity(this)
-            .withHeaderBackground(R.drawable.header_art)
-            .build()
-
-        DrawerBuilder().withActivity(this)
-            .withToolbar(toolbar)
-            .addDrawerItems(item1, DividerDrawerItem(),item2, DividerDrawerItem(), item3,DividerDrawerItem(),item4)
-            .withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
-                override fun onItemClick(view: View?,position: Int,drawerItem: IDrawerItem<*>): Boolean {
-                    when (drawerItem.identifier.toInt()) {
-                        1 -> {
-                            navController.apply {
-                                if (currentDestination?.id?.equals(R.id.popular_bottom) == false) navigate(R.id.popular_bottom)
-                            }
-                        }
-                        2 -> {
-                            navController.apply {
-                                if (currentDestination?.id?.equals(R.id.new_bottom) == false) navigate(R.id.new_bottom)
-                            }
-                        }
-                        3 -> {
-                            navController.apply {
-                                if (currentDestination?.id?.equals(R.id.bookmarks_bottom) == false) navigate(R.id.bookmarks_bottom)
-                            }
-                        }
-                        4 -> { }//TODO: implement about page
-                    }
-                    return false
-                }
-            })
-            .withAccountHeader(headerResult)
-            .withSliderBackgroundColorRes(R.color.colorPrimary)
-            .withSelectedItem(-1)
-            .build()
     }
 }

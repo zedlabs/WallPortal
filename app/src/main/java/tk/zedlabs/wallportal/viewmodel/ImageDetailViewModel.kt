@@ -1,7 +1,7 @@
 package tk.zedlabs.wallportal.viewmodel
 
-import android.content.Context
 import android.graphics.Bitmap
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,17 +11,12 @@ import tk.zedlabs.wallportal.models.Data
 import tk.zedlabs.wallportal.repository.BookmarkDao
 import tk.zedlabs.wallportal.repository.ImageDetailsRepository
 import tk.zedlabs.wallportal.util.FileUtils
-import javax.inject.Inject
 
-class ImageDetailViewModel @Inject constructor(
-    //applicationContext: Context,
+class ImageDetailViewModel @ViewModelInject constructor(
     private val fileUtils: FileUtils,
     private val bookmarksDao: BookmarkDao,
     private val repository: ImageDetailsRepository
 ) : ViewModel() {
-
-    //private val fileUtils: FileUtils = FileUtils(viewModelScope, applicationContext)
-    //val repository: ImageDetailsRepository = ImageDetailsRepository()
 
     val isBookmark = MutableLiveData<Boolean>().apply { this.value = false }
 

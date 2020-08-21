@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -37,12 +38,13 @@ import java.io.File
 @AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
 
-    lateinit var imageDetailViewModel: ImageDetailViewModel
+    val imageDetailViewModel: ImageDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image_details)
 
+        //todo 1 cleanup
         val intent = intent
         val urlFull = intent.getStringExtra("url_large")
         val urlRegular = intent.getStringExtra("url_regular")
@@ -53,13 +55,13 @@ class DetailActivity : AppCompatActivity() {
             File("${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)}/WallPortal/$id.jpg")
         )
 
+        //todo 2 remove
         val db = Room.databaseBuilder(
             this,
             BookmarkDatabase::class.java,
             "bookmark-database"
         ).build()
 
-        imageDetailViewModel = ImageDetailViewModel(applicationContext, db.bookmarkDao())
         setUpInitialImage(urlFull ?: "")
 
         imageDetailViewModel.checkIsBookmark(urlRegular ?: "")
@@ -114,6 +116,7 @@ class DetailActivity : AppCompatActivity() {
 
         bookmark_button_1.setOnClickListener {
             var unique = true
+            //todo move coroutines to viewModel
             CoroutineScope(Dispatchers.IO).launch {
                 val idList = db.bookmarkDao().getId()
                 for (id1 in idList) {
@@ -157,6 +160,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setupDetails(imageDetails: ImageDetails?) {
+        //todo make more kotlin-y
         uploader_tv.text = imageDetails!!.uploader!!.username
         resolution_tv.text = imageDetails.resolution
         views_tv.text = imageDetails.views.toString()
@@ -164,6 +168,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setUpInitialImage(urlRegular: String) {
+        //todo setup color shaders instead of loaders
         val circularProgressDrawable = CircularProgressDrawable(this)
         circularProgressDrawable.strokeWidth = 10f
         circularProgressDrawable.centerRadius = 50f
@@ -178,6 +183,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setWallpaper1(uri: Uri) {
+        //todo cleanup
         try {
             Log.d("Main2Activity: ", "Crop and Set: $uri")
             val wallpaperIntent =
@@ -201,7 +207,7 @@ class DetailActivity : AppCompatActivity() {
 
     inner class RemoveListener(private val ac: Context, private val bm: BookmarkImage) :
         View.OnClickListener {
-
+        //todo move to viewModel
         override fun onClick(v: View) {
             CoroutineScope(Dispatchers.IO).launch {
                 val db2 =

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.room.Room
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,10 +27,11 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
 
     private lateinit var viewAdapter: BookmarkAdapter
     private lateinit var viewManager: GridLayoutManager
-    private lateinit var bookmarkViewModel: BookmarkViewModel
+    private val bookmarkViewModel: BookmarkViewModel by viewModels()
     private lateinit var list: List<BookmarkImage>
 
     override fun onImageClick(position: Int) {
+        //todo navigation args
         val intent = Intent(activity, DetailActivity::class.java)
         val imageDetails = list[position]
         val urlFull = imageDetails.imageUrlFull
@@ -55,28 +57,24 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
             true -> if (textViewConnectivityBookmark.visibility == VISIBLE) textViewConnectivityBookmark.visibility = GONE
             false -> textViewConnectivityBookmark.visibility = VISIBLE
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        val db = Room.databaseBuilder(
-            requireActivity().applicationContext,
-            BookmarkDatabase::class.java, "bookmark-database"
-        ).build()
-
-        bookmarkViewModel = BookmarkViewModel(db.bookmarkDao())
-        viewManager = GridLayoutManager(this.context, 2)
-
         launch {
             context?.let {
                 list = bookmarkViewModel.getBookMarkImages().asReversed()
                 if (list.isNullOrEmpty()) textViewEmpty.visibility = VISIBLE
-                viewAdapter = BookmarkAdapter(list, this@BookmarksFragment)
             }
             recyclerViewBookmarked.apply {
-                layoutManager = viewManager
-                adapter = viewAdapter
+                layoutManager = GridLayoutManager(this.context, 2)
+                adapter = BookmarkAdapter(list, this@BookmarksFragment)
             }
         }
+    }
+
+    override fun onResume() {
+        //todo move to vm
+        super.onResume()
+        //bookmarkViewModel = BookmarkViewModel(db.bookmarkDao())
+        //viewManager =
+
+
     }
 }
