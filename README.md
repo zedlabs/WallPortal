@@ -10,6 +10,7 @@ moved to wallhaven.cc api from unsplashed api due to rate limits.
 * Tech-stack
     * [Kotlin](https://kotlinlang.org/) + [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - perform background operation
     * [Retrofit](https://square.github.io/retrofit/) - networking
+    * [Hilt](https://github.com/google/dagger) - DI
     * [Jetpack](https://developer.android.com/jetpack)
         * [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/) - deal with whole in-app navigation
         * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) - notify views about database change
@@ -20,14 +21,5 @@ moved to wallhaven.cc api from unsplashed api due to rate limits.
     * Clean Architecture
     * MVVM
     * [Android Architecture components](https://developer.android.com/topic/libraries/architecture) ([ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel), [LiveData](https://developer.android.com/topic/libraries/architecture/livedata), [Navigation](https://developer.android.com/jetpack/androidx/releases/navigation))
- 
- ### Contributing
- * contributions are welcome for animations, UI fixes
- * create issues for feature requests
- * new featues and livraries only in beta branch.
- 
-  ### ToDo
-   * dagger
-   * better architecture
  
 Code Review by GDE Filip Babic ( 40:00 ) - https://www.raywenderlich.com/10527046-review-my-stuff/lessons/3
