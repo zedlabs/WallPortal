@@ -28,7 +28,7 @@ class NewFragment : Fragment(), MainAdapter.OnImageListener {
     override fun onImageClick(position: Int) {
         val bi = BookmarkImage(
             imageName = postViewModel.postPagedList?.value?.get(position)?.id.toString(),
-            imageUrlFull = postViewModel.postPagedList?.value?.get(position)?.url.toString(),
+            imageUrlFull = postViewModel.postPagedList?.value?.get(position)?.path,
             imageUrlRegular = postViewModel.postPagedList?.value?.get(position)?.thumbs?.small
         )
         val action = NewFragmentDirections.actionNewBottomToDetailActivity(bi, "NewActivity")

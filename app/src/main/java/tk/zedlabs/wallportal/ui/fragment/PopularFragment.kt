@@ -27,9 +27,9 @@ class PopularFragment : Fragment(), MainAdapter.OnImageListener {
 
     override fun onImageClick(position: Int) {
         val bi = BookmarkImage(
-            imageName = postViewModel.postPagedList?.value?.get(position)?.id.toString(),
-            imageUrlFull = postViewModel.postPagedList?.value?.get(position)?.url.toString(),
-            imageUrlRegular = postViewModel.postPagedList?.value?.get(position)?.thumbs?.small
+            imageName = postViewModel.popularPagedList?.value?.get(position)?.id.toString(),
+            imageUrlFull = postViewModel.popularPagedList?.value?.get(position)?.path,
+            imageUrlRegular = postViewModel.popularPagedList?.value?.get(position)?.thumbs?.small
         )
         val action = PopularFragmentDirections.actionPopularBottomToDetailActivity(bi, "PopularActivity")
         findNavController().navigate(action)

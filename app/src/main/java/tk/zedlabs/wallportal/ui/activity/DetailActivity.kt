@@ -152,15 +152,15 @@ class DetailActivity : AppCompatActivity() {
         }
 
         GlobalScope.launch(Dispatchers.Main) {
-           setupDetails(imageDetailViewModel.getImageDetails(id!!).body()?.imageDetails)
+           setupDetails(imageDetailViewModel.getImageDetails(id).body()?.imageDetails)
         }
     }
 
     private fun setupDetails(imageDetails: ImageDetails?) {
-        uploader_tv.text = imageDetails!!.uploader!!.username
-        resolution_tv.text = imageDetails.resolution
-        views_tv.text = imageDetails.views.toString()
-        categories_tv.text = imageDetails.category
+        uploader_tv.text = imageDetails?.uploader?.username
+        resolution_tv.text = imageDetails?.resolution
+        views_tv.text = imageDetails?.views.toString()
+        categories_tv.text = imageDetails?.category
     }
 
     private fun setUpInitialImage(urlRegular: String) {
@@ -188,8 +188,6 @@ class DetailActivity : AppCompatActivity() {
             wallpaperIntent.putExtra("mimeType", "image/*")
             startActivityForResult(wallpaperIntent, 13451)
         } catch (e: Exception) {
-            e.printStackTrace()
-            Log.d("Main2Activity", "Chooser: $uri")
             val wallpaperIntent = Intent(Intent.ACTION_ATTACH_DATA)
             wallpaperIntent.setDataAndType(uri, "image/*")
             wallpaperIntent.putExtra("mimeType", "image/*")
