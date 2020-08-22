@@ -69,7 +69,8 @@ class DetailActivity : AppCompatActivity() {
         imageDetailViewModel.checkIsBookmark(urlRegular ?: "")
 
         imageDetailViewModel.isBookmark.observe(this, Observer { isBookmark ->
-            bookmark_button_1.text = if (isBookmark) getString(R.string.remove_from_bookmarks) else getString(R.string.add_to_bookmark)
+            bookmark_button_1.text =
+                if (isBookmark) getString(R.string.remove_from_bookmarks) else getString(R.string.add_to_bookmark)
         })
 
         download_button_1.setOnClickListener {
@@ -118,7 +119,6 @@ class DetailActivity : AppCompatActivity() {
 
         bookmark_button_1.setOnClickListener {
             var unique = true
-            //todo move coroutines to viewModel
             //todo add remove bookmark logic to back-up and refresh list.
             CoroutineScope(Dispatchers.IO).launch {
                 val idList = bookMarkViewModel.getIdList()
@@ -129,7 +129,8 @@ class DetailActivity : AppCompatActivity() {
                         if (activity == "BookmarkActivity") {
                             s1 = getString(R.string.remove_from_bookmarks_qm)
                         }
-                        val mySnackbar = Snackbar.make(myCoordinatorLayout, s1, Snackbar.LENGTH_LONG)
+                        val mySnackbar =
+                            Snackbar.make(myCoordinatorLayout, s1, Snackbar.LENGTH_LONG)
                         mySnackbar.setAction(
                             getString(R.string.remove_string),
                             RemoveListener(BookmarkImage(id, urlFull, urlRegular))
@@ -157,15 +158,15 @@ class DetailActivity : AppCompatActivity() {
             startActivity(intent1)
         }
 
-        GlobalScope.launch(Dispatchers.Main) {
-           setupDetails(imageDetailViewModel.getImageDetails(id).body()?.imageDetails)
+        CoroutineScope(Dispatchers.Main).launch(Dispatchers.Main) {
+            setupDetails(imageDetailViewModel.getImageDetails(id).body()?.imageDetails)
         }
     }
 
     private fun setupDetails(imageDetails: ImageDetails?) {
 
         val fade: androidx.transition.Fade = androidx.transition.Fade()
-        fade.duration = 600
+        fade.duration = 400
         TransitionManager.beginDelayedTransition(nsw, fade)
         image_details_tech_card.visibility = View.VISIBLE
         uploader_tv.text = imageDetails?.uploader?.username
@@ -190,23 +191,16 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setWallpaper1(uri: Uri) {
-        //todo cleanup
         try {
-            Log.d("Main2Activity: ", "Crop and Set: $uri")
-            val wallpaperIntent =
-                WallpaperManager.getInstance(this).getCropAndSetWallpaperIntent(uri)
-            wallpaperIntent.setDataAndType(uri, "image/*")
-            wallpaperIntent.putExtra("mimeType", "image/*")
+            val wallpaperIntent = WallpaperManager
+                .getInstance(this)
+                .getCropAndSetWallpaperIntent(uri)
+                .setDataAndType(uri, "image/*")
+                .putExtra("mimeType", "image/*")
+
             startActivityForResult(wallpaperIntent, 13451)
         } catch (e: Exception) {
-            val wallpaperIntent = Intent(Intent.ACTION_ATTACH_DATA)
-            wallpaperIntent.setDataAndType(uri, "image/*")
-            wallpaperIntent.putExtra("mimeType", "image/*")
-            wallpaperIntent.addCategory(Intent.CATEGORY_DEFAULT)
-            wallpaperIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            wallpaperIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            wallpaperIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-            startActivity(Intent.createChooser(wallpaperIntent, "Set as wallpaper"))
+            print(e.stackTrace)
         }
     }
 
