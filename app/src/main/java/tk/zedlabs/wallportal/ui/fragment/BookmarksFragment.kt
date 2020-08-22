@@ -43,7 +43,10 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
             true -> if (textViewConnectivityBookmark.visibility == VISIBLE) textViewConnectivityBookmark.visibility = GONE
             false -> textViewConnectivityBookmark.visibility = VISIBLE
         }
-        //todo move coroutine to Vm and maybe need to move to onResume or add swipe refresh layout
+    }
+
+    override fun onResume() {
+        super.onResume()
         launch {
             context?.let {
                 list = bookmarkViewModel.getBookMarkImages().asReversed()

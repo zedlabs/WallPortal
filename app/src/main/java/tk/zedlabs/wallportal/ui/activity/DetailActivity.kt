@@ -13,12 +13,15 @@ import android.transition.Fade
 import android.util.Log
 import android.view.View
 import android.view.ViewAnimationUtils
+import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.navArgs
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import androidx.transition.Explode
@@ -119,35 +122,30 @@ class DetailActivity : AppCompatActivity() {
 
         bookmark_button_1.setOnClickListener {
             var unique = true
-            //todo add remove bookmark logic to back-up and refresh list.
+            bookmark_button_1.visibility = View.INVISIBLE
+            val fade: androidx.transition.Fade = androidx.transition.Fade()
+            fade.duration = 700
+            TransitionManager.beginDelayedTransition(scrollView1, fade)
+            bookmark_button_1.visibility = View.VISIBLE
+            bookmark_button_1.text = getString(R.string.remove_from_bookmarks)
             CoroutineScope(Dispatchers.IO).launch {
                 val idList = bookMarkViewModel.getIdList()
                 for (id1 in idList) {
                     if (id == id1) {
                         unique = false;
                         var s1 = getString(R.string.image_already_bookmarked)
-                        if (activity == "BookmarkActivity") {
-                            s1 = getString(R.string.remove_from_bookmarks_qm)
-                        }
-                        val mySnackbar =
-                            Snackbar.make(myCoordinatorLayout, s1, Snackbar.LENGTH_LONG)
-                        mySnackbar.setAction(
-                            getString(R.string.remove_string),
-                            RemoveListener(BookmarkImage(id, urlFull, urlRegular))
-                        )
-                        mySnackbar.setActionTextColor(
-                            ContextCompat.getColor(this@DetailActivity, R.color.snackBarAction)
-                        )
-                        mySnackbar.show()
+                        if (activity == "BookmarkActivity") s1 = getString(R.string.remove_from_bookmarks_qm)
+
+                         Snackbar.make(myCoordinatorLayout, s1, Snackbar.LENGTH_LONG)
+                            .setAction(getString(R.string.remove_string),RemoveListener(BookmarkImage(id, urlFull, urlRegular)))
+                            .setActionTextColor(ContextCompat.getColor(this@DetailActivity, R.color.snackBarAction))
+                            .show()
                         break
                     }
                 }
                 if (unique) {
                     bookMarkViewModel.insertBookMarkImage(BookmarkImage(id, urlFull, urlRegular))
-                    withContext(Dispatchers.Main) {
-                        shortToast("Added to Bookmarks!")
-                    }
-                    runOnUiThread { this@DetailActivity.recreate() }
+                    withContext(Dispatchers.Main) { shortToast("Added to Bookmarks!") }
                 }
             }
         }
@@ -211,9 +209,9 @@ class DetailActivity : AppCompatActivity() {
                 bookMarkViewModel.delete(bm)
                 withContext(Dispatchers.Main) {
                     shortToast("Removed from Bookmarks")
+                    this@DetailActivity.onBackPressed()
                 }
             }
-            this@DetailActivity.recreate()
         }
     }
 }
