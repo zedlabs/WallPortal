@@ -5,13 +5,13 @@
     android:id="@+id/or_res_cl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_grey_600"
-    tools:context=".ui.activity.OriginalResolutionActivity">
+    android:background="#D4D4D4">
 
     <ImageView
         android:id="@+id/image_view_original"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@string/high_res_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

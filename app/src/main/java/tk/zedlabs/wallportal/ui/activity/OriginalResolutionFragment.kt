@@ -3,8 +3,9 @@ package tk.zedlabs.wallportal.ui.activity
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.GlideException
@@ -15,34 +16,28 @@ import kotlinx.android.synthetic.main.activity_original_resolution.*
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.util.shortToast
 
-/*
-refactor this activity to an fragment to provide in androidx.navigation and provide the arguments as navargs
-*/
-
 @AndroidEntryPoint
-class OriginalResolutionActivity : AppCompatActivity() {
+class OriginalResolutionFragment : Fragment(R.layout.activity_original_resolution) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_original_resolution)
+    private val navArgs: OriginalResolutionFragmentArgs by navArgs()
 
-        title = getString(R.string.app_name)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         Glide
             .with(this)
             .asBitmap()
-            .load(intent.getStringExtra("imageUrl"))
+            .load(navArgs.urlFull)//.load(intent.getStringExtra("imageUrl"))
             .fitCenter()
             .listener(object : RequestListener<Bitmap?> {
 
                 override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap?>?,
-                    dataSource: com.bumptech.glide.load.DataSource?, isFirstResource: Boolean): Boolean {
+                                             dataSource: com.bumptech.glide.load.DataSource?, isFirstResource: Boolean): Boolean {
                     if (resource != null) {
                         textViewLoading.visibility = View.GONE
                         progressBar.visibility = View.GONE
                         or_res_cl.setBackgroundColor(
                             Palette.from(resource).generate().getDarkVibrantColor(
-                                ContextCompat.getColor(this@OriginalResolutionActivity, R.color.md_grey_600)
+                                ContextCompat.getColor(context!!, R.color.grey)
                             )
                         )
                     }
@@ -50,7 +45,7 @@ class OriginalResolutionActivity : AppCompatActivity() {
                 }
 
                 override fun onLoadFailed(e: GlideException?,model: Any?,target: Target<Bitmap?>?,isFirstResource: Boolean): Boolean {
-                    shortToast(e?.message ?: "")
+                    requireContext().shortToast(e?.message ?: "")
                     textViewLoading.text = getString(R.string.failed_to_load)
                     return false
                 }

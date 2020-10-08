@@ -22,7 +22,7 @@
         </androidx.appcompat.widget.Toolbar>
 
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
         app:itemIconTint="@drawable/bottom_navigation_selector"
         app:itemRippleColor="@color/snackBarAction"
         android:theme="@style/Widget.BottomNavigationView"
-        app:itemTextColor="@color/md_white_1000"
+        app:itemTextColor="#ffff"
         app:labelVisibilityMode="selected"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         app:menu="@menu/bottom_navigation_menu" />

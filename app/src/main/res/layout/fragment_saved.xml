@@ -9,11 +9,11 @@
         android:id="@+id/textViewConnectivityBookmark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/md_red_500"
+        android:background="#F13030"
         android:fontFamily="@font/roboto_mono"
         android:padding="6dp"
         android:text="@string/currently_offline"
-        android:textColor="@color/md_white_1000"
+        android:textColor="#ffff"
         android:textSize="16sp"
         android:visibility="gone"
         tools:visibility="visible" />
@@ -38,7 +38,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/roboto_mono"
             android:text="@string/bookmarks_is_empty"
-            android:textColor="@color/md_white_1000"
+            android:textColor="#ffff"
             android:textSize="16sp"
             android:visibility="gone"
             tools:visibility="visible" />

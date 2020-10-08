@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alpha="0.95"
-        android:background="@color/md_grey_900"
-        android:backgroundTint="@color/md_grey_900"
+        android:background="#7C7C7C"
+        android:backgroundTint="#D4D4D4"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +28,7 @@
             android:paddingTop="16dp"
             android:paddingEnd="16dp"
             android:text="@string/loading_wallpaper"
-            android:textColor="@color/md_white_1000"
+            android:textColor="#ffff"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -53,7 +53,7 @@
             android:fontFamily="@font/roboto_slab_light"
             android:padding='16dp'
             android:text="@string/large_image_warning"
-            android:textColor="@color/md_white_1000"
+            android:textColor="#ffff"
             android:textSize="12sp" />
 
     </LinearLayout>

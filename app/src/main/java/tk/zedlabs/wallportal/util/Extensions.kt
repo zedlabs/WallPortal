@@ -17,7 +17,7 @@ fun Context.isConnectedToNetwork(): Boolean {
 
 fun Context.shortToast(message: String) = Toast.makeText(this, message, LENGTH_SHORT).show()
 
-fun ViewGroup.makeFadeTransition(animationDuration: Long){
+fun ViewGroup.makeFadeTransition(animationDuration: Long) {
     val fade: androidx.transition.Fade = androidx.transition.Fade()
 
     fade.apply {

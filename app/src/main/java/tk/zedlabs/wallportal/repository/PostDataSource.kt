@@ -21,7 +21,7 @@ class PostDataSource(private val scope: CoroutineScope) : PageKeyedDataSource<In
 
         scope.launch {
             try {
-                val response = jsonApi.getImageList(Constants.queryParamNew, Constants.sorting, Constants.FIRST_PAGE)
+                val response = jsonApi.getImageList(Constants.queryParamNew, Constants.sortingNew, Constants.FIRST_PAGE)
                 when {
                     response.isSuccessful -> {
                         callback.onResult(response.body()?.data ?: emptyList(), null, Constants.FIRST_PAGE + 1)
@@ -39,7 +39,7 @@ class PostDataSource(private val scope: CoroutineScope) : PageKeyedDataSource<In
     ) {
         scope.launch {
             try {
-                val response = jsonApi.getImageList(Constants.queryParamNew, Constants.sorting, params.key)
+                val response = jsonApi.getImageList(Constants.queryParamNew, Constants.sortingNew, params.key)
                 when {
                     response.isSuccessful -> {
                         val key: Int? = if (response.body()?.data?.isNotEmpty() == true) params.key + 1
@@ -60,7 +60,7 @@ class PostDataSource(private val scope: CoroutineScope) : PageKeyedDataSource<In
 
         scope.launch {
             try {
-                val response = jsonApi.getImageList(Constants.queryParamNew, Constants.sorting, params.key)
+                val response = jsonApi.getImageList(Constants.queryParamNew, Constants.sortingNew, params.key)
                 val key: Int? = if (params.key > 1) params.key - 1
                 else null
                 when {

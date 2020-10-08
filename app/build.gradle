@@ -78,9 +78,7 @@ dependencies {
 
     //photoView
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
-    //materialDrawer
-    implementation "com.mikepenz:materialdrawer:7.0.0-rc07"
-    implementation "com.mikepenz:materialdrawer-nav:7.0.0-rc07"
+
     //palette
     implementation 'com.android.support:palette-v7:29.0.0'
     //DI
@@ -90,5 +88,9 @@ dependencies {
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_ver"
     kapt "androidx.hilt:hilt-compiler:1.0.0-alpha02"
+
+    //leakCanary
+    //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
+
 
 }

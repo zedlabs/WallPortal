@@ -24,4 +24,8 @@
     <string name="currently_offline">Currently Offline.</string>
     <string name="failed_to_load">Failed to Load current Image.</string>
     <string name="bookmarks_is_empty">Bookmark list is empty</string>
+    <string name="added_success_bookmark">Added to Bookmarks!</string>
+    <string name="bookmark_activity">BookmarkActivity</string>
+    <string name="high_res_image">high res image</string>
+    <string name="recycler_view_item">recycler View Item</string>
 </resources>

@@ -31,9 +31,9 @@
             android:id="@+id/action_bookmarks_bottom_to_detailActivity"
             app:destination="@id/detailActivity" />
     </fragment>
-    <activity
+    <fragment
         android:id="@+id/detailActivity"
-        android:name="tk.zedlabs.wallportal.ui.activity.DetailActivity"
+        android:name="tk.zedlabs.wallportal.ui.activity.DetailFragment"
         android:label="activity_image_details"
         tools:layout="@layout/activity_image_details">
         <argument
@@ -43,5 +43,17 @@
             android:name="sender"
             android:defaultValue=" "
             app:argType="string" />
-    </activity>
+        <action
+            android:id="@+id/action_detailActivity_to_originalResolutionFragment2"
+            app:destination="@id/originalResolutionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/originalResolutionFragment"
+        android:name="tk.zedlabs.wallportal.ui.activity.OriginalResolutionFragment"
+        android:label="OriginalResolutionFragment" >
+        <argument
+            android:name="urlFull"
+            app:argType="string"
+            android:defaultValue='""' />
+    </fragment>
 </navigation>

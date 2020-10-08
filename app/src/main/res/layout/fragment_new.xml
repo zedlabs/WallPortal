@@ -11,10 +11,10 @@
         android:id="@+id/textViewConnectivity"
         android:text="@string/no_internet"
         android:fontFamily="@font/roboto_mono"
-        android:textColor="@color/md_white_1000"
+        android:textColor="#ffff"
         android:textSize="16sp"
         android:visibility="gone"
-        android:background="@color/md_red_500"
+        android:background="#FA4444"
         android:padding="6dp"
         />
 

@@ -1,19 +1,21 @@
 package tk.zedlabs.wallportal.ui.activity
 
 import android.app.WallpaperManager
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.view.LayoutInflater
 import android.view.View
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.navArgs
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.FitCenter
@@ -36,33 +38,37 @@ import tk.zedlabs.wallportal.viewmodel.ImageDetailViewModel
 import java.io.File
 
 @AndroidEntryPoint
-class DetailActivity : AppCompatActivity() {
+class DetailFragment : Fragment() {
 
     val imageDetailViewModel: ImageDetailViewModel by viewModels()
     val bookMarkViewModel: BookmarkViewModel by viewModels()
 
-    private val args: DetailActivityArgs by navArgs()
+    private val args: DetailFragmentArgs by navArgs()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_image_details)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.activity_image_details, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val urlFull = args.listItem.imageUrlFull
         val urlRegular = args.listItem.imageUrlRegular
         val id = args.listItem.imageName
-        val activity = args.sender
+
         val uri = FileProvider.getUriForFile(
-            this@DetailActivity, BuildConfig.APPLICATION_ID + ".fileprovider",
+            requireContext(), BuildConfig.APPLICATION_ID + ".fileprovider",
             File("${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)}/WallPortal/$id.jpg")
         )
-        when (this.isConnectedToNetwork()) {
+        when (requireContext().isConnectedToNetwork()) {
             true -> setUpInitialImage(urlFull ?: "")
-            false -> shortToast("No Connection")
+            false -> requireContext().shortToast("No Connection")
         }
 
         imageDetailViewModel.checkIsBookmark(urlRegular ?: "")
 
-        imageDetailViewModel.isBookmark.observe(this, Observer { isBookmark ->
+        imageDetailViewModel.isBookmark.observe(requireActivity(), Observer { isBookmark ->
             bookmark_button_1.text =
                 if (isBookmark) getString(R.string.remove_from_bookmarks) else getString(R.string.add_to_bookmark)
         })
@@ -77,11 +83,11 @@ class DetailActivity : AppCompatActivity() {
                         transition: Transition<in Bitmap>?
                     ) {
                         imageDetailViewModel.downloadImage(resource, id)
-                        shortToast("Download Started")
+                        requireContext().shortToast("Download Started")
                     }
 
                     override fun onLoadCleared(placeholder: Drawable?) {
-                        shortToast("Downloaded!")
+                        requireContext().shortToast("Downloaded!")
                     }
                 })
         }
@@ -125,45 +131,61 @@ class DetailActivity : AppCompatActivity() {
                     if (id == id1) {
                         unique = false;
                         var s1 = getString(R.string.image_already_bookmarked)
-                        if (activity == "BookmarkActivity") s1 = getString(R.string.remove_from_bookmarks_qm)
+                        if (args.sender == getString(R.string.bookmark_activity)) s1 =
+                            getString(R.string.remove_from_bookmarks_qm)
 
-                         Snackbar.make(myCoordinatorLayout, s1, Snackbar.LENGTH_LONG)
-                            .setAction(getString(R.string.remove_string),RemoveListener(BookmarkImage(id, urlFull, urlRegular)))
-                            .setActionTextColor(ContextCompat.getColor(this@DetailActivity, R.color.snackBarAction))
+                        Snackbar.make(myCoordinatorLayout, s1, Snackbar.LENGTH_LONG)
+                            .setAction(
+                                getString(R.string.remove_string),
+                                RemoveListener(BookmarkImage(id, urlFull, urlRegular))
+                            )
+                            .setActionTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.snackBarAction
+                                )
+                            )
                             .show()
                         break
                     }
                 }
                 if (unique) {
                     bookMarkViewModel.insertBookMarkImage(BookmarkImage(id, urlFull, urlRegular))
-                    withContext(Dispatchers.Main) { shortToast("Added to Bookmarks!") }
+                    withContext(Dispatchers.Main) { requireContext().shortToast(getString(R.string.added_success_bookmark)) }
                 }
             }
         }
 
         highRes_button_1.setOnClickListener {
-            val intent1 = Intent(this, OriginalResolutionActivity::class.java)
-            intent1.putExtra("imageUrl", urlFull)
-            startActivity(intent1)
+            val action = DetailFragmentDirections.actionDetailActivityToOriginalResolutionFragment2(
+                urlFull ?: ""
+            )
+            findNavController().navigate(action)
         }
 
-        CoroutineScope(Dispatchers.Main).launch(Dispatchers.Main) {
-            setupDetails(imageDetailViewModel.getImageDetails(id).body()?.imageDetails)
+        CoroutineScope(Dispatchers.IO).launch {
+            val details = imageDetailViewModel.getImageDetails(id).body()?.imageDetails
+
+            withContext(Dispatchers.Main) {
+                setupDetails(details)
+            }
         }
     }
 
     private fun setupDetails(imageDetails: ImageDetails?) {
 
-        nsw.makeFadeTransition(400)
-        image_details_tech_card.visibility = View.VISIBLE
-        uploader_tv.text = imageDetails?.uploader?.username
-        resolution_tv.text = imageDetails?.resolution
-        views_tv.text = imageDetails?.views.toString()
-        categories_tv.text = imageDetails?.category
+        if (nsw != null) {
+            nsw.makeFadeTransition(400)
+            image_details_tech_card.visibility = View.VISIBLE
+            uploader_tv.text = imageDetails?.uploader?.username
+            resolution_tv.text = imageDetails?.resolution
+            views_tv.text = imageDetails?.views.toString()
+            categories_tv.text = imageDetails?.category
+        }
     }
 
     private fun setUpInitialImage(urlRegular: String) {
-        val circularProgressDrawable = CircularProgressDrawable(this)
+        val circularProgressDrawable = CircularProgressDrawable(requireContext())
         circularProgressDrawable.strokeWidth = 10f
         circularProgressDrawable.centerRadius = 50f
         circularProgressDrawable.start()
@@ -179,7 +201,7 @@ class DetailActivity : AppCompatActivity() {
     private fun setWallpaper1(uri: Uri) {
         try {
             val wallpaperIntent = WallpaperManager
-                .getInstance(this)
+                .getInstance(requireContext())
                 .getCropAndSetWallpaperIntent(uri)
                 .setDataAndType(uri, "image/*")
                 .putExtra("mimeType", "image/*")
@@ -196,8 +218,8 @@ class DetailActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
                 bookMarkViewModel.delete(bm)
                 withContext(Dispatchers.Main) {
-                    shortToast("Removed from Bookmarks")
-                    this@DetailActivity.onBackPressed()
+                    requireContext().shortToast("Removed from Bookmarks")
+                    activity?.onBackPressed()
                 }
             }
         }

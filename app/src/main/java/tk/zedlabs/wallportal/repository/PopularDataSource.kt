@@ -24,7 +24,7 @@ class PopularDataSource(private val scope: CoroutineScope) :
             try {
                 val response = jsonApi.getImageList(
                     Constants.queryParamPopular,
-                    Constants.sorting,
+                    Constants.sortingPopular,
                     Constants.FIRST_PAGE
                 )
                 when {
@@ -50,7 +50,7 @@ class PopularDataSource(private val scope: CoroutineScope) :
         scope.launch {
             try {
                 val response =
-                    jsonApi.getImageList(Constants.queryParamPopular, Constants.sorting, params.key)
+                    jsonApi.getImageList(Constants.queryParamPopular, Constants.sortingPopular, params.key)
                 when {
                     response.isSuccessful -> {
                         val key: Int? = if (response.body()?.data?.isNotEmpty() == true) params.key + 1
@@ -71,7 +71,7 @@ class PopularDataSource(private val scope: CoroutineScope) :
 
         scope.launch {
             try {
-                val response = jsonApi.getImageList(Constants.queryParamPopular, Constants.sorting, params.key)
+                val response = jsonApi.getImageList(Constants.queryParamPopular, Constants.sortingPopular, params.key)
                 val key: Int? = if (params.key > 1) params.key - 1
                 else null
                 when {
