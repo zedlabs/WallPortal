@@ -53,9 +53,8 @@ class PopularDataSource(private val scope: CoroutineScope) :
                     jsonApi.getImageList(Constants.queryParamPopular, Constants.sorting, params.key)
                 when {
                     response.isSuccessful -> {
-                        val key: Int?
-                        if (response.body()?.data?.isNotEmpty() == true) key = params.key + 1
-                        else key = null
+                        val key: Int? = if (response.body()?.data?.isNotEmpty() == true) params.key + 1
+                        else null
                         callback.onResult(response.body()?.data ?: emptyList(), key)
                     }
                 }

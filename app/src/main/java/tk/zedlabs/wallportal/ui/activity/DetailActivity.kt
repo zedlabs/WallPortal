@@ -5,36 +5,23 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.opengl.ETC1.getWidth
 import android.os.Bundle
 import android.os.Environment
-import android.transition.CircularPropagation
-import android.transition.Fade
-import android.util.Log
 import android.view.View
-import android.view.ViewAnimationUtils
-import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.navArgs
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
-import androidx.transition.Explode
-import androidx.transition.TransitionManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.activity_image_details.*
-import kotlinx.android.synthetic.main.fragment_saved.*
 import kotlinx.android.synthetic.main.progress_saw.*
 import kotlinx.coroutines.*
 import tk.zedlabs.wallportal.BuildConfig
@@ -42,11 +29,11 @@ import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.models.ImageDetails
 import tk.zedlabs.wallportal.repository.BookmarkImage
 import tk.zedlabs.wallportal.util.isConnectedToNetwork
+import tk.zedlabs.wallportal.util.makeFadeTransition
 import tk.zedlabs.wallportal.util.shortToast
 import tk.zedlabs.wallportal.viewmodel.BookmarkViewModel
 import tk.zedlabs.wallportal.viewmodel.ImageDetailViewModel
 import java.io.File
-import kotlin.math.hypot
 
 @AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
@@ -127,9 +114,8 @@ class DetailActivity : AppCompatActivity() {
         bookmark_button_1.setOnClickListener {
             var unique = true
             bookmark_button_1.visibility = View.INVISIBLE
-            val fade: androidx.transition.Fade = androidx.transition.Fade()
-            fade.duration = 700
-            TransitionManager.beginDelayedTransition(scrollView1, fade)
+
+            scrollView1.makeFadeTransition(700)
             bookmark_button_1.visibility = View.VISIBLE
             bookmark_button_1.text = getString(R.string.remove_from_bookmarks)
 
@@ -168,9 +154,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun setupDetails(imageDetails: ImageDetails?) {
 
-        val fade: androidx.transition.Fade = androidx.transition.Fade()
-        fade.duration = 400
-        TransitionManager.beginDelayedTransition(nsw, fade)
+        nsw.makeFadeTransition(400)
         image_details_tech_card.visibility = View.VISIBLE
         uploader_tv.text = imageDetails?.uploader?.username
         resolution_tv.text = imageDetails?.resolution
