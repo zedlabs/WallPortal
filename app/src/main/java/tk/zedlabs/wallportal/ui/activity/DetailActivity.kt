@@ -34,12 +34,14 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.activity_image_details.*
+import kotlinx.android.synthetic.main.fragment_saved.*
 import kotlinx.android.synthetic.main.progress_saw.*
 import kotlinx.coroutines.*
 import tk.zedlabs.wallportal.BuildConfig
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.models.ImageDetails
 import tk.zedlabs.wallportal.repository.BookmarkImage
+import tk.zedlabs.wallportal.util.isConnectedToNetwork
 import tk.zedlabs.wallportal.util.shortToast
 import tk.zedlabs.wallportal.viewmodel.BookmarkViewModel
 import tk.zedlabs.wallportal.viewmodel.ImageDetailViewModel
@@ -66,8 +68,10 @@ class DetailActivity : AppCompatActivity() {
             this@DetailActivity, BuildConfig.APPLICATION_ID + ".fileprovider",
             File("${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)}/WallPortal/$id.jpg")
         )
-
-        setUpInitialImage(urlFull ?: "")
+        when (this.isConnectedToNetwork()) {
+            true -> setUpInitialImage(urlFull ?: "")
+            false -> shortToast("No Connection")
+        }
 
         imageDetailViewModel.checkIsBookmark(urlRegular ?: "")
 
@@ -128,6 +132,7 @@ class DetailActivity : AppCompatActivity() {
             TransitionManager.beginDelayedTransition(scrollView1, fade)
             bookmark_button_1.visibility = View.VISIBLE
             bookmark_button_1.text = getString(R.string.remove_from_bookmarks)
+
             CoroutineScope(Dispatchers.IO).launch {
                 val idList = bookMarkViewModel.getIdList()
                 for (id1 in idList) {
@@ -174,7 +179,6 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setUpInitialImage(urlRegular: String) {
-        //todo setup color shaders instead of loaders
         val circularProgressDrawable = CircularProgressDrawable(this)
         circularProgressDrawable.strokeWidth = 10f
         circularProgressDrawable.centerRadius = 50f
@@ -198,7 +202,7 @@ class DetailActivity : AppCompatActivity() {
 
             startActivityForResult(wallpaperIntent, 13451)
         } catch (e: Exception) {
-            print(e.stackTrace)
+            e.printStackTrace()
         }
     }
 

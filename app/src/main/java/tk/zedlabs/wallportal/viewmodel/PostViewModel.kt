@@ -8,8 +8,8 @@ import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
 import tk.zedlabs.wallportal.models.WallHavenResponse
 import tk.zedlabs.wallportal.repository.PopularDataSourceFactory
-import tk.zedlabs.wallportal.repository.PostDataSource.Companion.PAGE_SIZE
 import tk.zedlabs.wallportal.repository.PostDataSourceFactory
+import tk.zedlabs.wallportal.util.Constants
 
 class PostViewModel : ViewModel() {
 
@@ -21,8 +21,8 @@ class PostViewModel : ViewModel() {
 
 
     private val config: PagedList.Config = (PagedList.Config.Builder())
-        .setPageSize(PAGE_SIZE)
-        .setEnablePlaceholders(true)
+        .setPageSize(Constants.PAGE_SIZE)
+        .setEnablePlaceholders(false)
         .setInitialLoadSizeHint(24)
         .setPrefetchDistance(24)
         .build()
