@@ -1,4 +1,4 @@
-package tk.zedlabs.wallportal.ui.activity
+package tk.zedlabs.wallportal.ui.fragment
 
 import android.app.WallpaperManager
 import android.graphics.Bitmap
@@ -93,6 +93,7 @@ class DetailFragment : Fragment() {
         }
 
         saw_button_1.setOnClickListener {
+
             progressLayout.visibility = View.VISIBLE
             Glide.with(this)
                 .asBitmap()
@@ -131,20 +132,11 @@ class DetailFragment : Fragment() {
                     if (id == id1) {
                         unique = false;
                         var s1 = getString(R.string.image_already_bookmarked)
-                        if (args.sender == getString(R.string.bookmark_activity)) s1 =
-                            getString(R.string.remove_from_bookmarks_qm)
+                        if (args.sender == getString(R.string.bookmark_activity)) s1 = getString(R.string.remove_from_bookmarks_qm)
 
                         Snackbar.make(myCoordinatorLayout, s1, Snackbar.LENGTH_LONG)
-                            .setAction(
-                                getString(R.string.remove_string),
-                                RemoveListener(BookmarkImage(id, urlFull, urlRegular))
-                            )
-                            .setActionTextColor(
-                                ContextCompat.getColor(
-                                    requireContext(),
-                                    R.color.snackBarAction
-                                )
-                            )
+                            .setAction(getString(R.string.remove_string), RemoveListener(BookmarkImage(id, urlFull, urlRegular)))
+                            .setActionTextColor(ContextCompat.getColor(requireContext(),R.color.snackBarAction))
                             .show()
                         break
                     }

@@ -15,7 +15,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity android:name=".ui.activity.MainActivity"
                 android:theme="@style/AppTheme">
             <intent-filter>

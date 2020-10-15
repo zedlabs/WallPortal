@@ -1,4 +1,4 @@
-package tk.zedlabs.wallportal.ui.activity
+package tk.zedlabs.wallportal.ui.fragment
 
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -26,7 +26,7 @@ class OriginalResolutionFragment : Fragment(R.layout.activity_original_resolutio
         Glide
             .with(this)
             .asBitmap()
-            .load(navArgs.urlFull)//.load(intent.getStringExtra("imageUrl"))
+            .load(navArgs.urlFull)
             .fitCenter()
             .listener(object : RequestListener<Bitmap?> {
 

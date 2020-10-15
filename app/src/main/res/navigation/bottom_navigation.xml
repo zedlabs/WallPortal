@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailActivity"
-        android:name="tk.zedlabs.wallportal.ui.activity.DetailFragment"
+        android:name="tk.zedlabs.wallportal.ui.fragment.DetailFragment"
         android:label="activity_image_details"
         tools:layout="@layout/activity_image_details">
         <argument
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/originalResolutionFragment"
-        android:name="tk.zedlabs.wallportal.ui.activity.OriginalResolutionFragment"
+        android:name="tk.zedlabs.wallportal.ui.fragment.OriginalResolutionFragment"
         android:label="OriginalResolutionFragment" >
         <argument
             android:name="urlFull"
