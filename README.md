@@ -19,8 +19,9 @@ moved to wallhaven.cc api from unsplashed api due to rate limits.
         * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - store and manage UI-related data in a lifecycle conscious way
         * [Paging](https://developer.android.com/jetpack/androidx/releases/paging)
 * Architecture
-    * Clean Architecture
-    * MVVM
+    * Model-View-ViewModel
     * [Android Architecture components](https://developer.android.com/topic/libraries/architecture) ([ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel), [LiveData](https://developer.android.com/topic/libraries/architecture/livedata), [Navigation](https://developer.android.com/jetpack/androidx/releases/navigation))
  
-Code Review by GDE Filip Babic ( 40:00 ) - https://www.raywenderlich.com/10527046-review-my-stuff/lessons/3
+ * Todo
+   * Tests
+   * UI refactor in compose
