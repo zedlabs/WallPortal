@@ -69,11 +69,10 @@ class DetailFragment : Fragment() {
         imageDetailViewModel.checkIsBookmark(urlRegular ?: "")
 
         imageDetailViewModel.isBookmark.observe(requireActivity(), Observer { isBookmark ->
-            bookmark_button_1.text =
-                if (isBookmark) getString(R.string.remove_from_bookmarks) else getString(R.string.add_to_bookmark)
+            bookmark_button.text = if (isBookmark) getString(R.string.remove_from_bookmarks) else getString(R.string.add_to_bookmark)
         })
 
-        download_button_1.setOnClickListener {
+        download_button.setOnClickListener {
             Glide.with(this)
                 .asBitmap()
                 .load(urlFull)
@@ -92,7 +91,7 @@ class DetailFragment : Fragment() {
                 })
         }
 
-        saw_button_1.setOnClickListener {
+        set_wallpaper_button.setOnClickListener {
 
             progressLayout.visibility = View.VISIBLE
             Glide.with(this)
@@ -105,10 +104,8 @@ class DetailFragment : Fragment() {
                     ) {
                         progressLayout.visibility = View.GONE
                         CoroutineScope(Dispatchers.IO).launch {
-                            withContext(Dispatchers.IO) {
-                                imageDetailViewModel.downloadImage(resource, id)
-                            }
-                            withContext(Dispatchers.Default) {
+                            imageDetailViewModel.downloadImage(resource, id)
+                            withContext(Dispatchers.Main) {
                                 setWallpaper1(uri)
                             }
                         }
@@ -118,23 +115,24 @@ class DetailFragment : Fragment() {
                 })
         }
 
-        bookmark_button_1.setOnClickListener {
+        bookmark_button.setOnClickListener {
             var unique = true
-            bookmark_button_1.visibility = View.INVISIBLE
+            bookmark_button.visibility = View.INVISIBLE
 
             scrollView1.makeFadeTransition(700)
-            bookmark_button_1.visibility = View.VISIBLE
-            bookmark_button_1.text = getString(R.string.remove_from_bookmarks)
+
+            bookmark_button.apply {
+                visibility = View.VISIBLE
+                text = getString(R.string.remove_from_bookmarks)
+            }
 
             CoroutineScope(Dispatchers.IO).launch {
                 val idList = bookMarkViewModel.getIdList()
                 for (id1 in idList) {
                     if (id == id1) {
                         unique = false;
-                        var s1 = getString(R.string.image_already_bookmarked)
-                        if (args.sender == getString(R.string.bookmark_activity)) s1 = getString(R.string.remove_from_bookmarks_qm)
 
-                        Snackbar.make(myCoordinatorLayout, s1, Snackbar.LENGTH_LONG)
+                        Snackbar.make(myCoordinatorLayout, getString(R.string.remove_from_bookmarks_qm), Snackbar.LENGTH_LONG)
                             .setAction(getString(R.string.remove_string), RemoveListener(BookmarkImage(id, urlFull, urlRegular)))
                             .setActionTextColor(ContextCompat.getColor(requireContext(),R.color.snackBarAction))
                             .show()
@@ -148,10 +146,8 @@ class DetailFragment : Fragment() {
             }
         }
 
-        highRes_button_1.setOnClickListener {
-            val action = DetailFragmentDirections.actionDetailActivityToOriginalResolutionFragment2(
-                urlFull ?: ""
-            )
+        original_resolution_button.setOnClickListener {
+            val action = DetailFragmentDirections.actionDetailActivityToOriginalResolutionFragment2(urlFull ?: "")
             findNavController().navigate(action)
         }
 

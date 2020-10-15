@@ -52,21 +52,21 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/saw_button_1"
+                    android:id="@+id/set_wallpaper_button"
                     style="@style/ButtonStyleHorizontalScroll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/set_as_wallpaper" />
 
                 <Button
-                    android:id="@+id/download_button_1"
+                    android:id="@+id/download_button"
                     style="@style/ButtonStyleHorizontalScroll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/download" />
 
                 <Button
-                    android:id="@+id/highRes_button_1"
+                    android:id="@+id/original_resolution_button"
                     style="@style/ButtonStyleHorizontalScroll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                     android:text="@string/view_original" />
 
                 <Button
-                    android:id="@+id/bookmark_button_1"
+                    android:id="@+id/bookmark_button"
                     style="@style/ButtonStyleHorizontalScroll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
