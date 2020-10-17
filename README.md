@@ -18,10 +18,11 @@ moved to wallhaven.cc api from unsplashed api due to rate limits.
         * [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle) - perform action when lifecycle state changes
         * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - store and manage UI-related data in a lifecycle conscious way
         * [Paging](https://developer.android.com/jetpack/androidx/releases/paging)
+    * Tests - local and instrumented unit tests    
 * Architecture
     * Model-View-ViewModel
     * [Android Architecture components](https://developer.android.com/topic/libraries/architecture) ([ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel), [LiveData](https://developer.android.com/topic/libraries/architecture/livedata), [Navigation](https://developer.android.com/jetpack/androidx/releases/navigation))
  
  * Todo
-   * Tests
+   * create more test cases
    * UI refactor in compose
