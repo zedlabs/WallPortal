@@ -1,7 +1,7 @@
 # WallPortal
 [![Kotlin Version](https://img.shields.io/badge/Kotlin-1.3.41-blue.svg)](https://kotlinlang.org)
 ###### *Minimal Wallpapers for Android*
-[**Download**](https://github.com/zedlabs/WallPortal/releases/download/2020.2/v1.5.apk)
+[**Download**](https://github.com/zedlabs/WallPortal/releases/download/2020.2/v1.5.1.apk)
 
 the goal of this project is to create a responsive application and with optimized networking, a good place to see implementation.
 moved to wallhaven.cc api from unsplashed api due to rate limits.
