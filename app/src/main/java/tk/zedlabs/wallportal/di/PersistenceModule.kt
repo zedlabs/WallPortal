@@ -5,8 +5,8 @@ import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import tk.zedlabs.wallportal.repository.BookmarkDao
-import tk.zedlabs.wallportal.repository.BookmarkDatabase
+import tk.zedlabs.wallportal.persistence.BookmarkDao
+import tk.zedlabs.wallportal.persistence.BookmarkDatabase
 import javax.inject.Singleton
 import dagger.hilt.components.SingletonComponent
 
@@ -25,7 +25,7 @@ object PersistenceModule {
 
     @Provides
     @Singleton
-    fun provideBookmarkDao(bookmarkDatabase: BookmarkDatabase) : BookmarkDao{
+    fun provideBookmarkDao(bookmarkDatabase: BookmarkDatabase) : BookmarkDao {
         return bookmarkDatabase.bookmarkDao()
     }
 }

@@ -38,7 +38,7 @@
         tools:layout="@layout/activity_image_details">
         <argument
             android:name="listItem"
-            app:argType="tk.zedlabs.wallportal.repository.BookmarkImage" />
+            app:argType="tk.zedlabs.wallportal.persistence.BookmarkImage" />
         <argument
             android:name="sender"
             android:defaultValue=" "

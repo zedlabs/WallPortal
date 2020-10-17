@@ -1,4 +1,4 @@
-package tk.zedlabs.wallportal.repository
+package tk.zedlabs.wallportal.persistence
 
 import androidx.room.Dao
 import androidx.room.Delete

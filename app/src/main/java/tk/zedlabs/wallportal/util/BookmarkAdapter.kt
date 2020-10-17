@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 import tk.zedlabs.wallportal.R
-import tk.zedlabs.wallportal.repository.BookmarkImage
+import tk.zedlabs.wallportal.persistence.BookmarkImage
 
 class BookmarkAdapter(
     private var bookmarkedImages: List<BookmarkImage>,

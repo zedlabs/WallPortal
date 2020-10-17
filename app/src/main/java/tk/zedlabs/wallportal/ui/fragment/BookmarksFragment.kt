@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_saved.*
 import kotlinx.coroutines.launch
 import tk.zedlabs.wallportal.R
-import tk.zedlabs.wallportal.repository.BookmarkImage
+import tk.zedlabs.wallportal.persistence.BookmarkImage
 import tk.zedlabs.wallportal.util.BaseFragment
 import tk.zedlabs.wallportal.util.BookmarkAdapter
 import tk.zedlabs.wallportal.util.isConnectedToNetwork

@@ -29,7 +29,7 @@ import kotlinx.coroutines.*
 import tk.zedlabs.wallportal.BuildConfig
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.models.ImageDetails
-import tk.zedlabs.wallportal.repository.BookmarkImage
+import tk.zedlabs.wallportal.persistence.BookmarkImage
 import tk.zedlabs.wallportal.util.isConnectedToNetwork
 import tk.zedlabs.wallportal.util.makeFadeTransition
 import tk.zedlabs.wallportal.util.shortToast
@@ -133,7 +133,9 @@ class DetailFragment : Fragment() {
                         unique = false;
 
                         Snackbar.make(myCoordinatorLayout, getString(R.string.remove_from_bookmarks_qm), Snackbar.LENGTH_LONG)
-                            .setAction(getString(R.string.remove_string), RemoveListener(BookmarkImage(id, urlFull, urlRegular)))
+                            .setAction(getString(R.string.remove_string), RemoveListener(
+                                BookmarkImage(id, urlFull, urlRegular)
+                            ))
                             .setActionTextColor(ContextCompat.getColor(requireContext(),R.color.snackBarAction))
                             .show()
                         break

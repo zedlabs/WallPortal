@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import tk.zedlabs.wallportal.models.Data
-import tk.zedlabs.wallportal.repository.BookmarkDao
+import tk.zedlabs.wallportal.persistence.BookmarkDao
 import tk.zedlabs.wallportal.repository.ImageDetailsRepository
 import tk.zedlabs.wallportal.util.FileUtils
 

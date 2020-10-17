@@ -1,4 +1,4 @@
-package tk.zedlabs.wallportal.repository
+package tk.zedlabs.wallportal.persistence
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

@@ -2,10 +2,8 @@ package tk.zedlabs.wallportal.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.coroutineScope
-import tk.zedlabs.wallportal.repository.BookmarkDao
-import tk.zedlabs.wallportal.repository.BookmarkImage
-import javax.inject.Inject
+import tk.zedlabs.wallportal.persistence.BookmarkDao
+import tk.zedlabs.wallportal.persistence.BookmarkImage
 
 class BookmarkViewModel @ViewModelInject constructor(
     private val bookmarksDao: BookmarkDao
