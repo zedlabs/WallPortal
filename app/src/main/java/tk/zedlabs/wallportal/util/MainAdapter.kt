@@ -8,9 +8,8 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import kotlinx.android.synthetic.main.fragment_popular.view.*
+import com.zedlabs.pastelplaceholder.Pastel
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.util.MainAdapter.MyViewHolder
@@ -63,15 +62,10 @@ class MainAdapter(onImageListener: OnImageListener) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val post = getItem(position)
 
-        val circularProgressDrawable = CircularProgressDrawable(holder.itemView.context)
-        circularProgressDrawable.strokeWidth = 5f
-        circularProgressDrawable.centerRadius = 30f
-        circularProgressDrawable.start()
-
         Glide.with(holder.itemView.context)
             .load(post?.thumbs?.small)
-            .placeholder(circularProgressDrawable)
-            .transition(DrawableTransitionOptions.withCrossFade())
+            .placeholder(Pastel().getColorLight())
+            .transition(DrawableTransitionOptions.withCrossFade(600))
             .into(holder.itemView.imageViewItem)
     }
 

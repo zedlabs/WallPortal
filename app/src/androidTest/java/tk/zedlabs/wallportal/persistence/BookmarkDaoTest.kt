@@ -17,9 +17,6 @@ import org.junit.runner.RunWith
 @SmallTest
 class BookmarkDaoTest {
 
-//    @get:Rule
-//    var instantTaskExecutionRule: InstantTaskExecutorRule()
-
     private lateinit var bookmarkDatabase: BookmarkDatabase
     private lateinit var bookmarkDao: BookmarkDao
 

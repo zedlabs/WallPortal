@@ -13,9 +13,7 @@ object RepositoryModule {
 
 //    @Provides
 //    @ActivityRetainedScoped
-//    fun provideCoroutineScope(
-//        coroutineScope: CoroutineScope
-//    ): CoroutineScope {
+//    fun provideCoroutineScope(coroutineScope: CoroutineScope): CoroutineScope {
 //        return coroutineScope
 //    }
 }

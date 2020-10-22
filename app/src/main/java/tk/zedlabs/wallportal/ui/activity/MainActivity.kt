@@ -3,6 +3,7 @@ package tk.zedlabs.wallportal.ui.activity
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -10,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
+import com.zedlabs.pastelplaceholder.Pastel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import tk.zedlabs.wallportal.R
@@ -48,6 +50,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
 
         //todo add settings bottom navigation tab
     }

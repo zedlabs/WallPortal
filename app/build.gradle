@@ -85,6 +85,9 @@ dependencies {
 
     //palette
     implementation 'com.android.support:palette-v7:29.0.0'
+    //pastel placeholders
+    implementation 'com.github.zedlabs:pastelPlaceholders:1.0.3'
+
     //DI
     implementation "com.google.dagger:hilt-android:$hilt_ver"
     //implementation "com.google.dagger:hilt-android-testing:$hilt_ver"
