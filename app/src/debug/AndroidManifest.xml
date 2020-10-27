@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="tk.zedlabs.wallportal">
+
+    <application
+        android:theme="@style/Theme.AppCompat.Light"
+        >
+        <activity android:name=".HiltTestActivity"
+            android:exported="false"/>
+    </application>
+
+</manifest>

@@ -1,10 +1,12 @@
 package tk.zedlabs.wallportal.di
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import tk.zedlabs.wallportal.persistence.BookmarkDao
 import tk.zedlabs.wallportal.persistence.BookmarkDatabase
 import javax.inject.Singleton
@@ -16,7 +18,7 @@ object PersistenceModule {
 
     @Provides
     @Singleton
-    fun provideAppDatabase(application: Application): BookmarkDatabase {
+    fun provideAppDatabase(@ApplicationContext application: Context): BookmarkDatabase {
         return Room
             .databaseBuilder(application, BookmarkDatabase::class.java, "bookmark-database")
             .fallbackToDestructiveMigration()

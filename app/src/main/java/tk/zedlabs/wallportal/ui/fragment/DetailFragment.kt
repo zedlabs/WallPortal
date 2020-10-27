@@ -126,24 +126,25 @@ class DetailFragment : Fragment() {
                 text = getString(R.string.remove_from_bookmarks)
             }
 
-            CoroutineScope(Dispatchers.IO).launch {
+            CoroutineScope(Dispatchers.Main).launch {
                 val idList = bookMarkViewModel.getIdList()
-                for (id1 in idList) {
-                    if (id == id1) {
-                        unique = false;
+                    for (id1 in idList) {
+                        if (id == id1) {
+                            unique = false;
 
-                        Snackbar.make(myCoordinatorLayout, getString(R.string.remove_from_bookmarks_qm), Snackbar.LENGTH_LONG)
-                            .setAction(getString(R.string.remove_string), RemoveListener(
-                                BookmarkImage(id, urlFull, urlRegular)
-                            ))
-                            .setActionTextColor(ContextCompat.getColor(requireContext(),R.color.snackBarAction))
-                            .show()
-                        break
+                            Snackbar.make(myCoordinatorLayout, getString(R.string.remove_from_bookmarks_qm), Snackbar.LENGTH_LONG)
+                                .setAction(getString(R.string.remove_string), RemoveListener(
+                                    BookmarkImage(id, urlFull, urlRegular)
+                                ))
+                                .setActionTextColor(ContextCompat.getColor(requireContext(),R.color.snackBarAction))
+                                .show()
+                            break
+                        }
                     }
-                }
+
                 if (unique) {
                     bookMarkViewModel.insertBookMarkImage(BookmarkImage(id, urlFull, urlRegular))
-                    withContext(Dispatchers.Main) { requireContext().shortToast(getString(R.string.added_success_bookmark)) }
+                    requireContext().shortToast(getString(R.string.added_success_bookmark))
                 }
             }
         }
@@ -163,7 +164,7 @@ class DetailFragment : Fragment() {
     }
 
     private fun setupDetails(imageDetails: ImageDetails?) {
-
+        //null check required because of kotlin synthetics -- move to viewBinding
         if (nsw != null) {
             nsw.makeFadeTransition(400)
             image_details_tech_card.visibility = View.VISIBLE

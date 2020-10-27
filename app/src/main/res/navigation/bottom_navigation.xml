@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_navigation"
     app:startDestination="@id/popular_bottom">
+
     <fragment
         android:id="@+id/new_bottom"
         android:name="tk.zedlabs.wallportal.ui.fragment.NewFragment"
@@ -13,6 +15,7 @@
             android:id="@+id/action_new_bottom_to_detailActivity"
             app:destination="@id/detailActivity" />
     </fragment>
+
     <fragment
         android:id="@+id/popular_bottom"
         android:name="tk.zedlabs.wallportal.ui.fragment.PopularFragment"
@@ -22,6 +25,7 @@
             android:id="@+id/action_popular_bottom_to_detailActivity"
             app:destination="@id/detailActivity" />
     </fragment>
+
     <fragment
         android:id="@+id/bookmarks_bottom"
         android:name="tk.zedlabs.wallportal.ui.fragment.BookmarksFragment"
@@ -31,6 +35,7 @@
             android:id="@+id/action_bookmarks_bottom_to_detailActivity"
             app:destination="@id/detailActivity" />
     </fragment>
+
     <fragment
         android:id="@+id/detailActivity"
         android:name="tk.zedlabs.wallportal.ui.fragment.DetailFragment"
@@ -47,6 +52,7 @@
             android:id="@+id/action_detailActivity_to_originalResolutionFragment2"
             app:destination="@id/originalResolutionFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/originalResolutionFragment"
         android:name="tk.zedlabs.wallportal.ui.fragment.OriginalResolutionFragment"
@@ -56,4 +62,5 @@
             app:argType="string"
             android:defaultValue='""' />
     </fragment>
+
 </navigation>
