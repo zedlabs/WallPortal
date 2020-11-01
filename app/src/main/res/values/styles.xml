@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -7,6 +7,14 @@
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/mainAccent</item>
+    </style>
+
+    <style name="AppThemePastelLight" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+        <item name="colorPrimary">@color/pastelPrimary</item>
+        <item name="colorPrimaryDark">@color/pastelPrimary</item>
+        <item name="colorAccent">@color/pastelPrimary</item>
+        <item name="colorControlNormal">@color/aquamarine</item>
     </style>
 
     <style name="Widget.BottomNavigationView"
@@ -28,7 +36,7 @@
 
     <style name="ButtonStyleHorizontalScroll" >
         <item name="android:textSize">11sp</item>
-        <item name="android:textColor">#ffff</item>
+        <item name="android:textColor">@color/aquamarine</item>
         <item name="fontFamily">@font/roboto_mono</item>
         <item name="elevation">20dp</item>
         <item name="android:layout_margin">6dp</item>

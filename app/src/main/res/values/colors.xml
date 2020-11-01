@@ -8,4 +8,8 @@
     <color name="bottomNavTextColor">#BCBCBC</color>
     <color name="mainAccent">#9BFAE3</color>
     <color name="grey">#424343</color>
+    <color name="pastelPrimary">#BCE4DC</color>
+    <color name="aquamarine">#347484</color>
+    <color name="colorToolbarTextLegacy">#9BFAE3</color>
+
 </resources>

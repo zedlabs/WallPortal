@@ -2,9 +2,9 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_checked="true"
-    android:color = "@color/mainAccent"/>
+    android:color = "@color/aquamarine"/>
 
     <item android:state_checked="false"
-    android:color = "#D4D4D4"/>
+    android:color = "@color/aquamarine"/>
 
 </selector>

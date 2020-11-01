@@ -6,7 +6,7 @@
     android:id="@+id/myCoordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/pastelPrimary"
     tools:context="tk.zedlabs.wallportal.ui.fragment.DetailFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -41,8 +41,8 @@
             android:id="@+id/scrollView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#676666"
-            android:scrollbars="none"
+            android:background="@color/pastelPrimary"
+            android:scrollbars="horizontal"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
@@ -88,7 +88,7 @@
             android:id="@+id/nsw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/pastelPrimary"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 <com.google.android.material.card.MaterialCardView
     android:id="@+id/image_details_tech_card"
@@ -96,7 +96,7 @@
     android:visibility="gone"
     android:layout_marginStart="16dp"
     android:layout_marginBottom="8dp"
-    app:cardBackgroundColor="#078497"
+    app:cardBackgroundColor="#8CDCCC"
     android:layout_width="wrap_content"
     android:layout_height="20dp"
     android:layout_gravity="start">
@@ -122,7 +122,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="monospace"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/aquamarine"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -143,7 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="monospace"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/aquamarine"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView2"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
@@ -164,7 +164,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="monospace"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/aquamarine"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView3"
             app:layout_constraintStart_toEndOf="@+id/imageView3"
@@ -177,7 +177,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="monospace"
             android:text="Categories:"
-            android:textColor="#0C0C0C"
+            android:textColor="@color/aquamarine"
             android:textSize="15sp"
             android:textStyle="bold"
             android:paddingBottom="16dp"
@@ -191,7 +191,7 @@
             android:layout_marginStart="8dp"
             android:fontFamily="monospace"
             android:paddingEnd="8dp"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/aquamarine"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/categories_static"
             app:layout_constraintTop_toTopOf="@+id/categories_static" />

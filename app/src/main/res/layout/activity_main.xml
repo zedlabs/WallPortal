@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/subsectionLayout"
-        android:background="#444444"
+        android:background="@color/pastelPrimary"
         android:orientation="vertical"
         tools:context=".ui.activity.MainActivity">
 
@@ -20,7 +20,7 @@
             android:layout_height="50dp"
             android:background="?attr/colorPrimary"
             app:titleTextAppearance="@style/TitleBarTextAppearance"
-            app:titleTextColor="#9BFAE3">
+            app:titleTextColor="@color/aquamarine">
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -41,11 +41,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/colorPrimary"
+        android:background="@color/pastelPrimary"
         app:itemIconTint="@drawable/bottom_navigation_selector"
         app:itemRippleColor="@color/snackBarAction"
         android:theme="@style/Widget.BottomNavigationView"
-        app:itemTextColor="#ffff"
+        app:itemTextColor="@color/aquamarine"
         app:labelVisibilityMode="selected"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         app:menu="@menu/bottom_navigation_menu" />

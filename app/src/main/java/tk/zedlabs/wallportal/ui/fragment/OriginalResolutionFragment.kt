@@ -36,6 +36,7 @@ class OriginalResolutionFragment : Fragment() {
         _binding = ActivityOriginalResolutionBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         Glide
@@ -45,8 +46,10 @@ class OriginalResolutionFragment : Fragment() {
             .fitCenter()
             .listener(object : RequestListener<Bitmap?> {
 
-                override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap?>?,
-                                             dataSource: com.bumptech.glide.load.DataSource?, isFirstResource: Boolean): Boolean {
+                override fun onResourceReady(
+                    resource: Bitmap?, model: Any?, target: Target<Bitmap?>?,
+                    dataSource: com.bumptech.glide.load.DataSource?, isFirstResource: Boolean
+                ): Boolean {
                     if (resource != null) {
                         binding.textViewLoading.visibility = View.GONE
                         binding.progressBar.visibility = View.GONE
@@ -59,7 +62,12 @@ class OriginalResolutionFragment : Fragment() {
                     return false
                 }
 
-                override fun onLoadFailed(e: GlideException?,model: Any?,target: Target<Bitmap?>?,isFirstResource: Boolean): Boolean {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Bitmap?>?,
+                    isFirstResource: Boolean
+                ): Boolean {
                     requireContext().shortToast(e?.message ?: "")
                     binding.textViewLoading.text = getString(R.string.failed_to_load)
                     return false

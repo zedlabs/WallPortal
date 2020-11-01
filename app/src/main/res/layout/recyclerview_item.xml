@@ -4,5 +4,4 @@
     android:id="@+id/imageViewItem"
     android:layout_width="match_parent"
     android:layout_height="210dp"
-    android:padding="1dp"
     android:scaleType="centerCrop" />

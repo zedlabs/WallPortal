@@ -28,4 +28,5 @@
     <string name="bookmark_activity">BookmarkActivity</string>
     <string name="high_res_image">high res image</string>
     <string name="recycler_view_item">recycler View Item</string>
+    <string name="settings">Settings</string>
 </resources>
