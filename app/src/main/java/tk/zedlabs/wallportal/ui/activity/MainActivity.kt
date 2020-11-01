@@ -37,14 +37,11 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-
-
         navController = Navigation.findNavController(this, R.id.fragment)
         binding.apply {
             toolbar.title = getString(R.string.app_name)
             bottomNavigation.setupWithNavController(navController)
         }
-
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -59,8 +56,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-
-
         //todo add settings bottom navigation tab
     }
 }

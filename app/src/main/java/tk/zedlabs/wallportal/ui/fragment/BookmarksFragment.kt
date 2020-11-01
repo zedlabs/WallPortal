@@ -10,9 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_saved.*
 import kotlinx.coroutines.launch
-import tk.zedlabs.wallportal.R
+import tk.zedlabs.wallportal.databinding.FragmentSavedBinding
 import tk.zedlabs.wallportal.persistence.BookmarkImage
 import tk.zedlabs.wallportal.util.BaseFragment
 import tk.zedlabs.wallportal.util.BookmarkAdapter
@@ -24,25 +23,38 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
 
     private val bookmarkViewModel: BookmarkViewModel by viewModels()
     private lateinit var list: List<BookmarkImage>
-    
+
+    private var _binding: FragmentSavedBinding? = null
+
+    // This property is only valid between onCreateView and onDestroyView.
+    private val binding get() = _binding!!
+
     override fun onImageClick(position: Int) {
-        val action = BookmarksFragmentDirections.actionBookmarksBottomToDetailActivity(list[position], "BookmarkActivity")
-        findNavController().navigate(action)
+
+        findNavController().navigate(
+            BookmarksFragmentDirections.actionBookmarksBottomToDetailActivity(
+                list[position],
+                "BookmarkActivity"
+            )
+        )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_saved, container, false)
+    ): View? {
+        _binding = FragmentSavedBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         when (context?.isConnectedToNetwork()) {
-            //synthetic
-            true -> if (textViewConnectivityBookmark.visibility == VISIBLE) textViewConnectivityBookmark.visibility = GONE
-            false -> textViewConnectivityBookmark.visibility = VISIBLE
+            true -> if (binding.textViewConnectivityBookmark.visibility == VISIBLE)
+                binding.textViewConnectivityBookmark.visibility = GONE
+            false -> binding.textViewConnectivityBookmark.visibility = VISIBLE
         }
     }
 
@@ -51,12 +63,18 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
         launch {
             context?.let {
                 list = bookmarkViewModel.getBookMarkImages().asReversed()
-                if (list.isNullOrEmpty()) textViewEmpty.visibility = VISIBLE
+                if (list.isNullOrEmpty()) binding.textViewEmpty.visibility = VISIBLE
             }
-            recyclerViewBookmarked.apply {
+            binding.recyclerViewBookmarked.apply {
                 layoutManager = GridLayoutManager(this.context, 2)
                 adapter = BookmarkAdapter(list, this@BookmarksFragment)
             }
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }
