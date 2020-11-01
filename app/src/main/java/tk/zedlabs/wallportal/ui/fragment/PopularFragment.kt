@@ -12,8 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_popular.*
-import tk.zedlabs.wallportal.R
+import tk.zedlabs.wallportal.databinding.FragmentPopularBinding
 import tk.zedlabs.wallportal.persistence.BookmarkImage
 import tk.zedlabs.wallportal.util.MainAdapter
 import tk.zedlabs.wallportal.util.isConnectedToNetwork
@@ -25,38 +24,54 @@ class PopularFragment : Fragment(), MainAdapter.OnImageListener {
     private lateinit var viewAdapter: MainAdapter
     private val postViewModel: PostViewModel by viewModels()
 
+    private var _binding: FragmentPopularBinding? = null
+
+    // This property is only valid between onCreateView and onDestroyView.
+    private val binding get() = _binding!!
+
     override fun onImageClick(position: Int) {
-        val bi = BookmarkImage(
+        val bookmarkImage = BookmarkImage(
             imageName = postViewModel.popularPagedList?.value?.get(position)?.id.toString(),
             imageUrlFull = postViewModel.popularPagedList?.value?.get(position)?.path,
             imageUrlRegular = postViewModel.popularPagedList?.value?.get(position)?.thumbs?.small
         )
-        val action = PopularFragmentDirections.actionPopularBottomToDetailActivity(bi, "PopularActivity")
-        findNavController().navigate(action)
+            findNavController().navigate(
+                PopularFragmentDirections.actionPopularBottomToDetailActivity(
+                    bookmarkImage,
+                    "PopularActivity"
+                )
+            )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_popular, container, false)
+    ): View? {
+        _binding = FragmentPopularBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         when (context?.isConnectedToNetwork()) {
-            true -> if (textViewConnectivityPop.visibility == VISIBLE) textViewConnectivityPop.visibility = GONE
-            false -> textViewConnectivityPop.visibility = VISIBLE
+            true -> if (binding.textViewConnectivityPop.visibility == VISIBLE) binding.textViewConnectivityPop.visibility =
+                GONE
+            false -> binding.textViewConnectivityPop.visibility = VISIBLE
         }
 
         postViewModel.popularPagedList?.observe(viewLifecycleOwner, Observer { postList ->
             viewAdapter.submitList(postList)
         })
         viewAdapter = MainAdapter(this)
-        recyclerViewPopular.apply {
+        binding.recyclerViewPopular.apply {
             layoutManager = GridLayoutManager(this.context, 2)
             adapter = viewAdapter
         }
-
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
