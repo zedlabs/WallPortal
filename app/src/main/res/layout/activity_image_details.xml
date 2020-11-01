@@ -208,6 +208,7 @@
     <!--<include layout="@layout/content_scrolling" />-->
 
     <include
+        android:id="@+id/progressDialog"
         layout="@layout/progress_saw"
         android:visibility="gone" />
 

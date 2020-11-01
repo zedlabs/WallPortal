@@ -23,11 +23,10 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_image_details.*
-import kotlinx.android.synthetic.main.progress_saw.*
 import kotlinx.coroutines.*
 import tk.zedlabs.wallportal.BuildConfig
 import tk.zedlabs.wallportal.R
+import tk.zedlabs.wallportal.databinding.ActivityImageDetailsBinding
 import tk.zedlabs.wallportal.models.ImageDetails
 import tk.zedlabs.wallportal.persistence.BookmarkImage
 import tk.zedlabs.wallportal.util.isConnectedToNetwork
@@ -45,11 +44,19 @@ class DetailFragment : Fragment() {
 
     private val args: DetailFragmentArgs by navArgs()
 
+    private var _binding: ActivityImageDetailsBinding? = null
+
+    // This property is only valid between onCreateView and onDestroyView.
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.activity_image_details, container, false)
+    ): View? {
+        _binding = ActivityImageDetailsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -69,10 +76,11 @@ class DetailFragment : Fragment() {
         imageDetailViewModel.checkIsBookmark(urlRegular ?: "")
 
         imageDetailViewModel.isBookmark.observe(requireActivity(), Observer { isBookmark ->
-            bookmark_button.text = if (isBookmark) getString(R.string.remove_from_bookmarks) else getString(R.string.add_to_bookmark)
+            binding.bookmarkButton.text =
+                if (isBookmark) getString(R.string.remove_from_bookmarks) else getString(R.string.add_to_bookmark)
         })
 
-        download_button.setOnClickListener {
+        binding.downloadButton.setOnClickListener {
             Glide.with(this)
                 .asBitmap()
                 .load(urlFull)
@@ -91,9 +99,9 @@ class DetailFragment : Fragment() {
                 })
         }
 
-        set_wallpaper_button.setOnClickListener {
+        binding.setWallpaperButton.setOnClickListener {
 
-            progressLayout.visibility = View.VISIBLE
+            binding.progressDialog.progressLayout.visibility = View.VISIBLE
             Glide.with(this)
                 .asBitmap()
                 .load(urlFull)
@@ -102,7 +110,7 @@ class DetailFragment : Fragment() {
                         resource: Bitmap,
                         transition: Transition<in Bitmap>?
                     ) {
-                        progressLayout.visibility = View.GONE
+                        binding.progressDialog.progressLayout.visibility = View.GONE
                         CoroutineScope(Dispatchers.IO).launch {
                             imageDetailViewModel.downloadImage(resource, id)
                             withContext(Dispatchers.Main) {
@@ -115,32 +123,43 @@ class DetailFragment : Fragment() {
                 })
         }
 
-        bookmark_button.setOnClickListener {
+        binding.bookmarkButton.setOnClickListener {
             var unique = true
-            bookmark_button.visibility = View.INVISIBLE
+            binding.bookmarkButton.visibility = View.INVISIBLE
 
-            scrollView1.makeFadeTransition(700)
+            binding.scrollView1.makeFadeTransition(700)
 
-            bookmark_button.apply {
+            binding.bookmarkButton.apply {
                 visibility = View.VISIBLE
                 text = getString(R.string.remove_from_bookmarks)
             }
 
             CoroutineScope(Dispatchers.Main).launch {
                 val idList = bookMarkViewModel.getIdList()
-                    for (id1 in idList) {
-                        if (id == id1) {
-                            unique = false;
+                for (id1 in idList) {
+                    if (id == id1) {
+                        unique = false;
 
-                            Snackbar.make(myCoordinatorLayout, getString(R.string.remove_from_bookmarks_qm), Snackbar.LENGTH_LONG)
-                                .setAction(getString(R.string.remove_string), RemoveListener(
+                        Snackbar.make(
+                            binding.myCoordinatorLayout,
+                            getString(R.string.remove_from_bookmarks_qm),
+                            Snackbar.LENGTH_LONG
+                        )
+                            .setAction(
+                                getString(R.string.remove_string), RemoveListener(
                                     BookmarkImage(id, urlFull, urlRegular)
-                                ))
-                                .setActionTextColor(ContextCompat.getColor(requireContext(),R.color.snackBarAction))
-                                .show()
-                            break
-                        }
+                                )
+                            )
+                            .setActionTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.snackBarAction
+                                )
+                            )
+                            .show()
+                        break
                     }
+                }
 
                 if (unique) {
                     bookMarkViewModel.insertBookMarkImage(BookmarkImage(id, urlFull, urlRegular))
@@ -149,8 +168,10 @@ class DetailFragment : Fragment() {
             }
         }
 
-        original_resolution_button.setOnClickListener {
-            val action = DetailFragmentDirections.actionDetailActivityToOriginalResolutionFragment2(urlFull ?: "")
+        binding.originalResolutionButton.setOnClickListener {
+            val action = DetailFragmentDirections.actionDetailActivityToOriginalResolutionFragment2(
+                urlFull ?: ""
+            )
             findNavController().navigate(action)
         }
 
@@ -164,15 +185,15 @@ class DetailFragment : Fragment() {
     }
 
     private fun setupDetails(imageDetails: ImageDetails?) {
-        //null check required because of kotlin synthetics -- move to viewBinding
-        if (nsw != null) {
+        binding.apply {
             nsw.makeFadeTransition(400)
-            image_details_tech_card.visibility = View.VISIBLE
-            uploader_tv.text = imageDetails?.uploader?.username
-            resolution_tv.text = imageDetails?.resolution
-            views_tv.text = imageDetails?.views.toString()
-            categories_tv.text = imageDetails?.category
+            imageDetailsTechCard.visibility = View.VISIBLE
+            uploaderTv.text = imageDetails?.uploader?.username
+            resolutionTv.text = imageDetails?.resolution
+            viewsTv.text = imageDetails?.views.toString()
+            categoriesTv.text = imageDetails?.category
         }
+
     }
 
     private fun setUpInitialImage(urlRegular: String) {
@@ -185,7 +206,7 @@ class DetailFragment : Fragment() {
             .load(urlRegular)
             .transform(FitCenter())
             .placeholder(circularProgressDrawable)
-            .into(photo_view_1)
+            .into(binding.photoView1)
 
     }
 
