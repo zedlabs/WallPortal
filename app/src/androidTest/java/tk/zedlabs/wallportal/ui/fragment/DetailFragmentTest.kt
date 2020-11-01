@@ -21,7 +21,7 @@ import tk.zedlabs.wallportal.launchFragmentInHiltContainer
 @HiltAndroidTest
 @ExperimentalCoroutinesApi
 class DetailFragmentTest {
-
+//this test does not work if the navigation component has navArgs
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
 

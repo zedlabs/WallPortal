@@ -24,7 +24,7 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
 
     private val bookmarkViewModel: BookmarkViewModel by viewModels()
     private lateinit var list: List<BookmarkImage>
-
+    
     override fun onImageClick(position: Int) {
         val action = BookmarksFragmentDirections.actionBookmarksBottomToDetailActivity(list[position], "BookmarkActivity")
         findNavController().navigate(action)
@@ -40,6 +40,7 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
         super.onViewCreated(view, savedInstanceState)
 
         when (context?.isConnectedToNetwork()) {
+            //synthetic
             true -> if (textViewConnectivityBookmark.visibility == VISIBLE) textViewConnectivityBookmark.visibility = GONE
             false -> textViewConnectivityBookmark.visibility = VISIBLE
         }

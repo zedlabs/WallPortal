@@ -3,7 +3,6 @@ package tk.zedlabs.wallportal.ui.activity
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -11,20 +10,22 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
-import com.zedlabs.pastelplaceholder.Pastel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 import tk.zedlabs.wallportal.R
+import tk.zedlabs.wallportal.databinding.ActivityMainBinding
 import tk.zedlabs.wallportal.util.makeFadeTransition
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED
@@ -36,17 +37,25 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        toolbar.title = getString(R.string.app_name)
+
+
         navController = Navigation.findNavController(this, R.id.fragment)
-        bottomNavigation.setupWithNavController(navController)
+        binding.apply {
+            toolbar.title = getString(R.string.app_name)
+            bottomNavigation.setupWithNavController(navController)
+        }
+
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.detailActivity, R.id.originalResolutionFragment -> {
-                    bottomNavigation.makeFadeTransition(300)
-                    bottomNavigation.visibility = View.GONE
+                    binding.bottomNavigation.apply {
+                        makeFadeTransition(300)
+                        visibility = View.GONE
+                    }
+
                 }
-                else -> bottomNavigation.visibility = View.VISIBLE
+                else -> binding.bottomNavigation.visibility = View.VISIBLE
             }
 
         }

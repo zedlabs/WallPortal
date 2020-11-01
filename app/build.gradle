@@ -7,24 +7,27 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "tk.zedlabs.wallaperapp2019"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "tk.zedlabs.wallportal.HiltTestRunner"
     }
+
+    buildFeatures {
+        viewBinding true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled = true
-    }
+
     packagingOptions {
         exclude "**/attach_hotspot_windows.dll"
         exclude "META-INF/licenses/**"
@@ -48,7 +51,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     implementation "androidx.annotation:annotation:1.1.0"
@@ -84,7 +87,7 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
     //palette
-    implementation 'com.android.support:palette-v7:29.0.0'
+    implementation 'com.android.support:palette-v7:30.0.0'
     //pastel placeholders
     implementation 'com.github.zedlabs:pastelPlaceholders:1.0.3'
 
