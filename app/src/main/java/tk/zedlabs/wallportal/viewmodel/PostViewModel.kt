@@ -1,40 +1,21 @@
 package tk.zedlabs.wallportal.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PageKeyedDataSource
-import androidx.paging.PagedList
+import androidx.paging.*
+import kotlinx.coroutines.flow.Flow
 import tk.zedlabs.wallportal.models.WallHavenResponse
-import tk.zedlabs.wallportal.repository.PopularDataSourceFactory
-import tk.zedlabs.wallportal.repository.PostDataSourceFactory
-import tk.zedlabs.wallportal.util.Constants
+import tk.zedlabs.wallportal.repository.PopularDataSource
+import tk.zedlabs.wallportal.repository.PostDataSource
 
 class PostViewModel : ViewModel() {
 
-    var postPagedList: LiveData<PagedList<WallHavenResponse>>? = null
-    private var postLiveDataSource: LiveData<PageKeyedDataSource<Int, WallHavenResponse>>? = null
+    val postList: Flow<PagingData<WallHavenResponse>> = Pager(PagingConfig(pageSize = 20)) {
+        PopularDataSource()
+    }.flow.cachedIn(viewModelScope)
 
-    var popularPagedList: LiveData<PagedList<WallHavenResponse>>? = null
-    private var popularLiveDataSource: LiveData<PageKeyedDataSource<Int, WallHavenResponse>>? = null
+    val postListNew: Flow<PagingData<WallHavenResponse>> = Pager(PagingConfig(pageSize = 20)) {
+        PostDataSource()
+    }.flow.cachedIn(viewModelScope)
 
-
-    private val config: PagedList.Config = (PagedList.Config.Builder())
-        .setPageSize(Constants.PAGE_SIZE)
-        .setEnablePlaceholders(false)
-        .setInitialLoadSizeHint(24)
-        .setPrefetchDistance(24)
-        .build()
-
-    init {
-        val postDataSourceFactory = PostDataSourceFactory(viewModelScope)
-        val popularDataSourceFactory = PopularDataSourceFactory(viewModelScope)
-
-        postLiveDataSource = postDataSourceFactory.getPostLiveDataSource()
-        popularLiveDataSource = popularDataSourceFactory.getPopularLiveDataSource()
-
-        postPagedList = LivePagedListBuilder(postDataSourceFactory, config).build()
-        popularPagedList = LivePagedListBuilder(popularDataSourceFactory, config).build()
-    }
 }

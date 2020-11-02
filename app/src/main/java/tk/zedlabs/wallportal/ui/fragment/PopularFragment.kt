@@ -9,9 +9,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import tk.zedlabs.wallportal.databinding.FragmentPopularBinding
 import tk.zedlabs.wallportal.persistence.BookmarkImage
 import tk.zedlabs.wallportal.util.MainAdapter
@@ -31,9 +34,12 @@ class PopularFragment : Fragment(), MainAdapter.OnImageListener {
 
     override fun onImageClick(position: Int) {
         val bookmarkImage = BookmarkImage(
-            imageName = postViewModel.popularPagedList?.value?.get(position)?.id.toString(),
-            imageUrlFull = postViewModel.popularPagedList?.value?.get(position)?.path,
-            imageUrlRegular = postViewModel.popularPagedList?.value?.get(position)?.thumbs?.small
+//            imageName = postViewModel.popularPagedList?.value?.get(position)?.id.toString(),
+//            imageUrlFull = postViewModel.popularPagedList?.value?.get(position)?.path,
+//            imageUrlRegular = postViewModel.popularPagedList?.value?.get(position)?.thumbs?.small
+             imageName = "",
+             imageUrlFull = "",
+             imageUrlRegular =""
         )
             findNavController().navigate(
                 PopularFragmentDirections.actionPopularBottomToDetailActivity(
@@ -60,10 +66,14 @@ class PopularFragment : Fragment(), MainAdapter.OnImageListener {
             false -> binding.textViewConnectivityPop.visibility = VISIBLE
         }
 
-        postViewModel.popularPagedList?.observe(viewLifecycleOwner, Observer { postList ->
-            viewAdapter.submitList(postList)
-        })
         viewAdapter = MainAdapter(this)
+
+        lifecycleScope.launch {
+            postViewModel.postList.collectLatest {
+                viewAdapter.submitData(it)
+            }
+        }
+
         binding.recyclerViewPopular.apply {
             layoutManager = GridLayoutManager(this.context, 2)
             adapter = viewAdapter

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.zedlabs.pastelplaceholder.Pastel
@@ -16,29 +16,25 @@ import tk.zedlabs.wallportal.util.MainAdapter.MyViewHolder
 import tk.zedlabs.wallportal.models.WallHavenResponse
 
 class MainAdapter(onImageListener: OnImageListener) :
-    PagedListAdapter<WallHavenResponse, MyViewHolder>(diffCallback) {
+    PagingDataAdapter<WallHavenResponse, MyViewHolder>(ListComparator) {
 
     private var mOnImageListener: OnImageListener = onImageListener
 
     class MyViewHolder(imageView: ImageView, var onImageListener: OnImageListener) :
         RecyclerView.ViewHolder(imageView), View.OnClickListener {
 
-        init {
-            imageView.setOnClickListener(this)
-        }
+        init { imageView.setOnClickListener(this) }
 
         override fun onClick(v: View?) {
             onImageListener.onImageClick(adapterPosition)
         }
     }
 
-    interface OnImageListener {
-        fun onImageClick(position: Int)
-    }
+    interface OnImageListener { fun onImageClick(position: Int) }
 
     companion object {
 
-        private val diffCallback = object : DiffUtil.ItemCallback<WallHavenResponse>() {
+        private val ListComparator = object : DiffUtil.ItemCallback<WallHavenResponse>() {
             override fun areItemsTheSame(
                 oldItem: WallHavenResponse,
                 newItem: WallHavenResponse
