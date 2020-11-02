@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,17 +45,15 @@ class DetailFragment : Fragment() {
 
     private val args: DetailFragmentArgs by navArgs()
 
-    private var _binding: ActivityImageDetailsBinding? = null
+    private lateinit var binding: ActivityImageDetailsBinding
 
-    // This property is only valid between onCreateView and onDestroyView.
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ActivityImageDetailsBinding.inflate(inflater, container, false)
+        binding = ActivityImageDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -138,7 +137,7 @@ class DetailFragment : Fragment() {
                 val idList = bookMarkViewModel.getIdList()
                 for (id1 in idList) {
                     if (id == id1) {
-                        unique = false;
+                        unique = false
 
                         Snackbar.make(
                             binding.myCoordinatorLayout,
@@ -179,21 +178,20 @@ class DetailFragment : Fragment() {
             val details = imageDetailViewModel.getImageDetails(id).body()?.imageDetails
 
             withContext(Dispatchers.Main) {
-                setupDetails(details)
+               setupDetails(details)
             }
         }
     }
 
     private fun setupDetails(imageDetails: ImageDetails?) {
-        binding.apply {
-            nsw.makeFadeTransition(400)
-            imageDetailsTechCard.visibility = View.VISIBLE
-            uploaderTv.text = imageDetails?.uploader?.username
-            resolutionTv.text = imageDetails?.resolution
-            viewsTv.text = imageDetails?.views.toString()
-            categoriesTv.text = imageDetails?.category
-        }
-
+            binding.apply {
+                nsw.makeFadeTransition(400)
+                imageDetailsTechCard.visibility = View.VISIBLE
+                uploaderTv.text = imageDetails?.uploader?.username
+                resolutionTv.text = imageDetails?.resolution
+                viewsTv.text = imageDetails?.views.toString()
+                categoriesTv.text = imageDetails?.category
+            }
     }
 
     private fun setUpInitialImage(urlRegular: String) {
@@ -236,8 +234,5 @@ class DetailFragment : Fragment() {
             }
         }
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
 }
