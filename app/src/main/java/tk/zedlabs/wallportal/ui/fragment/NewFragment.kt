@@ -18,8 +18,6 @@ import kotlinx.coroutines.launch
 import tk.zedlabs.wallportal.databinding.FragmentNewBinding
 import tk.zedlabs.wallportal.models.WallHavenResponse
 import tk.zedlabs.wallportal.persistence.BookmarkImage
-import tk.zedlabs.wallportal.util.MainAdapter
-import tk.zedlabs.wallportal.util.WallpaperClickListener
 import tk.zedlabs.wallportal.util.isConnectedToNetwork
 import tk.zedlabs.wallportal.viewmodel.PostViewModel
 

@@ -16,8 +16,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import tk.zedlabs.wallportal.databinding.FragmentPopularBinding
 import tk.zedlabs.wallportal.persistence.BookmarkImage
-import tk.zedlabs.wallportal.util.MainAdapter
-import tk.zedlabs.wallportal.util.WallpaperClickListener
 import tk.zedlabs.wallportal.util.isConnectedToNetwork
 import tk.zedlabs.wallportal.viewmodel.PostViewModel
 

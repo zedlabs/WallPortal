@@ -1,4 +1,4 @@
-package tk.zedlabs.wallportal.util
+package tk.zedlabs.wallportal.ui.fragment
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.zedlabs.pastelplaceholder.Pastel
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 import tk.zedlabs.wallportal.R
-import tk.zedlabs.wallportal.util.MainAdapter.MyViewHolder
+import tk.zedlabs.wallportal.ui.fragment.MainAdapter.MyViewHolder
 import tk.zedlabs.wallportal.models.WallHavenResponse
 
 class MainAdapter(private val cl: WallpaperClickListener) :

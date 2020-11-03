@@ -5,10 +5,13 @@ import tk.zedlabs.wallportal.data.JsonApi
 import tk.zedlabs.wallportal.data.RetrofitService
 import tk.zedlabs.wallportal.models.WallHavenResponse
 import tk.zedlabs.wallportal.util.Constants
+import javax.inject.Inject
 
-class PostDataSource() : PagingSource<Int, WallHavenResponse>() {
+class PostDataSource @Inject constructor(
+    private val jsonApi: JsonApi
+) : PagingSource<Int, WallHavenResponse>() {
 
-    private var jsonApi: JsonApi = RetrofitService.createService(JsonApi::class.java)
+    //private var jsonApi: JsonApi = RetrofitService.createService(JsonApi::class.java)
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, WallHavenResponse> {
         try {

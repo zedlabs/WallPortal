@@ -1,4 +1,4 @@
-package tk.zedlabs.wallportal.util
+package tk.zedlabs.wallportal.ui.fragment
 
 import android.view.LayoutInflater
 import android.view.View

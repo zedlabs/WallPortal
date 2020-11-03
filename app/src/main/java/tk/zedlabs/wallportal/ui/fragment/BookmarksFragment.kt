@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 import tk.zedlabs.wallportal.databinding.FragmentSavedBinding
 import tk.zedlabs.wallportal.persistence.BookmarkImage
 import tk.zedlabs.wallportal.util.BaseFragment
-import tk.zedlabs.wallportal.util.BookmarkAdapter
 import tk.zedlabs.wallportal.util.isConnectedToNetwork
 import tk.zedlabs.wallportal.viewmodel.BookmarkViewModel
 
