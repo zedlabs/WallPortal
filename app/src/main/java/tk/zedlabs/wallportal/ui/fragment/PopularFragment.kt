@@ -8,7 +8,6 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,11 +17,12 @@ import kotlinx.coroutines.launch
 import tk.zedlabs.wallportal.databinding.FragmentPopularBinding
 import tk.zedlabs.wallportal.persistence.BookmarkImage
 import tk.zedlabs.wallportal.util.MainAdapter
+import tk.zedlabs.wallportal.util.WallpaperClickListener
 import tk.zedlabs.wallportal.util.isConnectedToNetwork
 import tk.zedlabs.wallportal.viewmodel.PostViewModel
 
 @AndroidEntryPoint
-class PopularFragment : Fragment(), MainAdapter.OnImageListener {
+class PopularFragment : Fragment() {
 
     private lateinit var viewAdapter: MainAdapter
     private val postViewModel: PostViewModel by viewModels()
@@ -31,23 +31,6 @@ class PopularFragment : Fragment(), MainAdapter.OnImageListener {
 
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
-
-    override fun onImageClick(position: Int) {
-        val bookmarkImage = BookmarkImage(
-//            imageName = postViewModel.popularPagedList?.value?.get(position)?.id.toString(),
-//            imageUrlFull = postViewModel.popularPagedList?.value?.get(position)?.path,
-//            imageUrlRegular = postViewModel.popularPagedList?.value?.get(position)?.thumbs?.small
-             imageName = "",
-             imageUrlFull = "",
-             imageUrlRegular =""
-        )
-            findNavController().navigate(
-                PopularFragmentDirections.actionPopularBottomToDetailActivity(
-                    bookmarkImage,
-                    "PopularActivity"
-                )
-            )
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,7 +49,19 @@ class PopularFragment : Fragment(), MainAdapter.OnImageListener {
             false -> binding.textViewConnectivityPop.visibility = VISIBLE
         }
 
-        viewAdapter = MainAdapter(this)
+        viewAdapter = MainAdapter(WallpaperClickListener {
+
+            findNavController().navigate(
+                PopularFragmentDirections.actionPopularBottomToDetailActivity(
+                    BookmarkImage(
+                        it.id.toString(),
+                        it.path,
+                        it.thumbs?.small
+                    ),
+                    "PopularActivity"
+                )
+            )
+        })
 
         lifecycleScope.launch {
             postViewModel.postList.collectLatest {

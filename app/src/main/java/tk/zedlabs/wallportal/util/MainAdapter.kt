@@ -2,7 +2,6 @@ package tk.zedlabs.wallportal.util
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -15,26 +14,18 @@ import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.util.MainAdapter.MyViewHolder
 import tk.zedlabs.wallportal.models.WallHavenResponse
 
-class MainAdapter(onImageListener: OnImageListener) :
-    PagingDataAdapter<WallHavenResponse, MyViewHolder>(ListComparator) {
+class MainAdapter(private val cl: WallpaperClickListener) :
+    PagingDataAdapter<WallHavenResponse, MyViewHolder>(diffCallback) {
 
-    private var mOnImageListener: OnImageListener = onImageListener
-
-    class MyViewHolder(imageView: ImageView, var onImageListener: OnImageListener) :
-        RecyclerView.ViewHolder(imageView), View.OnClickListener {
-
-        init { imageView.setOnClickListener(this) }
-
-        override fun onClick(v: View?) {
-            onImageListener.onImageClick(adapterPosition)
+    class MyViewHolder(itemView: ImageView) : RecyclerView.ViewHolder(itemView) {
+        fun bind(data: WallHavenResponse, clickListener: (WallHavenResponse) -> Unit) {
+            itemView.setOnClickListener { clickListener(data) }
         }
     }
 
-    interface OnImageListener { fun onImageClick(position: Int) }
-
     companion object {
 
-        private val ListComparator = object : DiffUtil.ItemCallback<WallHavenResponse>() {
+        private val diffCallback = object : DiffUtil.ItemCallback<WallHavenResponse>() {
             override fun areItemsTheSame(
                 oldItem: WallHavenResponse,
                 newItem: WallHavenResponse
@@ -52,11 +43,13 @@ class MainAdapter(onImageListener: OnImageListener) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val imageView = LayoutInflater.from(parent.context)
             .inflate(R.layout.recyclerview_item, parent, false) as ImageView
-        return MyViewHolder(imageView, mOnImageListener)
+        return MyViewHolder(imageView)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val post = getItem(position)
+
+        holder.bind(getItem(position)!!, cl.clickListener)
 
         Glide.with(holder.itemView.context)
             .load(post?.thumbs?.small)
@@ -66,3 +59,6 @@ class MainAdapter(onImageListener: OnImageListener) :
     }
 
 }
+
+data class WallpaperClickListener(val clickListener: (wallpaper: WallHavenResponse) -> Unit)
+
