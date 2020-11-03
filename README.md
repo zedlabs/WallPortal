@@ -1,5 +1,14 @@
 # WallPortal
-[![Kotlin Version](https://img.shields.io/badge/Kotlin-1.4.10-blue.svg)](https://kotlinlang.org)
+ <a title="GitHub Stars" target="_blank" href="https://github.com/zedlabs/WallPortal/stargazers">
+  <img alt="GitHub Stars" src="https://img.shields.io/github/stars/zedlabs/Wallportal.svg?label=Stars&style=social">
+  </a>  
+  
+  <a title="GitHub Forks" target="_blank" href="https://github.com/zedlabs/WallPortal/network/members">
+  <img alt="GitHub Forks" src="https://img.shields.io/github/forks/zedlabs/WallPortal.svg?label=Forks&style=social">
+  </a>
+  </br>
+  
+ [![Kotlin Version](https://img.shields.io/badge/Kotlin-1.4.10-blue.svg)](https://kotlinlang.org)
 ###### *Minimal Wallpapers for Android*
 [**Download**](https://github.com/zedlabs/WallPortal/releases/download/2020.2/v1.5.1.apk)
 
