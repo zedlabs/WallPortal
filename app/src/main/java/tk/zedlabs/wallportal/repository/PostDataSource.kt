@@ -11,8 +11,6 @@ class PostDataSource @Inject constructor(
     private val jsonApi: JsonApi
 ) : PagingSource<Int, WallHavenResponse>() {
 
-    //private var jsonApi: JsonApi = RetrofitService.createService(JsonApi::class.java)
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, WallHavenResponse> {
         try {
             val nextPage = params.key ?: 1

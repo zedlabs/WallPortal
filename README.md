@@ -6,7 +6,7 @@
 the goal of this project is to create a responsive application and with optimized networking, a good place to see implementation.
 moved to wallhaven.cc api from unsplashed api due to rate limits.
 
-<img src="https://github.com/zedlabs/WallPortal/blob/master/main_page.png" width="200" height="400"> <img src="https://github.com/zedlabs/WallPortal/blob/master/with_slider_open.png" width="200" height="400"> <img src="https://github.com/zedlabs/WallPortal/blob/master/inside_activity.png" width="200" height="400"> 
+<img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/sc1.png" width="200" height="400"> <img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/sc2.png" width="200" height="400"> <img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/sc3.png" width="200" height="400"> 
 
 * Tech-stack
     * [Kotlin](https://kotlinlang.org/) + [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - perform background operation
