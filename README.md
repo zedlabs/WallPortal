@@ -1,5 +1,5 @@
 # WallPortal
-[![Kotlin Version](https://img.shields.io/badge/Kotlin-1.3.41-blue.svg)](https://kotlinlang.org)
+[![Kotlin Version](https://img.shields.io/badge/Kotlin-1.4.10-blue.svg)](https://kotlinlang.org)
 ###### *Minimal Wallpapers for Android*
 [**Download**](https://github.com/zedlabs/WallPortal/releases/download/2020.2/v1.5.1.apk)
 
