@@ -47,7 +47,7 @@ class PopularFragment : Fragment() {
             false -> binding.textViewConnectivityPop.visibility = VISIBLE
         }
 
-        viewAdapter = MainAdapter(WallpaperClickListener {
+        viewAdapter = MainAdapter {
 
             findNavController().navigate(
                 PopularFragmentDirections.actionPopularBottomToDetailActivity(
@@ -59,7 +59,7 @@ class PopularFragment : Fragment() {
                     "PopularActivity"
                 )
             )
-        })
+        }
 
         lifecycleScope.launch {
             postViewModel.postList.collectLatest {
@@ -67,7 +67,7 @@ class PopularFragment : Fragment() {
             }
         }
 
-        binding.recyclerViewPopular.apply {
+        binding.recyclerViewPopular.apply{
             layoutManager = GridLayoutManager(this.context, 2)
             adapter = viewAdapter
         }

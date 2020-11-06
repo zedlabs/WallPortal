@@ -50,7 +50,7 @@ class NewFragment : Fragment() {
             false -> binding.textViewConnectivity.visibility = VISIBLE
         }
 
-        viewAdapter = MainAdapter(WallpaperClickListener {
+        viewAdapter = MainAdapter {
 
             findNavController().navigate(
                 NewFragmentDirections.actionNewBottomToDetailActivity(
@@ -62,7 +62,7 @@ class NewFragment : Fragment() {
                     "NewActivity"
                 )
             )
-        })
+        }
 
         lifecycleScope.launch {
             postViewModel.postListNew.collectLatest {

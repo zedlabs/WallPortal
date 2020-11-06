@@ -9,34 +9,20 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.zedlabs.pastelplaceholder.Pastel
-import kotlinx.android.synthetic.main.recyclerview_item.view.*
 import tk.zedlabs.wallportal.R
-import tk.zedlabs.wallportal.ui.fragment.MainAdapter.MyViewHolder
 import tk.zedlabs.wallportal.models.WallHavenResponse
 
-class MainAdapter(private val cl: WallpaperClickListener) :
+class MainAdapter(private val cl: (wallpaper: WallHavenResponse) -> Unit) :
     PagingDataAdapter<WallHavenResponse, MyViewHolder>(diffCallback) {
-
-    class MyViewHolder(itemView: ImageView) : RecyclerView.ViewHolder(itemView) {
-        fun bind(data: WallHavenResponse, clickListener: (WallHavenResponse) -> Unit) {
-            itemView.setOnClickListener { clickListener(data) }
-        }
-    }
 
     companion object {
 
         private val diffCallback = object : DiffUtil.ItemCallback<WallHavenResponse>() {
-            override fun areItemsTheSame(
-                oldItem: WallHavenResponse,
-                newItem: WallHavenResponse
-            ): Boolean =
-                oldItem.id == newItem.id
+            override fun areItemsTheSame(old: WallHavenResponse, new: WallHavenResponse) =
+                old.id == new.id
 
-            override fun areContentsTheSame(
-                oldItem: WallHavenResponse,
-                newItem: WallHavenResponse
-            ): Boolean =
-                oldItem.equals(newItem)
+            override fun areContentsTheSame(old: WallHavenResponse, new: WallHavenResponse) =
+                old.equals(new)
         }
     }
 
@@ -49,16 +35,21 @@ class MainAdapter(private val cl: WallpaperClickListener) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val post = getItem(position)
 
-        holder.bind(getItem(position)!!, cl.clickListener)
+        holder.bind(getItem(position)!!, cl)
 
         Glide.with(holder.itemView.context)
             .load(post?.thumbs?.small)
             .placeholder(Pastel().getColorLight())
             .transition(DrawableTransitionOptions.withCrossFade(600))
-            .into(holder.itemView.imageViewItem)
+            .into(holder.itemView.findViewById(R.id.imageViewItem))
     }
 
 }
 
-data class WallpaperClickListener(val clickListener: (wallpaper: WallHavenResponse) -> Unit)
+class MyViewHolder(itemView: ImageView) : RecyclerView.ViewHolder(itemView) {
+    fun bind(data: WallHavenResponse, clickListener: (WallHavenResponse) -> Unit) {
+        itemView.setOnClickListener { clickListener(data) }
+    }
+}
+
 
