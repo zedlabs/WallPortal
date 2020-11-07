@@ -39,7 +39,7 @@ class MainAdapter(private val cl: (wallpaper: WallHavenResponse) -> Unit) :
 
         Glide.with(holder.itemView.context)
             .load(post?.thumbs?.small)
-            .placeholder(Pastel().getColorLight())
+            .placeholder(Pastel.getColorLight())
             .transition(DrawableTransitionOptions.withCrossFade(600))
             .into(holder.itemView.findViewById(R.id.imageViewItem))
     }

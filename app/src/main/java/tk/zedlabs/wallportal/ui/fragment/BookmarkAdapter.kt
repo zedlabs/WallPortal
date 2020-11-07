@@ -49,7 +49,7 @@ class BookmarkAdapter(
 
         Glide.with(holder.itemView.context)
             .load(bookmarkedImages[position].imageUrlRegular!!)
-            .placeholder(Pastel().getColorLight())
+            .placeholder(Pastel.getColorLight())
             .transition(DrawableTransitionOptions.withCrossFade(700))
             .into(holder.itemView.imageViewItem)
     }
