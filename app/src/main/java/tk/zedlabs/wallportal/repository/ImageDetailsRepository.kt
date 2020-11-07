@@ -8,6 +8,6 @@ class ImageDetailsRepository @Inject constructor(
     private val wallpaperService: JsonApi
 ) {
     //add better error and exception handling
-    suspend fun getData(id: String) = wallpaperService.getImageDetails(id)
+    suspend fun getData(id: String) = wallpaperService.getImageDetails(id).body()?.imageDetails
 
 }

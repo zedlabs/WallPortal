@@ -59,28 +59,21 @@ class DetailFragment : Fragment() {
 
         imageDetailViewModel.checkIsBookmark(item.imageUrlRegular ?: "")
 
-        imageDetailViewModel.isBookmark.observe(requireActivity(), Observer { isBookmark ->
+        imageDetailViewModel.isBookmark.observe(requireActivity()) { isBookmark ->
             binding.bookmarkButton.text =
                 if (isBookmark) getString(R.string.remove_from_bookmarks) else getString(R.string.add_to_bookmark)
-        })
+        }
 
-        binding.downloadButton.setOnClickListener { download(item) }
-
-        binding.setWallpaperButton.setOnClickListener { setWallpaper(item, uri) }
-
-        binding.bookmarkButton.setOnClickListener { setBookmark(item) }
-
-        binding.originalResolutionButton.setOnClickListener {
-            findNavController().navigate(
-                DetailFragmentDirections.actionDetailActivityToOriginalResolutionFragment2(
-                    item.imageUrlFull ?: ""
-                )
-            )
+        binding.apply {
+            downloadButton.setOnClickListener { download(item) }
+            setWallpaperButton.setOnClickListener { setWallpaper(item, uri) }
+            bookmarkButton.setOnClickListener { setBookmark(item) }
+            originalResolutionButton.setOnClickListener { navigateOriginalRes(item)}
         }
 
         /** Initial details setup **/
         CoroutineScope(Dispatchers.IO).launch {
-            val details = imageDetailViewModel.getImageDetails(item.imageName).body()?.imageDetails
+            val details = imageDetailViewModel.getImageDetails(item.imageName)
 
             withContext(Dispatchers.Main) {
                 setupDetails(details)
@@ -173,8 +166,6 @@ class DetailFragment : Fragment() {
     }
 
     private fun setBookmark(item: BookmarkImage) {
-        val currentItem = BookmarkImage(item.imageName, item.imageUrlFull, item.imageUrlRegular)
-
         binding.apply {
             bookmarkButton.visibility = View.INVISIBLE
             scrollView1.makeFadeTransition(700)
@@ -188,13 +179,21 @@ class DetailFragment : Fragment() {
             if (bookMarkViewModel.getIdList().contains(item.imageName)) {
                 requireContext().showSnackbar(
                     binding.myCoordinatorLayout,
-                    RemoveListener(currentItem)
+                    RemoveListener(args.listItem)
                 )
             } else {
-                bookMarkViewModel.insertBookMarkImage(currentItem)
+                bookMarkViewModel.insertBookMarkImage(args.listItem)
                 requireContext().shortToast(getString(R.string.added_success_bookmark))
             }
         }
+    }
+
+    private fun navigateOriginalRes(item: BookmarkImage){
+        findNavController().navigate(
+            DetailFragmentDirections.actionDetailActivityToOriginalResolutionFragment2(
+                item.imageUrlFull ?: ""
+            )
+        )
     }
 
     inner class RemoveListener(private val bm: BookmarkImage) :
