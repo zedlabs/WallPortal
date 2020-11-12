@@ -11,8 +11,9 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.zedlabs.pastelplaceholder.Pastel
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.models.WallHavenResponse
+import tk.zedlabs.wallportal.persistence.BookmarkImage
 
-class MainAdapter(private val cl: (wallpaper: WallHavenResponse) -> Unit) :
+class MainAdapter(private val clickListener: (wallpaper: BookmarkImage) -> Unit) :
     PagingDataAdapter<WallHavenResponse, MyViewHolder>(diffCallback) {
 
     companion object {
@@ -35,8 +36,15 @@ class MainAdapter(private val cl: (wallpaper: WallHavenResponse) -> Unit) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val post = getItem(position)
 
-        holder.bind(getItem(position)!!, cl)
-
+        holder.itemView.setOnClickListener {
+            clickListener(
+                BookmarkImage(
+                    post?.id.toString(),
+                    post?.path,
+                    post?.thumbs?.small
+                )
+            )
+        }
         Glide.with(holder.itemView.context)
             .load(post?.thumbs?.small)
             .placeholder(Pastel.getColorLight())
@@ -46,10 +54,6 @@ class MainAdapter(private val cl: (wallpaper: WallHavenResponse) -> Unit) :
 
 }
 
-class MyViewHolder(itemView: ImageView) : RecyclerView.ViewHolder(itemView) {
-    fun bind(data: WallHavenResponse, clickListener: (WallHavenResponse) -> Unit) {
-        itemView.setOnClickListener { clickListener(data) }
-    }
-}
+class MyViewHolder(itemView: ImageView) : RecyclerView.ViewHolder(itemView)
 
 

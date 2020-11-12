@@ -8,4 +8,5 @@ object Constants {
     const val sortingPopular = "views"
     const val sortingNew = "random"
     const val PAGE_SIZE = 24
+    const val baseUrl = "https://wallhaven.cc/"
 }

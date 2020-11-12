@@ -35,8 +35,7 @@ class ImageDetailViewModel @ViewModelInject constructor(
 
     fun checkIsBookmark(imageUrl: String) {
         viewModelScope.launch {
-            val bookmarks = bookmarksDao.getAll()
-            bookmarks.map {
+            bookmarksDao.getAll().map {
                 if (it.imageUrlRegular == imageUrl) isBookmark.postValue(true)
             }
         }

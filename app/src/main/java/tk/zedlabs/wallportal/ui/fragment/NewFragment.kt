@@ -51,16 +51,8 @@ class NewFragment : Fragment() {
         }
 
         viewAdapter = MainAdapter {
-
             findNavController().navigate(
-                NewFragmentDirections.actionNewBottomToDetailActivity(
-                    BookmarkImage(
-                        it.id.toString(),
-                        it.path,
-                        it.thumbs?.small
-                    ),
-                    "NewActivity"
-                )
+                NewFragmentDirections.actionNewToDetails(it,"NewActivity")
             )
         }
 

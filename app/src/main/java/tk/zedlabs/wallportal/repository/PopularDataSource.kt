@@ -28,5 +28,4 @@ class PopularDataSource @Inject constructor(private val jsonApi: JsonApi) :
             return LoadResult.Error(e)
         }
     }
-
 }

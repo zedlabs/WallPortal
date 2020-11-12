@@ -31,7 +31,7 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
     override fun onImageClick(position: Int) {
 
         findNavController().navigate(
-            BookmarksFragmentDirections.actionBookmarksBottomToDetailActivity(
+            BookmarksFragmentDirections.actionBookmarksToDetails(
                 list[position],
                 "BookmarkActivity"
             )

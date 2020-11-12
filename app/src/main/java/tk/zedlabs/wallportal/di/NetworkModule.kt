@@ -9,6 +9,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import tk.zedlabs.wallportal.data.JsonApi
+import tk.zedlabs.wallportal.util.Constants
 import javax.inject.Singleton
 
 @Module
@@ -27,7 +28,7 @@ object NetworkModule {
     @Singleton
     fun providesRetrofitInstance(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://wallhaven.cc/")
+            .baseUrl(Constants.baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()

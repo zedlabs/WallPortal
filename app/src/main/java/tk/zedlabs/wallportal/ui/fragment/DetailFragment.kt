@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -68,16 +67,15 @@ class DetailFragment : Fragment() {
             downloadButton.setOnClickListener { download(item) }
             setWallpaperButton.setOnClickListener { setWallpaper(item, uri) }
             bookmarkButton.setOnClickListener { setBookmark(item) }
-            originalResolutionButton.setOnClickListener { navigateOriginalRes(item)}
+            originalResolutionButton.setOnClickListener { navigateOriginalRes(item) }
         }
 
         /** Initial details setup **/
-        CoroutineScope(Dispatchers.IO).launch {
-            val details = imageDetailViewModel.getImageDetails(item.imageName)
-
-            withContext(Dispatchers.Main) {
-                setupDetails(details)
+        CoroutineScope(Dispatchers.Main).launch {
+            val details = async {
+                imageDetailViewModel.getImageDetails(item.imageName)
             }
+            setupDetails(details.await())
         }
     }
 
@@ -188,9 +186,9 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private fun navigateOriginalRes(item: BookmarkImage){
+    private fun navigateOriginalRes(item: BookmarkImage) {
         findNavController().navigate(
-            DetailFragmentDirections.actionDetailActivityToOriginalResolutionFragment2(
+            DetailFragmentDirections.actionDetailsToOriginalRes(
                 item.imageUrlFull ?: ""
             )
         )

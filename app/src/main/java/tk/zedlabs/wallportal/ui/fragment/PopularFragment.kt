@@ -48,16 +48,8 @@ class PopularFragment : Fragment() {
         }
 
         viewAdapter = MainAdapter {
-
             findNavController().navigate(
-                PopularFragmentDirections.actionPopularBottomToDetailActivity(
-                    BookmarkImage(
-                        it.id.toString(),
-                        it.path,
-                        it.thumbs?.small
-                    ),
-                    "PopularActivity"
-                )
+                PopularFragmentDirections.actionPopularToDetails(it, "PopularActivity")
             )
         }
 
@@ -67,7 +59,7 @@ class PopularFragment : Fragment() {
             }
         }
 
-        binding.recyclerViewPopular.apply{
+        binding.recyclerViewPopular.apply {
             layoutManager = GridLayoutManager(this.context, 2)
             adapter = viewAdapter
         }
