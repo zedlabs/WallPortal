@@ -6,6 +6,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,10 +23,7 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
 
     private val bookmarkViewModel: BookmarkViewModel by viewModels()
     private lateinit var list: List<BookmarkImage>
-
     private var _binding: FragmentSavedBinding? = null
-
-    // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
     override fun onImageClick(position: Int) {
@@ -50,10 +48,11 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        when (context?.isConnectedToNetwork()) {
-            true -> if (binding.textViewConnectivityBookmark.visibility == VISIBLE)
-                binding.textViewConnectivityBookmark.visibility = GONE
-            false -> binding.textViewConnectivityBookmark.visibility = VISIBLE
+        binding.textViewConnectivityBookmark.apply {
+            when (context?.isConnectedToNetwork()) {
+                true -> if (this.isVisible) this.visibility = GONE
+                false -> this.visibility = VISIBLE
+            }
         }
     }
 

@@ -44,7 +44,7 @@ class DetailFragmentTest {
 
         //verifying correct navigation
         verify(navController).navigate(
-            DetailFragmentDirections.actionDetailActivityToOriginalResolutionFragment2("")
+            DetailFragmentDirections.actionDetailsToOriginalRes("")
         )
 
     }

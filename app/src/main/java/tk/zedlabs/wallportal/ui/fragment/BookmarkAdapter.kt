@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.zedlabs.pastelplaceholder.Pastel
-import kotlinx.android.synthetic.main.recyclerview_item.view.*
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.persistence.BookmarkImage
 
@@ -51,7 +50,7 @@ class BookmarkAdapter(
             .load(bookmarkedImages[position].imageUrlRegular!!)
             .placeholder(Pastel.getColorLight())
             .transition(DrawableTransitionOptions.withCrossFade(700))
-            .into(holder.itemView.imageViewItem)
+            .into(holder.itemView.findViewById(R.id.imageViewItem))
     }
 
 }

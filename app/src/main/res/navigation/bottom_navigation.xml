@@ -37,6 +37,11 @@
     </fragment>
 
     <fragment
+        android:id="@+id/settings_bottom"
+        android:name="tk.zedlabs.wallportal.ui.fragment.SettingsFragment"
+        android:label="fragment_settings" />
+
+    <fragment
         android:id="@+id/detailActivity"
         android:name="tk.zedlabs.wallportal.ui.fragment.DetailFragment"
         android:label="activity_image_details"
@@ -56,11 +61,11 @@
     <fragment
         android:id="@+id/originalResolutionFragment"
         android:name="tk.zedlabs.wallportal.ui.fragment.OriginalResolutionFragment"
-        android:label="OriginalResolutionFragment" >
+        android:label="OriginalResolutionFragment">
         <argument
             android:name="urlFull"
-            app:argType="string"
-            android:defaultValue='""' />
+            android:defaultValue='""'
+            app:argType="string" />
     </fragment>
 
 </navigation>

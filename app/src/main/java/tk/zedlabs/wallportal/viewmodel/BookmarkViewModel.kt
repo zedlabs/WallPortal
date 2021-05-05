@@ -1,11 +1,13 @@
 package tk.zedlabs.wallportal.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import tk.zedlabs.wallportal.persistence.BookmarkDao
 import tk.zedlabs.wallportal.persistence.BookmarkImage
+import javax.inject.Inject
 
-class BookmarkViewModel @ViewModelInject constructor(
+@HiltViewModel
+class BookmarkViewModel @Inject constructor(
     private val bookmarksDao: BookmarkDao
 ) : ViewModel() {
 

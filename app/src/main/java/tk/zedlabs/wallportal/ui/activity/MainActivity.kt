@@ -57,6 +57,5 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-        //todo add settings bottom navigation tab
     }
 }
