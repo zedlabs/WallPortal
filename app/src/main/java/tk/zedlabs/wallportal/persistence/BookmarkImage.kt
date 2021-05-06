@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 @Entity
 @Parcelize
 data class BookmarkImage(
-        @PrimaryKey val imageName : String,
-        @ColumnInfo val imageUrlFull : String?,
-        @ColumnInfo val imageUrlRegular : String?
-    ) : Parcelable
+    @PrimaryKey val imageName: String,
+    @ColumnInfo val imageUrlFull: String?,
+    @ColumnInfo val imageUrlRegular: String?
+) : Parcelable

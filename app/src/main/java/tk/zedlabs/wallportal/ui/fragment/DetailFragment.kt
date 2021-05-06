@@ -8,108 +8,177 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.BookmarkAdd
+import androidx.compose.material.icons.outlined.Downloading
+import androidx.compose.material.icons.outlined.OpenInNew
+import androidx.compose.material.icons.outlined.Panorama
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
-import tk.zedlabs.wallportal.R
-import tk.zedlabs.wallportal.databinding.ActivityImageDetailsBinding
-import tk.zedlabs.wallportal.models.ImageDetails
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import tk.zedlabs.wallportal.persistence.BookmarkImage
-import tk.zedlabs.wallportal.util.*
+import tk.zedlabs.wallportal.ui.util.LoadImage
+import tk.zedlabs.wallportal.util.getUriForId
+import tk.zedlabs.wallportal.util.shortToast
 import tk.zedlabs.wallportal.viewmodel.BookmarkViewModel
-import tk.zedlabs.wallportal.viewmodel.ImageDetailViewModel
 
+@ExperimentalMaterialApi
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
 
-    val imageDetailViewModel: ImageDetailViewModel by viewModels()
     val bookMarkViewModel: BookmarkViewModel by viewModels()
 
     private val args: DetailFragmentArgs by navArgs()
-    private lateinit var binding: ActivityImageDetailsBinding
-
+    //private lateinit var binding: ActivityImageDetailsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = ActivityImageDetailsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        val item = args.listItem
-        val uri = requireContext().getUriForId(item.imageName)
-
-        when (requireContext().isConnectedToNetwork()) {
-            true -> setUpInitialImage(item.imageUrlFull ?: "")
-            false -> requireContext().shortToast("No Connection")
-        }
-
-        imageDetailViewModel.checkIsBookmark(item.imageUrlRegular ?: "")
-
-        imageDetailViewModel.isBookmark.observe(requireActivity()) { isBookmark ->
-            binding.bookmarkButton.text =
-                if (isBookmark) getString(R.string.remove_from_bookmarks) else getString(R.string.add_to_bookmark)
-        }
-
-        binding.apply {
-            downloadButton.setOnClickListener { download(item) }
-            setWallpaperButton.setOnClickListener { setWallpaper(item, uri) }
-            bookmarkButton.setOnClickListener { setBookmark(item) }
-            originalResolutionButton.setOnClickListener { navigateOriginalRes(item) }
-        }
-
-        /** Initial details setup **/
-        lifecycleScope.launch {
-            val details = async {
-                imageDetailViewModel.getImageDetails(item.imageName)
+    ): View {
+        bookMarkViewModel.checkBookmark(args.listItem.imageName)
+        return ComposeView(requireContext()).apply {
+            setContent {
+                DetailsContent(Modifier)
             }
-            setupDetails(details.await())
         }
     }
 
-    private fun setupDetails(imageDetails: ImageDetails?) {
-        binding.apply {
-            nsw.makeFadeTransition(400)
-            imageDetailsTechCard.visibility = View.VISIBLE
-            uploaderTv.text = imageDetails?.uploader?.username
-            resolutionTv.text = imageDetails?.resolution
-            viewsTv.text = imageDetails?.views.toString()
-            categoriesTv.text = imageDetails?.category
+    @Composable
+    fun DetailsContent(modifier: Modifier) {
+        BottomSheetScaffold(
+            sheetContent = {
+                ImageInformationAndOptions()
+            },
+            sheetBackgroundColor = Color.DarkGray,
+            sheetElevation = 20.dp,
+            sheetShape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+        ) {
+            //image goes here
+            Box(
+                modifier = modifier
+                    .fillMaxSize()
+                    .background(Color.Gray)
+            ) {
+                LoadImage(url = args.listItem.imageUrlFull!!)
+            }
         }
     }
 
-    private fun setUpInitialImage(urlRegular: String) {
-        val cpd = CircularProgressDrawable(requireContext()).apply {
-            strokeWidth = 10f
-            centerRadius = 50f
-            backgroundColor = R.color.aquamarine
-            start()
+    @Composable
+    fun ImageInformationAndOptions() {
+        val isBookmark by bookMarkViewModel.isBookmark.observeAsState()
+        val details by bookMarkViewModel.imageDetails.observeAsState()
+
+        //options icons row --downloads --setWallpaper --bookmark --externalLink
+        Column(
+            modifier = Modifier.padding(20.dp,10.dp,20.dp,20.dp)
+        ) {
+            Divider(
+                modifier = Modifier
+                    .width(80.dp)
+                    .height(6.dp)
+                    .align(Alignment.CenterHorizontally)
+                    .clip(RoundedCornerShape(3.dp))
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(start = 30.dp, end = 30.dp)
+                    .horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Downloading,
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clickable { download(args.listItem) },
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                Icon(
+                    imageVector = Icons.Outlined.Panorama,
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clickable {
+                            setWallpaper(
+                                args.listItem,
+                                requireContext().getUriForId(args.listItem.imageName)
+                            )
+                        },
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                Icon(
+                    imageVector = Icons.Outlined.BookmarkAdd,
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clickable {
+                            if (!isBookmark!!) {
+                                bookMarkViewModel.setBookmark(args.listItem)
+                                Toast
+                                    .makeText(requireContext(), "Added!", Toast.LENGTH_SHORT)
+                                    .show()
+                            } else {
+                                //todo: already bookmarked, prompt to remove bookmark
+                            }
+                        },
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                Icon(
+                    imageVector = Icons.Outlined.OpenInNew,
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clickable {
+                            /* todo open wallhaven link in browser */
+                            navigateOriginalRes(args.listItem)
+                        },
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+            }
+            // --uploader --resolution --views --category
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(text = details?.uploader?.username ?: "")
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(text = details?.resolution ?: "")
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(text = (details?.views ?: "").toString())
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(text = details?.category ?: "")
         }
-
-        Glide.with(this)
-            .load(urlRegular)
-            .transform(FitCenter())
-            .placeholder(cpd)
-            .into(binding.photoView1)
-
     }
 
     private fun setWallpaper(item: BookmarkImage, uri: Uri) {
 
-        binding.progressDialog.progressLayout.visibility = View.VISIBLE
         Glide.with(this)
             .asBitmap()
             .load(item.imageUrlFull)
@@ -118,9 +187,8 @@ class DetailFragment : Fragment() {
                     resource: Bitmap,
                     transition: Transition<in Bitmap>?
                 ) {
-                    binding.progressDialog.progressLayout.visibility = View.GONE
                     CoroutineScope(Dispatchers.IO).launch {
-                        imageDetailViewModel.downloadImage(resource, item.imageName)
+                        bookMarkViewModel.downloadImage(resource, item.imageName)
                         withContext(Dispatchers.Main) {
                             startWallpaperIntent(uri)
                         }
@@ -154,7 +222,7 @@ class DetailFragment : Fragment() {
                     resource: Bitmap,
                     transition: Transition<in Bitmap>?
                 ) {
-                    imageDetailViewModel.downloadImage(resource, item.imageName)
+                    bookMarkViewModel.downloadImage(resource, item.imageName)
                     requireContext().shortToast("Download Started")
                 }
 
@@ -164,48 +232,12 @@ class DetailFragment : Fragment() {
             })
     }
 
-    private fun setBookmark(item: BookmarkImage) {
-        binding.apply {
-            bookmarkButton.visibility = View.INVISIBLE
-            scrollView1.makeFadeTransition(700)
-            bookmarkButton.apply {
-                visibility = View.VISIBLE
-                text = getString(R.string.remove_from_bookmarks)
-            }
-        }
-
-        CoroutineScope(Dispatchers.Main).launch {
-            if (bookMarkViewModel.getIdList().contains(item.imageName)) {
-                requireContext().showSnackbar(
-                    binding.myCoordinatorLayout,
-                    RemoveListener(args.listItem)
-                )
-            } else {
-                bookMarkViewModel.insertBookMarkImage(args.listItem)
-                requireContext().shortToast(getString(R.string.added_success_bookmark))
-            }
-        }
-    }
-
     private fun navigateOriginalRes(item: BookmarkImage) {
         findNavController().navigate(
             DetailFragmentDirections.actionDetailsToOriginalRes(
                 item.imageUrlFull ?: ""
             )
         )
-    }
-
-    inner class RemoveListener(private val bm: BookmarkImage) :
-        View.OnClickListener {
-        override fun onClick(v: View) {
-            CoroutineScope(Dispatchers.IO).launch {
-                bookMarkViewModel.delete(bm)
-                withContext(Dispatchers.Main) {
-                    requireContext().shortToast("Removed from Bookmarks")
-                    activity?.onBackPressed()
-                }
-            }
-        }
     }
 
 }

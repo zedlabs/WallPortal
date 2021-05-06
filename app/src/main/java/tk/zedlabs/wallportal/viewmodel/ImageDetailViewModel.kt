@@ -23,21 +23,6 @@ class ImageDetailViewModel @Inject constructor(
 
     val isBookmark = MutableLiveData<Boolean>().apply { this.value = false }
 
-    fun downloadImage(bitmap: Bitmap, id: String) {
-        fileUtils.saveImage(bitmap, id)
-    }
 
-    suspend fun getImageDetails(id: String): ImageDetails? {
-        return withContext(Dispatchers.IO){
-            repository.getData(id)
-        }
-    }
 
-    fun checkIsBookmark(imageUrl: String) {
-        viewModelScope.launch {
-            bookmarksDao.getAll().map {
-                if (it.imageUrlRegular == imageUrl) isBookmark.postValue(true)
-            }
-        }
-    }
 }

@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.request.RequestOptions
 import com.zedlabs.pastelplaceholder.Pastel
-import dev.chrisbanes.accompanist.glide.GlideImage
 
 class SettingsFragment : Fragment() {
 
@@ -129,24 +128,24 @@ fun detailText(text: String) {
     )
 }
 
-@Composable
-fun loadImage(url: String) {
-    Surface(modifier = Modifier.height(460.dp)) {
-        GlideImage(
-            data = url,
-            loading = {
-                Surface(Modifier.fillMaxSize()) {
-                    Pastel.getColorLight()
-                }
-            },
-            contentScale = ContentScale.Crop,
-            requestBuilder = {
-                val options = RequestOptions()
-                options.centerCrop()
-                apply(options)
-            },
-            fadeIn = true
-        )
-    }
-
-}
+//@Composable
+//fun loadImage(url: String) {
+//    Surface(modifier = Modifier.height(460.dp)) {
+//        GlideImage(
+//            data = url,
+//            loading = {
+//                Surface(Modifier.fillMaxSize()) {
+//                    Pastel.getColorLight()
+//                }
+//            },
+//            contentScale = ContentScale.Crop,
+//            requestBuilder = {
+//                val options = RequestOptions()
+//                options.centerCrop()
+//                apply(options)
+//            },
+//            fadeIn = true
+//        )
+//    }
+//
+//}

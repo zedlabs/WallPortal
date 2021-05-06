@@ -19,6 +19,9 @@ interface BookmarkDao {
     @Query("SELECT imageName FROM BookmarkImage")
     suspend fun getId(): List<String>
 
+    @Query("SELECT * FROM BookmarkImage WHERE imageName==:name")
+    suspend fun getItemByName(name: String): List<BookmarkImage>
+
     @Insert
     suspend fun insertAll(vararg bookmarkImage: BookmarkImage)
 
