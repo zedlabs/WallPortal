@@ -48,6 +48,10 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
         useIR = true
+//        freeCompilerArgs += [
+//                "-P",
+//                "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+//        ]
     }
 }
 
@@ -101,6 +105,8 @@ dependencies {
     implementation "androidx.compose.material:material-icons-core:$compose_version"
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
 
+    // Paging Compose
+    //implementation "androidx.paging:paging-compose:1.0.0-alpha08"
 
 
     //Material

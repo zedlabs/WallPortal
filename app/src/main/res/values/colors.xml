@@ -6,10 +6,12 @@
     <color name="snackBarAction">#EC7454</color>
     <color name="bottomNavButtonColor">#BCBCBC</color>
     <color name="bottomNavTextColor">#BCBCBC</color>
+    <color name="mainAccent2">#000000</color>
     <color name="mainAccent">#9BFAE3</color>
     <color name="grey">#424343</color>
-    <color name="pastelPrimary">#BCE4DC</color>
-    <color name="aquamarine">#347484</color>
+    <color name="pastelPrimary2">#BCE4DC</color>
+    <color name="pastelPrimary">#000000</color>
+    <color name="aquamarine">#68D7F3</color>
     <color name="colorToolbarTextLegacy">#9BFAE3</color>
 
 </resources>

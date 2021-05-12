@@ -2,9 +2,7 @@ package tk.zedlabs.wallportal.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import tk.zedlabs.wallportal.data.JsonApi
-import tk.zedlabs.wallportal.data.RetrofitService
 import tk.zedlabs.wallportal.models.WallHavenResponse
 import tk.zedlabs.wallportal.util.Constants
 import javax.inject.Inject

@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -17,18 +18,18 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.BookmarkAdd
-import androidx.compose.material.icons.outlined.Downloading
-import androidx.compose.material.icons.outlined.OpenInNew
-import androidx.compose.material.icons.outlined.Panorama
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -42,6 +43,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.persistence.BookmarkImage
 import tk.zedlabs.wallportal.ui.util.LoadImage
 import tk.zedlabs.wallportal.util.getUriForId
@@ -53,15 +55,28 @@ import tk.zedlabs.wallportal.viewmodel.BookmarkViewModel
 class DetailFragment : Fragment() {
 
     val bookMarkViewModel: BookmarkViewModel by viewModels()
-
     private val args: DetailFragmentArgs by navArgs()
-    //private lateinit var binding: ActivityImageDetailsBinding
+    lateinit var tb: Toolbar
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // --this can be removed when fragment is a full composable
+        tb = requireActivity().findViewById(R.id.toolbar)
+        tb.visibility = View.GONE
+    }
+
+    //val t = produceState(initialValue = , producer = )
+    override fun onDestroy() {
+        super.onDestroy()
+        tb.visibility = View.VISIBLE
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         bookMarkViewModel.checkBookmark(args.listItem.imageName)
         return ComposeView(requireContext()).apply {
             setContent {
@@ -76,7 +91,7 @@ class DetailFragment : Fragment() {
             sheetContent = {
                 ImageInformationAndOptions()
             },
-            sheetBackgroundColor = Color.DarkGray,
+            sheetBackgroundColor = colorResource(R.color.pastelPrimary),
             sheetElevation = 20.dp,
             sheetShape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
         ) {
@@ -98,14 +113,16 @@ class DetailFragment : Fragment() {
 
         //options icons row --downloads --setWallpaper --bookmark --externalLink
         Column(
-            modifier = Modifier.padding(20.dp,10.dp,20.dp,20.dp)
+            modifier = Modifier.padding(20.dp, 10.dp, 20.dp, 20.dp)
         ) {
             Divider(
                 modifier = Modifier
                     .width(80.dp)
-                    .height(6.dp)
+                    .height(5.dp)
                     .align(Alignment.CenterHorizontally)
                     .clip(RoundedCornerShape(3.dp))
+                    .alpha(0.3f),
+                color = Color.LightGray
             )
             Spacer(modifier = Modifier.height(20.dp))
             Row(
@@ -116,8 +133,9 @@ class DetailFragment : Fragment() {
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.Downloading,
+                    imageVector = Icons.Outlined.Download,
                     contentDescription = "",
+                    tint = Color.White,
                     modifier = Modifier
                         .size(50.dp)
                         .clickable { download(args.listItem) },
@@ -126,6 +144,7 @@ class DetailFragment : Fragment() {
                 Icon(
                     imageVector = Icons.Outlined.Panorama,
                     contentDescription = "",
+                    tint = Color.White,
                     modifier = Modifier
                         .size(50.dp)
                         .clickable {
@@ -139,6 +158,7 @@ class DetailFragment : Fragment() {
                 Icon(
                     imageVector = Icons.Outlined.BookmarkAdd,
                     contentDescription = "",
+                    tint = Color.White,
                     modifier = Modifier
                         .size(50.dp)
                         .clickable {
@@ -156,6 +176,7 @@ class DetailFragment : Fragment() {
                 Icon(
                     imageVector = Icons.Outlined.OpenInNew,
                     contentDescription = "",
+                    tint = Color.White,
                     modifier = Modifier
                         .size(50.dp)
                         .clickable {
@@ -167,13 +188,13 @@ class DetailFragment : Fragment() {
             }
             // --uploader --resolution --views --category
             Spacer(modifier = Modifier.height(20.dp))
-            Text(text = details?.uploader?.username ?: "")
+            Text(text = details?.uploader?.username ?: "", color = Color.White)
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = details?.resolution ?: "")
+            Text(text = details?.resolution ?: "", color = Color.White)
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = (details?.views ?: "").toString())
+            Text(text = (details?.views ?: "").toString(), color = Color.White)
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = details?.category ?: "")
+            Text(text = details?.category ?: "", color = Color.White)
         }
     }
 
@@ -207,7 +228,8 @@ class DetailFragment : Fragment() {
                 .setDataAndType(uri, "image/*")
                 .putExtra("mimeType", "image/*")
 
-            startActivityForResult(wallpaperIntent, 13451)
+            startActivity(wallpaperIntent)
+            //startActivityForResult(wallpaperIntent, 13451)
         } catch (e: Exception) {
             e.printStackTrace()
         }

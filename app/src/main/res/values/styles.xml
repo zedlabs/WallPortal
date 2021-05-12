@@ -1,16 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlNormal">@color/mainAccent</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/pastelPrimary</item>
+        <item name="colorPrimaryDark">@color/pastelPrimary</item>
+        <item name="colorAccent">@color/pastelPrimary</item>
     </style>
 
     <style name="AppThemePastelLight" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+
         <item name="colorPrimary">@color/pastelPrimary</item>
         <item name="colorPrimaryDark">@color/pastelPrimary</item>
         <item name="colorAccent">@color/pastelPrimary</item>
@@ -18,9 +16,7 @@
     </style>
 
     <style name="splashScreenTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
         <item name="android:windowBackground">@drawable/splash_image</item>
-        <item name="android:statusBarColor">@color/pastelPrimary</item>
     </style>
 
     <style name="Widget.BottomNavigationView"

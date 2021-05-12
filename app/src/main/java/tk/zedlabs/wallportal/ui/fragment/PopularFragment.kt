@@ -17,6 +17,7 @@ import tk.zedlabs.wallportal.databinding.FragmentPopularBinding
 import tk.zedlabs.wallportal.util.isConnectedToNetwork
 import tk.zedlabs.wallportal.viewmodel.PostViewModel
 
+//make popular for selected period of time similar to reddit community posts
 @AndroidEntryPoint
 class PopularFragment : Fragment() {
 
