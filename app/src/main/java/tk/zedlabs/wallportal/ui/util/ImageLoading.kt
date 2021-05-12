@@ -14,7 +14,7 @@ fun LoadImage(url: String) {
         // Crop, Fit, Inside, FillHeight, FillWidth, None
         //contentScale = ContentScale.FillHeight,
         requestOptions = RequestOptions().centerCrop(),
-        modifier = Modifier.fillMaxHeight()
+        modifier = Modifier.fillMaxHeight(),
         // shows an image with a circular revealed animation.
         //circularRevealedEnabled = true,
         // shows a placeholder ImageBitmap when loading.

@@ -21,13 +21,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PostViewModel @Inject constructor(
-    private val popularDataSource: PopularDataSource,
-    private val postDataSource: PostDataSource,
     private val repository: ImageDetailsRepository
 ) : ViewModel() {
 
     var newList = mutableStateOf<List<WallHavenResponse>>(listOf())
-    val popList : MutableState<List<WallHavenResponse>> = mutableStateOf(ArrayList())
+    val popList = mutableStateOf<List<WallHavenResponse>>(listOf())
 
     //current pagination page
     val pageNew  = mutableStateOf(1)
@@ -68,57 +66,36 @@ class PostViewModel @Inject constructor(
         postListScrollPosition = position
     }
 
-    fun addNew(newData: List<WallHavenResponse>){
-        newList.value += newData
-    }
-    fun addPopular(newData: List<WallHavenResponse>){
-        val current = ArrayList(this.popList.value)
-        current.addAll(newData)
-        this.popList.value = current
-        //current.clear()
-    }
-
     fun nextPageNew(){
         viewModelScope.launch {
             if((postListNewScrollPosition + 1) >= pageNew.value * PAGE_SIZE){
                 loading.value = true
                 //make loader appear
                 incrementNewPage()
-                Log.e("VM", "nextpageNew: ${pageNew.value}")
+                Log.e("VM", "New: ${pageNew.value}")
 
                 if(pageNew.value > 1){
                     val result = repository.getNewList(pageNew.value)
-                    Log.e("CPR", "nextpageNew: adding new data ")
-                    addNew(result)
+                    newList.value += result
                 }
                 loading.value = false
             }
         }
     }
-    fun nextpagePop(){
+    fun nextPagePop(){
         viewModelScope.launch {
             if((postListScrollPosition + 1) >= pagePopular.value * PAGE_SIZE){
                 loading.value = true
-                //make loader appear
                 incrementPopularPage()
-                Log.e("VM", "nextpagePop: ${pagePopular.value}")
+                Log.e("VM", "Pop: ${pagePopular.value}")
 
                 if(pagePopular.value > 1){
                     val result = repository.getNewList(pagePopular.value)
-                    Log.e("CPR", "nextpagePop: $result ")
-                    addNew(result)
+                    popList.value += result
                 }
                 loading.value = false
             }
         }
     }
-
-    val postList: Flow<PagingData<WallHavenResponse>> = Pager(PagingConfig(pageSize = 20)) {
-        popularDataSource
-    }.flow.cachedIn(viewModelScope)
-
-    val postListNew: Flow<PagingData<WallHavenResponse>> = Pager(PagingConfig(pageSize = 20)) {
-        postDataSource
-    }.flow.cachedIn(viewModelScope)
 
 }

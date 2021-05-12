@@ -44,8 +44,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import tk.zedlabs.wallportal.R
+import tk.zedlabs.wallportal.models.ImageDetails
+import tk.zedlabs.wallportal.models.WallHavenResponse
 import tk.zedlabs.wallportal.persistence.BookmarkImage
 import tk.zedlabs.wallportal.ui.util.LoadImage
+import tk.zedlabs.wallportal.util.Resource
 import tk.zedlabs.wallportal.util.getUriForId
 import tk.zedlabs.wallportal.util.shortToast
 import tk.zedlabs.wallportal.viewmodel.BookmarkViewModel
@@ -65,7 +68,6 @@ class DetailFragment : Fragment() {
         tb.visibility = View.GONE
     }
 
-    //val t = produceState(initialValue = , producer = )
     override fun onDestroy() {
         super.onDestroy()
         tb.visibility = View.VISIBLE
@@ -77,19 +79,54 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        bookMarkViewModel.checkBookmark(args.listItem.imageName)
+        //bookMarkViewModel.checkBookmark(args.listItem.imageName)
         return ComposeView(requireContext()).apply {
             setContent {
-                DetailsContent(Modifier)
+                DetailsContentWrapper()
             }
         }
     }
 
     @Composable
-    fun DetailsContent(modifier: Modifier) {
+    fun DetailsContentWrapper() {
+        val imageDetails = produceState<Resource<ImageDetails>>(
+            initialValue = Resource.Loading()
+        ) {
+            value = bookMarkViewModel.getImageDetails(args.id)
+        }.value
+
+        when (imageDetails) {
+            is Resource.Success -> {
+                DetailsContent(Modifier, imageDetails.data!!)
+            }
+            is Resource.Error -> {
+                Text(
+                    text = imageDetails.message!!,
+                    color = Color.Red,
+                )
+            }
+            is Resource.Loading -> {
+                Box(
+                    modifier = Modifier
+                        .width(10.dp)
+                        .height(10.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(
+                        color = MaterialTheme.colors.primary,
+                    )
+                }
+
+            }
+        }
+    }
+
+    @Composable
+    fun DetailsContent(modifier: Modifier, imageDetails: ImageDetails) {
+
         BottomSheetScaffold(
             sheetContent = {
-                ImageInformationAndOptions()
+                ImageInformationAndOptions(imageDetails = imageDetails)
             },
             sheetBackgroundColor = colorResource(R.color.pastelPrimary),
             sheetElevation = 20.dp,
@@ -101,13 +138,13 @@ class DetailFragment : Fragment() {
                     .fillMaxSize()
                     .background(Color.Gray)
             ) {
-                LoadImage(url = args.listItem.imageUrlFull!!)
+                LoadImage(url = imageDetails.path1!!)
             }
         }
     }
 
     @Composable
-    fun ImageInformationAndOptions() {
+    fun ImageInformationAndOptions(imageDetails: ImageDetails) {
         val isBookmark by bookMarkViewModel.isBookmark.observeAsState()
         val details by bookMarkViewModel.imageDetails.observeAsState()
 
@@ -138,7 +175,7 @@ class DetailFragment : Fragment() {
                     tint = Color.White,
                     modifier = Modifier
                         .size(50.dp)
-                        .clickable { download(args.listItem) },
+                        .clickable { download(imageDetails.path1!!, imageDetails.id1!!) },
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Icon(
@@ -149,8 +186,9 @@ class DetailFragment : Fragment() {
                         .size(50.dp)
                         .clickable {
                             setWallpaper(
-                                args.listItem,
-                                requireContext().getUriForId(args.listItem.imageName)
+                                imageDetails.path1!!,
+                                imageDetails.id1!!,
+                                requireContext().getUriForId(imageDetails.id1)
                             )
                         },
                 )
@@ -163,7 +201,7 @@ class DetailFragment : Fragment() {
                         .size(50.dp)
                         .clickable {
                             if (!isBookmark!!) {
-                                bookMarkViewModel.setBookmark(args.listItem)
+                                bookMarkViewModel.setBookmark(imageDetails)
                                 Toast
                                     .makeText(requireContext(), "Added!", Toast.LENGTH_SHORT)
                                     .show()
@@ -181,7 +219,7 @@ class DetailFragment : Fragment() {
                         .size(50.dp)
                         .clickable {
                             /* todo open wallhaven link in browser */
-                            navigateOriginalRes(args.listItem)
+                            navigateOriginalRes(imageDetails.path1!!)
                         },
                 )
                 Spacer(modifier = Modifier.width(10.dp))
@@ -198,18 +236,18 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private fun setWallpaper(item: BookmarkImage, uri: Uri) {
+    private fun setWallpaper(imageUrlFull: String, id: String, uri: Uri) {
 
         Glide.with(this)
             .asBitmap()
-            .load(item.imageUrlFull)
+            .load(imageUrlFull)
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(
                     resource: Bitmap,
                     transition: Transition<in Bitmap>?
                 ) {
                     CoroutineScope(Dispatchers.IO).launch {
-                        bookMarkViewModel.downloadImage(resource, item.imageName)
+                        bookMarkViewModel.downloadImage(resource, id)
                         withContext(Dispatchers.Main) {
                             startWallpaperIntent(uri)
                         }
@@ -229,22 +267,21 @@ class DetailFragment : Fragment() {
                 .putExtra("mimeType", "image/*")
 
             startActivity(wallpaperIntent)
-            //startActivityForResult(wallpaperIntent, 13451)
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    private fun download(item: BookmarkImage) {
+    private fun download(urlFull: String, id: String) {
         Glide.with(this)
             .asBitmap()
-            .load(item.imageUrlFull)
+            .load(urlFull)
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(
                     resource: Bitmap,
                     transition: Transition<in Bitmap>?
                 ) {
-                    bookMarkViewModel.downloadImage(resource, item.imageName)
+                    bookMarkViewModel.downloadImage(resource, id)
                     requireContext().shortToast("Download Started")
                 }
 
@@ -254,11 +291,9 @@ class DetailFragment : Fragment() {
             })
     }
 
-    private fun navigateOriginalRes(item: BookmarkImage) {
+    private fun navigateOriginalRes(urlFull: String) {
         findNavController().navigate(
-            DetailFragmentDirections.actionDetailsToOriginalRes(
-                item.imageUrlFull ?: ""
-            )
+            DetailFragmentDirections.detailsToOR(urlFull)
         )
     }
 

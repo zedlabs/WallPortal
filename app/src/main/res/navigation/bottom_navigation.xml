@@ -12,7 +12,7 @@
         android:label="fragment_new"
         tools:layout="@layout/fragment_new">
         <action
-            android:id="@+id/action_new_to_details"
+            android:id="@+id/newToDetails"
             app:destination="@id/detailActivity" />
     </fragment>
 
@@ -22,7 +22,7 @@
         android:label="fragment_popular"
         tools:layout="@layout/fragment_popular">
         <action
-            android:id="@+id/action_popular_to_details"
+            android:id="@+id/popularToDetails"
             app:destination="@id/detailActivity" />
     </fragment>
 
@@ -47,14 +47,11 @@
         android:label="activity_image_details"
         tools:layout="@layout/activity_image_details">
         <argument
-            android:name="listItem"
-            app:argType="tk.zedlabs.wallportal.persistence.BookmarkImage" />
-        <argument
-            android:name="sender"
+            android:name="id"
             android:defaultValue=" "
             app:argType="string" />
         <action
-            android:id="@+id/action_details_to_original_res"
+            android:id="@+id/detailsToOR"
             app:destination="@id/originalResolutionFragment" />
     </fragment>
 

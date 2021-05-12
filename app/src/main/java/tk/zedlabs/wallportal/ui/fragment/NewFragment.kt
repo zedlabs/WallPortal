@@ -17,9 +17,11 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import tk.zedlabs.wallportal.models.WallHavenResponse
 import tk.zedlabs.wallportal.ui.util.LoadImage
+import tk.zedlabs.wallportal.ui.wallpaperLists.WallpaperListItem
 import tk.zedlabs.wallportal.util.Constants.PAGE_SIZE
 import tk.zedlabs.wallportal.viewmodel.PostViewModel
 
@@ -48,26 +50,18 @@ class NewFragment : Fragment() {
         LazyColumn {
             itemsIndexed(
                 items = newWallpapers
-            ) { index, wallpaperItem ->
+            ) { index, item ->
                 postViewModel.onChangeNewScrollPosition(index)
                 if ((index + 1) >= (page * PAGE_SIZE) && !loading) {
                     postViewModel.nextPageNew()
                 }
-                WallpaperListItem(wallpaperItem)
+                WallpaperListItem(item) {
+                    findNavController().navigate(
+                        NewFragmentDirections.newToDetails(item.id!!)
+                    )
+                }
             }
         }
     }
 
-    @Composable
-    fun WallpaperListItem(item: WallHavenResponse) {
-        Box(
-            Modifier
-                .height(350.dp)
-                .padding(bottom = 10.dp)
-                .clip(RoundedCornerShape(10.dp))
-        ) {
-            LoadImage(url = item.thumbs?.small!!)
-        }
-
-    }
 }

@@ -28,19 +28,19 @@ class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
 
     override fun onImageClick(position: Int) {
 
-        findNavController().navigate(
-            BookmarksFragmentDirections.actionBookmarksToDetails(
-                list[position],
-                "BookmarkActivity"
-            )
-        )
+//        findNavController().navigate(
+////            BookmarksFragmentDirections.actionBookmarksToDetails(
+////                list[position],
+////                "BookmarkActivity"
+////            )
+//        )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSavedBinding.inflate(inflater, container, false)
         return binding.root
     }

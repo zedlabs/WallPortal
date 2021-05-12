@@ -4,6 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,56 +18,53 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import tk.zedlabs.wallportal.databinding.FragmentPopularBinding
+import tk.zedlabs.wallportal.ui.wallpaperLists.WallpaperListItem
+import tk.zedlabs.wallportal.util.Constants
 import tk.zedlabs.wallportal.util.isConnectedToNetwork
 import tk.zedlabs.wallportal.viewmodel.PostViewModel
 
 //make popular for selected period of time similar to reddit community posts
 @AndroidEntryPoint
 class PopularFragment : Fragment() {
-
-    private lateinit var viewAdapter: MainAdapter
     private val postViewModel: PostViewModel by viewModels()
-    private var _binding: FragmentPopularBinding? = null
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentPopularBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.textViewConnectivityPop.apply {
-            when (context?.isConnectedToNetwork()) {
-                true -> if (this.isVisible) this.visibility = View.GONE
-                false -> this.visibility = View.VISIBLE
+    ): View {
+        return ComposeView(requireContext()).apply {
+            setContent {
+                WallpaperList()
             }
         }
+    }
 
-        viewAdapter = MainAdapter{
-            findNavController().navigate(
-                PopularFragmentDirections.actionPopularToDetails(it, "PopularActivity")
-            )
-        }
-
-        lifecycleScope.launch {
-            postViewModel.postList.collectLatest {
-                viewAdapter.submitData(it)
+    @Composable
+    fun WallpaperList() {
+        val newWallpapers = postViewModel.popList.value
+        val loading = postViewModel.loading.value
+        val page = postViewModel.pagePopular.value
+        LazyColumn {
+            itemsIndexed(
+                items = newWallpapers
+            ) { index, item ->
+                postViewModel.onChangePopularScrollPosition(index)
+                if ((index + 1) >= (page * Constants.PAGE_SIZE) && !loading) {
+                    postViewModel.nextPagePop()
+                }
+                WallpaperListItem(item) {
+                    findNavController().navigate(
+                        PopularFragmentDirections.popularToDetails(item.id!!)
+                    )
+                }
             }
         }
-
-        binding.recyclerViewPopular.apply {
-            layoutManager = GridLayoutManager(this.context, 2)
-            adapter = viewAdapter
-        }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+//        viewAdapter = MainAdapter{
+//            findNavController().navigate(
+//                PopularFragmentDirections.actionPopularToDetails(it, "PopularActivity")
+//            )
+//        }
+
 }
