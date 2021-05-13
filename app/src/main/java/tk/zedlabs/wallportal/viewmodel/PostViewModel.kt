@@ -1,21 +1,13 @@
 package tk.zedlabs.wallportal.viewmodel
 
 import android.util.Log
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import tk.zedlabs.wallportal.models.WallHavenResponse
 import tk.zedlabs.wallportal.repository.ImageDetailsRepository
-import tk.zedlabs.wallportal.repository.PopularDataSource
-import tk.zedlabs.wallportal.repository.PostDataSource
 import tk.zedlabs.wallportal.util.Constants.PAGE_SIZE
 import javax.inject.Inject
 

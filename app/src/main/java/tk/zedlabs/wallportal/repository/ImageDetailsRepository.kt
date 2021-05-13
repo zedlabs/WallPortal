@@ -34,9 +34,6 @@ class ImageDetailsRepository @Inject constructor(
         ).body()?.data!!
     }
 
-    //add better error and exception handling(resource class)
-    suspend fun getData(id: String) = wallpaperService.getImageDetails(id).body()?.imageDetails
-
     suspend fun getWallpaperData(id: String): Resource<ImageDetails> {
         val response = try {
             wallpaperService.getImageDetails(id).body()?.imageDetails
