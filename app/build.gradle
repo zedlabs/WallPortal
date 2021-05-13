@@ -12,7 +12,7 @@ android {
         applicationId "tk.zedlabs.wallaperapp2019"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 1
+        versionCode 2
         versionName "1.0"
         testInstrumentationRunner "tk.zedlabs.wallportal.HiltTestRunner"
     }
@@ -34,13 +34,6 @@ android {
         kotlinCompilerExtensionVersion compose_version
     }
 
-    packagingOptions {
-        exclude "**/attach_hotspot_windows.dll"
-        exclude "META-INF/licenses/**"
-        exclude "META-INF/AL2.0"
-        exclude "META-INF/LGPL2.1"
-        exclude 'META-INF/library-core_release.kotlin_module'
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -85,7 +78,6 @@ dependencies {
     implementation "androidx.compose.foundation:foundation-layout:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
-    //implementation "androidx.ui:ui-tooling:$compose_version"
     implementation "com.google.android.material:compose-theme-adapter:$compose_version"
     implementation "androidx.compose.material:material-icons-core:$compose_version"
     implementation "androidx.compose.material:material-icons-extended:$compose_version"

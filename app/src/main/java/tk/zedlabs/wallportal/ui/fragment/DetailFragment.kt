@@ -14,13 +14,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.BookmarkAdd
-import androidx.compose.material.icons.outlined.Download
-import androidx.compose.material.icons.outlined.OpenInNew
-import androidx.compose.material.icons.outlined.Panorama
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
@@ -97,7 +98,7 @@ class DetailFragment : Fragment() {
 
         when (imageDetails) {
             is Resource.Success -> {
-                DetailsContent(Modifier, imageDetails.data!!)
+                DetailsContent(imageDetails.data!!)
             }
             is Resource.Error -> {
                 Text(text = imageDetails.message!!, color = Color.Red)
@@ -117,22 +118,63 @@ class DetailFragment : Fragment() {
     }
 
     @Composable
-    fun DetailsContent(modifier: Modifier, imageDetails: ImageDetails) {
-
+    fun DetailsContent(imageDetails: ImageDetails) {
+        val isBookmark by bookMarkViewModel.isBookmark.observeAsState()
         BottomSheetScaffold(
             sheetContent = {
                 ImageInformationAndOptions(imageDetails = imageDetails)
             },
-            sheetBackgroundColor = colorResource(R.color.pastelPrimary),
-            sheetElevation = 20.dp,
+            sheetBackgroundColor = colorResource(R.color.pastelPrimary).copy(alpha = 0.8f),
             sheetShape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
         ) {
             Box(
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.Gray)
+                    .background(Color.Black)
             ) {
                 LoadImage(url = imageDetails.path1!!)
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.Top,
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .fillMaxWidth()
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .size(45.dp)
+                            .background(colorResource(R.color.pastelPrimary).copy(alpha = 0.4f))
+                            .clickable { findNavController().navigateUp() },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "back-button",
+                            tint = Color.White,
+                            modifier = Modifier.size(30.dp)
+                        )
+                    }
+                    Box(
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .size(45.dp)
+                            .background(colorResource(R.color.pastelPrimary).copy(alpha = 0.4f))
+                            .clickable { addBookmark(isBookmark!!, imageDetails) },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = when(isBookmark!!){
+                                true -> Icons.Outlined.Bookmark
+                                else -> Icons.Outlined.BookmarkBorder
+                            },
+                            contentDescription = "bookmark-button",
+                            tint = Color.White,
+                            modifier = Modifier.size(30.dp)
+                        )
+                    }
+                }
+
             }
         }
     }
@@ -143,7 +185,8 @@ class DetailFragment : Fragment() {
 
         //options icons row --downloads --setWallpaper --bookmark --externalLink
         Column(
-            modifier = Modifier.padding(20.dp, 10.dp, 20.dp, 20.dp)
+            modifier = Modifier
+                .padding(20.dp, 10.dp, 20.dp, 20.dp)
         ) {
             Divider(
                 modifier = Modifier
@@ -192,7 +235,7 @@ class DetailFragment : Fragment() {
                     tint = Color.White,
                     modifier = Modifier
                         .size(50.dp)
-                        .clickable { addBookmark(isBookmark!!, imageDetails) }
+                        .clickable { }
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Icon(

@@ -62,6 +62,7 @@ class BookmarkViewModel @Inject constructor(
     }
 
     fun deleteBookmark(id: String){
+        isBookmark.value = false
         viewModelScope.launch {
             bookmarksDao.deleteBookmark(id)
         }

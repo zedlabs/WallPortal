@@ -1,9 +1,6 @@
 package tk.zedlabs.wallportal.ui.util
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,7 +17,7 @@ fun LoadImage(url: String) {
         // Crop, Fit, Inside, FillHeight, FillWidth, None
         //contentScale = ContentScale.FillHeight,
         loading = {
-            Box(Modifier.height(20.dp).width(10.dp), contentAlignment = Alignment.Center) {
+            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
             }
         },
