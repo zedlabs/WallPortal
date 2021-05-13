@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import tk.zedlabs.wallportal.models.WallHavenResponse
+import tk.zedlabs.wallportal.persistence.BookmarkImage
 import tk.zedlabs.wallportal.ui.util.LoadImage
 
 @Composable
@@ -22,6 +23,20 @@ fun WallpaperListItem(item: WallHavenResponse, onClick: () -> Unit) {
             .clickable { onClick.invoke() }
     ) {
         LoadImage(url = item.thumbs?.small!!)
+    }
+
+}
+
+@Composable
+fun BookmarkListItem(item: BookmarkImage, onClick: () -> Unit) {
+    Box(
+        Modifier
+            .height(350.dp)
+            .padding(10.dp)
+            .clip(RoundedCornerShape(10.dp))
+            .clickable { onClick.invoke() }
+    ) {
+        LoadImage(url = item.imageUrlRegular!!)
     }
 
 }

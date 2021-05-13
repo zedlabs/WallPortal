@@ -6,6 +6,9 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,65 +17,38 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import tk.zedlabs.wallportal.databinding.FragmentSavedBinding
 import tk.zedlabs.wallportal.persistence.BookmarkImage
+import tk.zedlabs.wallportal.ui.wallpaperLists.BookmarkListItem
+import tk.zedlabs.wallportal.ui.wallpaperLists.WallpaperListItem
 import tk.zedlabs.wallportal.util.BaseFragment
+import tk.zedlabs.wallportal.util.Constants
 import tk.zedlabs.wallportal.util.isConnectedToNetwork
 import tk.zedlabs.wallportal.viewmodel.BookmarkViewModel
 
 @AndroidEntryPoint
-class BookmarksFragment : BaseFragment(), BookmarkAdapter.OnImageListener {
+class BookmarksFragment : BaseFragment() {
 
     private val bookmarkViewModel: BookmarkViewModel by viewModels()
-    private lateinit var list: List<BookmarkImage>
-    private var _binding: FragmentSavedBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onImageClick(position: Int) {
-
-//        findNavController().navigate(
-////            BookmarksFragmentDirections.actionBookmarksToDetails(
-////                list[position],
-////                "BookmarkActivity"
-////            )
-//        )
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSavedBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.textViewConnectivityBookmark.apply {
-            when (context?.isConnectedToNetwork()) {
-                true -> if (this.isVisible) this.visibility = GONE
-                false -> this.visibility = VISIBLE
+        return ComposeView(requireContext()).apply {
+            setContent {
+                val bookmarkImages = bookmarkViewModel.bookmarkList.value
+                LazyColumn {
+                    itemsIndexed(
+                        items = bookmarkImages
+                    ) { _, item ->
+                        BookmarkListItem(item) {
+                            findNavController().navigate(
+                                BookmarksFragmentDirections.bookmarkToDet(item.imageName)
+                            )
+                        }
+                    }
+                }
             }
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-        launch {
-            context?.let {
-                list = bookmarkViewModel.getBookMarkImages().asReversed()
-                if (list.isNullOrEmpty()) binding.textViewEmpty.visibility = VISIBLE
-            }
-            binding.recyclerViewBookmarked.apply {
-                layoutManager = GridLayoutManager(this.context, 2)
-                adapter = BookmarkAdapter(list, this@BookmarksFragment)
-            }
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 }

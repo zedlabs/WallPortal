@@ -32,7 +32,7 @@
         android:label="fragment_bookmarks"
         tools:layout="@layout/fragment_saved">
         <action
-            android:id="@+id/action_bookmarks_to_details"
+            android:id="@+id/bookmarkToDet"
             app:destination="@id/detailActivity" />
     </fragment>
 

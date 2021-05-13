@@ -27,7 +27,14 @@ class BookmarkViewModel @Inject constructor(
 ) : ViewModel() {
 
     val isBookmark: MutableLiveData<Boolean> = MutableLiveData(false)
+    val bookmarkList = mutableStateOf<List<BookmarkImage>>(listOf())
     val loading = mutableStateOf(false)
+
+    init {
+        viewModelScope.launch {
+            bookmarkList.value = bookmarksDao.getAll().asReversed()
+        }
+    }
 
     fun getDetails(id: String) {
         viewModelScope.launch {
@@ -39,17 +46,13 @@ class BookmarkViewModel @Inject constructor(
         return repository.getWallpaperData(id)
     }
 
-    suspend fun getBookMarkImages(): List<BookmarkImage> {
-        return bookmarksDao.getAll()
-    }
-
     fun setBookmark(item: ImageDetails) {
         isBookmark.value = true
         viewModelScope.launch {
             bookmarksDao.insert(
                 BookmarkImage(
                     imageName = item.id1!!,
-                    imageUrlFull = item.source,
+                    imageUrlFull = item.path1,
                     imageUrlRegular = item.thumbs?.small
                 )
             )
