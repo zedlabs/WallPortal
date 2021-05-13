@@ -4,19 +4,12 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Environment
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.transition.TransitionManager
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_image_details.*
 import tk.zedlabs.wallportal.BuildConfig
-import tk.zedlabs.wallportal.R
-import tk.zedlabs.wallportal.ui.fragment.DetailFragment
 import java.io.File
 
 fun Context.isConnectedToNetwork(): Boolean {

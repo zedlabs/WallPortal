@@ -1,9 +1,15 @@
 package tk.zedlabs.wallportal.ui.util
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 import com.bumptech.glide.request.RequestOptions
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -13,6 +19,12 @@ fun LoadImage(url: String) {
         imageModel = url,
         // Crop, Fit, Inside, FillHeight, FillWidth, None
         //contentScale = ContentScale.FillHeight,
+        loading = {
+            Box(Modifier.height(20.dp).width(10.dp), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator()
+            }
+        },
+
         requestOptions = RequestOptions().centerCrop(),
         modifier = Modifier.fillMaxHeight(),
         // shows an image with a circular revealed animation.
