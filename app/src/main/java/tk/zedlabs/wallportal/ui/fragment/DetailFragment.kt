@@ -45,8 +45,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.models.ImageDetails
-import tk.zedlabs.wallportal.models.WallHavenResponse
-import tk.zedlabs.wallportal.persistence.BookmarkImage
 import tk.zedlabs.wallportal.ui.util.LoadImage
 import tk.zedlabs.wallportal.util.Resource
 import tk.zedlabs.wallportal.util.getUriForId
@@ -79,7 +77,6 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        //bookMarkViewModel.checkBookmark(args.listItem.imageName)
         return ComposeView(requireContext()).apply {
             setContent {
                 DetailsContentWrapper()
@@ -93,6 +90,7 @@ class DetailFragment : Fragment() {
             initialValue = Resource.Loading()
         ) {
             value = bookMarkViewModel.getImageDetails(args.id)
+            bookMarkViewModel.checkBookmark(value.data?.id1!!)
         }.value
 
         when (imageDetails) {
@@ -100,21 +98,14 @@ class DetailFragment : Fragment() {
                 DetailsContent(Modifier, imageDetails.data!!)
             }
             is Resource.Error -> {
-                Text(
-                    text = imageDetails.message!!,
-                    color = Color.Red,
-                )
+                Text(text = imageDetails.message!!, color = Color.Red)
             }
             is Resource.Loading -> {
                 Box(
-                    modifier = Modifier
-                        .width(10.dp)
-                        .height(10.dp),
+                    modifier = Modifier.width(10.dp).height(10.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    CircularProgressIndicator(
-                        color = MaterialTheme.colors.primary,
-                    )
+                    CircularProgressIndicator(color = MaterialTheme.colors.primary)
                 }
 
             }
@@ -132,7 +123,6 @@ class DetailFragment : Fragment() {
             sheetElevation = 20.dp,
             sheetShape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
         ) {
-            //image goes here
             Box(
                 modifier = modifier
                     .fillMaxSize()
@@ -146,7 +136,6 @@ class DetailFragment : Fragment() {
     @Composable
     fun ImageInformationAndOptions(imageDetails: ImageDetails) {
         val isBookmark by bookMarkViewModel.isBookmark.observeAsState()
-        val details by bookMarkViewModel.imageDetails.observeAsState()
 
         //options icons row --downloads --setWallpaper --bookmark --externalLink
         Column(
@@ -226,13 +215,13 @@ class DetailFragment : Fragment() {
             }
             // --uploader --resolution --views --category
             Spacer(modifier = Modifier.height(20.dp))
-            Text(text = details?.uploader?.username ?: "", color = Color.White)
+            Text(text = imageDetails.uploader?.username ?: "", color = Color.White)
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = details?.resolution ?: "", color = Color.White)
+            Text(text = imageDetails.resolution ?: "", color = Color.White)
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = (details?.views ?: "").toString(), color = Color.White)
+            Text(text = (imageDetails.views ?: "").toString(), color = Color.White)
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = details?.category ?: "", color = Color.White)
+            Text(text = imageDetails.category ?: "", color = Color.White)
         }
     }
 

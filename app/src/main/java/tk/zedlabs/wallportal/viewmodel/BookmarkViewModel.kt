@@ -27,7 +27,6 @@ class BookmarkViewModel @Inject constructor(
 ) : ViewModel() {
 
     val isBookmark: MutableLiveData<Boolean> = MutableLiveData(false)
-    val imageDetails: MutableLiveData<ImageDetails> = MutableLiveData()
     val loading = mutableStateOf(false)
 
     fun getDetails(id: String) {
@@ -50,7 +49,7 @@ class BookmarkViewModel @Inject constructor(
             bookmarksDao.insert(
                 BookmarkImage(
                     imageName = item.id1!!,
-                    imageUrlFull = item.thumbs?.original,
+                    imageUrlFull = item.source,
                     imageUrlRegular = item.thumbs?.small
                 )
             )
@@ -60,7 +59,6 @@ class BookmarkViewModel @Inject constructor(
     fun checkBookmark(name: String) {
         viewModelScope.launch {
             if (bookmarksDao.getItemByName(name).isNotEmpty()) isBookmark.value = true
-            imageDetails.value = repository.getData(name)
         }
     }
 
