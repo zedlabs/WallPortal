@@ -1,17 +1,24 @@
 package tk.zedlabs.wallportal.repository
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.flowOn
 import tk.zedlabs.wallportal.data.JsonApi
 import tk.zedlabs.wallportal.models.ImageDetails
 import tk.zedlabs.wallportal.models.WallHavenResponse
+import tk.zedlabs.wallportal.persistence.BookmarkDao
+import tk.zedlabs.wallportal.persistence.BookmarkImage
 import tk.zedlabs.wallportal.util.Constants
 import tk.zedlabs.wallportal.util.Resource
 import javax.inject.Inject
 
 class ImageDetailsRepository @Inject constructor(
-    private val wallpaperService: JsonApi
+    private val wallpaperService: JsonApi,
+    private val dao: BookmarkDao
 ) {
     //change to response type
-    suspend fun getNewList(currentPage: Int) : List<WallHavenResponse>{
+    suspend fun getNewList(currentPage: Int): List<WallHavenResponse> {
         return wallpaperService.getImageList(
             Constants.queryParamNew,
             Constants.sortingNew,
@@ -19,7 +26,7 @@ class ImageDetailsRepository @Inject constructor(
         ).body()?.data!!
     }
 
-    suspend fun getPopularList(currentPage: Int): List<WallHavenResponse>{
+    suspend fun getPopularList(currentPage: Int): List<WallHavenResponse> {
         return wallpaperService.getImageList(
             Constants.queryParamPopular,
             Constants.sortingPopular,
@@ -38,4 +45,9 @@ class ImageDetailsRepository @Inject constructor(
         }
         return Resource.Success(response!!)
     }
+
+    fun getBookmarks(): Flow<List<BookmarkImage>> = dao.getAll()
+        .flowOn(Dispatchers.Main)
+        .conflate()
+
 }

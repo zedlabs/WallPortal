@@ -4,11 +4,12 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookmarkDao {
     @Query("SELECT * FROM BookmarkImage")
-    suspend fun getAll(): List<BookmarkImage>
+    fun getAll(): Flow<List<BookmarkImage>>
 
     @Query("SELECT imageUrlFull FROM BookmarkImage")
     suspend fun getListFull(): List<String>
@@ -21,6 +22,9 @@ interface BookmarkDao {
 
     @Query("SELECT * FROM BookmarkImage WHERE imageName==:name")
     suspend fun getItemByName(name: String): List<BookmarkImage>
+
+    @Query("DELETE FROM BookmarkImage WHERE imageName==:id")
+    suspend fun deleteBookmark(id: String)
 
     @Insert
     suspend fun insertAll(vararg bookmarkImage: BookmarkImage)

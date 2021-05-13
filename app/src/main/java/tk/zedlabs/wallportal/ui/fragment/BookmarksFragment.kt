@@ -8,6 +8,8 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -36,10 +38,10 @@ class BookmarksFragment : BaseFragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-                val bookmarkImages = bookmarkViewModel.bookmarkList.value
+                val bookmarkImages by bookmarkViewModel.bookmarkList.observeAsState()
                 LazyColumn {
                     itemsIndexed(
-                        items = bookmarkImages
+                        items = bookmarkImages.orEmpty()
                     ) { _, item ->
                         BookmarkListItem(item) {
                             findNavController().navigate(
@@ -51,4 +53,9 @@ class BookmarksFragment : BaseFragment() {
             }
         }
     }
+
+//    override fun onResume() {
+//        super.onResume()
+//        bookmarkViewModel.getBookmarks()
+//    }
 }

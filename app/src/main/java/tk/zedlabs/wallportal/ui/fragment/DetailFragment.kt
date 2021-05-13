@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,7 +17,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
+import androidx.compose.material.icons.outlined.BookmarkAdd
+import androidx.compose.material.icons.outlined.Download
+import androidx.compose.material.icons.outlined.OpenInNew
+import androidx.compose.material.icons.outlined.Panorama
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -102,7 +104,9 @@ class DetailFragment : Fragment() {
             }
             is Resource.Loading -> {
                 Box(
-                    modifier = Modifier.width(10.dp).height(10.dp),
+                    modifier = Modifier
+                        .width(10.dp)
+                        .height(10.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     CircularProgressIndicator(color = MaterialTheme.colors.primary)
@@ -188,16 +192,7 @@ class DetailFragment : Fragment() {
                     tint = Color.White,
                     modifier = Modifier
                         .size(50.dp)
-                        .clickable {
-                            if (!isBookmark!!) {
-                                bookMarkViewModel.setBookmark(imageDetails)
-                                Toast
-                                    .makeText(requireContext(), "Added!", Toast.LENGTH_SHORT)
-                                    .show()
-                            } else {
-                                //todo: already bookmarked, prompt to remove bookmark
-                            }
-                        },
+                        .clickable { addBookmark(isBookmark!!, imageDetails) }
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Icon(
@@ -222,6 +217,16 @@ class DetailFragment : Fragment() {
             Text(text = (imageDetails.views ?: "").toString(), color = Color.White)
             Spacer(modifier = Modifier.height(10.dp))
             Text(text = imageDetails.category ?: "", color = Color.White)
+        }
+    }
+
+    private fun addBookmark(isBookmark: Boolean, imageDetails: ImageDetails) {
+        if (!isBookmark) {
+            bookMarkViewModel.setBookmark(imageDetails)
+            requireContext().shortToast("Bookmark Added!")
+        } else {
+            bookMarkViewModel.deleteBookmark(imageDetails.id1!!)
+            requireContext().shortToast("Bookmark Removed")
         }
     }
 

@@ -3,9 +3,7 @@ package tk.zedlabs.wallportal.viewmodel
 import android.graphics.Bitmap
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,14 +25,8 @@ class BookmarkViewModel @Inject constructor(
 ) : ViewModel() {
 
     val isBookmark: MutableLiveData<Boolean> = MutableLiveData(false)
-    val bookmarkList = mutableStateOf<List<BookmarkImage>>(listOf())
     val loading = mutableStateOf(false)
-
-    init {
-        viewModelScope.launch {
-            bookmarkList.value = bookmarksDao.getAll().asReversed()
-        }
-    }
+    val bookmarkList: LiveData<List<BookmarkImage>> = repository.getBookmarks().asLiveData()
 
     fun getDetails(id: String) {
         viewModelScope.launch {
@@ -69,7 +61,9 @@ class BookmarkViewModel @Inject constructor(
         fileUtils.saveImage(bitmap, id)
     }
 
-    suspend fun delete(bookmarkImage: BookmarkImage) {
-        bookmarksDao.delete(bookmarkImage)
+    fun deleteBookmark(id: String){
+        viewModelScope.launch {
+            bookmarksDao.deleteBookmark(id)
+        }
     }
 }
