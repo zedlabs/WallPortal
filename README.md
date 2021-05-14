@@ -27,6 +27,7 @@ native android wallpaper application written in kotlin using jetpack compose
         * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - store and manage UI-related data in a lifecycle conscious way
         * [Paging3](https://developer.android.com/jetpack/androidx/releases/paging)
         * [ViewBinding](https://developer.android.com/topic/libraries/view-binding)
+        * [Compose]()
     * Tests - local and instrumented unit tests 
     * [PastelPlaceholders](https://github.com/zedlabs/pastelPlaceholders) - internal image placeholder library
 * Architecture
