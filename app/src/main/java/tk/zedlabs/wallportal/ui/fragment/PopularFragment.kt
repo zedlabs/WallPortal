@@ -63,10 +63,4 @@ class PopularFragment : Fragment() {
         }
     }
 
-//        viewAdapter = MainAdapter{
-//            findNavController().navigate(
-//                PopularFragmentDirections.actionPopularToDetails(it, "PopularActivity")
-//            )
-//        }
-
 }

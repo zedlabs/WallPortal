@@ -2,6 +2,6 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:drawable="@color/pastelPrimary"/>
-    <item android:drawable="@drawable/ic_welcome" android:gravity="center"/>
+    <item android:drawable="@drawable/ic_welcome_2" android:gravity="center"/>
 
 </layer-list>
