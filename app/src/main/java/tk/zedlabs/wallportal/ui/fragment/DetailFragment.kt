@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -19,7 +18,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,7 +27,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
@@ -50,7 +47,6 @@ import tk.zedlabs.wallportal.util.getUriForId
 import tk.zedlabs.wallportal.util.shortToast
 import tk.zedlabs.wallportal.viewmodel.BookmarkViewModel
 import android.content.Intent
-import android.graphics.drawable.Icon
 import androidx.compose.material.icons.sharp.*
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -63,19 +59,6 @@ class DetailFragment : Fragment() {
 
     val bookMarkViewModel: BookmarkViewModel by viewModels()
     private val args: DetailFragmentArgs by navArgs()
-    lateinit var tb: Toolbar
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        // --this can be removed when fragment is a full composable
-        tb = requireActivity().findViewById(R.id.toolbar)
-        tb.visibility = View.GONE
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        tb.visibility = View.VISIBLE
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -143,7 +126,7 @@ class DetailFragment : Fragment() {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.Black)
+                    .background(colorResource(R.color.listBackground))
             ) {
                 LoadImage(url = imageDetails.path1!!)
                 Row(
@@ -272,9 +255,8 @@ class DetailFragment : Fragment() {
             Divider(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(5.dp)
+                    .height(3.dp)
                     .align(Alignment.CenterHorizontally)
-                    .clip(RoundedCornerShape(3.dp))
                     .alpha(0.3f),
                 color = Color.LightGray
             )

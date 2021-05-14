@@ -13,5 +13,7 @@
     <color name="pastelPrimary">#000000</color>
     <color name="aquamarine">#68D7F3</color>
     <color name="colorToolbarTextLegacy">#9BFAE3</color>
-
+    <color name="listBackground">#0D0E0E</color>
+    <color name="titleColor">#FF58E9</color>
+    <color name="shadowColor">#E4E4E4</color>
 </resources>

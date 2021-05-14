@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_checked="true"
-    android:color = "@color/aquamarine"/>
+    android:color = "@color/aquamarine" />
 
     <item android:state_checked="false"
     android:color = "@color/aquamarine"/>

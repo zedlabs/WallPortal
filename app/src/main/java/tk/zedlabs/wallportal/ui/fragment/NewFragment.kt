@@ -6,12 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.colorResource
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import tk.zedlabs.wallportal.R
+import tk.zedlabs.wallportal.ui.util.TopBar
 import tk.zedlabs.wallportal.ui.wallpaperLists.WallpaperListItem
 import tk.zedlabs.wallportal.util.Constants.PAGE_SIZE
 import tk.zedlabs.wallportal.viewmodel.PostViewModel
@@ -28,7 +32,12 @@ class NewFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-                WallpaperList()
+                Scaffold(
+                    topBar = { TopBar() },
+                    backgroundColor = colorResource(R.color.listBackground)
+                ) {
+                    WallpaperList()
+                }
             }
         }
     }

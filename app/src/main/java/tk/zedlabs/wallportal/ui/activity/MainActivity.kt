@@ -39,10 +39,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         navController = Navigation.findNavController(this, R.id.fragment)
-        binding.apply {
-            toolbar.title = getString(R.string.app_name)
-            bottomNavigation.setupWithNavController(navController)
-        }
+        binding.bottomNavigation.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -51,11 +48,13 @@ class MainActivity : AppCompatActivity() {
                         makeFadeTransition(300)
                         visibility = View.GONE
                     }
-
                 }
-                else -> binding.bottomNavigation.visibility = View.VISIBLE
+                else -> {
+                    binding.bottomNavigation.apply {
+                        visibility = View.VISIBLE
+                    }
+                }
             }
-
         }
     }
 }
