@@ -42,10 +42,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.models.ImageDetails
 import tk.zedlabs.wallportal.ui.util.LoadImage
@@ -53,6 +49,13 @@ import tk.zedlabs.wallportal.util.Resource
 import tk.zedlabs.wallportal.util.getUriForId
 import tk.zedlabs.wallportal.util.shortToast
 import tk.zedlabs.wallportal.viewmodel.BookmarkViewModel
+import android.content.Intent
+import android.graphics.drawable.Icon
+import androidx.compose.material.icons.sharp.*
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.graphics.vector.ImageVector
+import kotlinx.coroutines.*
+
 
 @ExperimentalMaterialApi
 @AndroidEntryPoint
@@ -120,12 +123,22 @@ class DetailFragment : Fragment() {
     @Composable
     fun DetailsContent(imageDetails: ImageDetails) {
         val isBookmark by bookMarkViewModel.isBookmark.observeAsState()
+        val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
+            bottomSheetState = rememberBottomSheetState(
+                initialValue = BottomSheetValue.Collapsed
+            )
+        )
         BottomSheetScaffold(
             sheetContent = {
-                ImageInformationAndOptions(imageDetails = imageDetails)
+                ImageInformationAndOptions(
+                    imageDetails = imageDetails,
+                    sheetState = bottomSheetScaffoldState
+                )
             },
             sheetBackgroundColor = colorResource(R.color.pastelPrimary).copy(alpha = 0.8f),
             sheetShape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+            sheetPeekHeight = 90.dp,
+            scaffoldState = bottomSheetScaffoldState
         ) {
             Box(
                 modifier = Modifier
@@ -164,7 +177,7 @@ class DetailFragment : Fragment() {
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
-                            imageVector = when(isBookmark!!){
+                            imageVector = when (isBookmark!!) {
                                 true -> Icons.Outlined.Bookmark
                                 else -> Icons.Outlined.BookmarkBorder
                             },
@@ -180,9 +193,11 @@ class DetailFragment : Fragment() {
     }
 
     @Composable
-    fun ImageInformationAndOptions(imageDetails: ImageDetails) {
-        val isBookmark by bookMarkViewModel.isBookmark.observeAsState()
-
+    fun ImageInformationAndOptions(
+        imageDetails: ImageDetails,
+        sheetState: BottomSheetScaffoldState
+    ) {
+        val coroutineScope = rememberCoroutineScope()
         //options icons row --downloads --setWallpaper --bookmark --externalLink
         Column(
             modifier = Modifier
@@ -206,61 +221,84 @@ class DetailFragment : Fragment() {
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.Download,
-                    contentDescription = "",
+                    imageVector = Icons.Outlined.FileDownload,
+                    contentDescription = "download-image",
                     tint = Color.White,
                     modifier = Modifier
-                        .size(50.dp)
+                        .size(30.dp)
                         .clickable { download(imageDetails.path1!!, imageDetails.id1!!) },
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Icon(
-                    imageVector = Icons.Outlined.Panorama,
-                    contentDescription = "",
+                    imageVector = Icons.Sharp.Wallpaper,
+                    contentDescription = "set-as-wallpaper",
                     tint = Color.White,
                     modifier = Modifier
-                        .size(50.dp)
-                        .clickable {
-                            setWallpaper(
-                                imageDetails.path1!!,
-                                imageDetails.id1!!,
-                                requireContext().getUriForId(imageDetails.id1)
-                            )
-                        },
-                )
-                Spacer(modifier = Modifier.width(10.dp))
-                Icon(
-                    imageVector = Icons.Outlined.BookmarkAdd,
-                    contentDescription = "",
-                    tint = Color.White,
-                    modifier = Modifier
-                        .size(50.dp)
-                        .clickable { }
+                        .size(30.dp)
+                        .clickable { setWallpaper(imageDetails) },
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Icon(
                     imageVector = Icons.Outlined.OpenInNew,
-                    contentDescription = "",
+                    contentDescription = "open-in-browser",
                     tint = Color.White,
                     modifier = Modifier
-                        .size(50.dp)
+                        .size(30.dp)
                         .clickable {
-                            /* todo open wallhaven link in browser */
-                            navigateOriginalRes(imageDetails.path1!!)
+                            val browserIntent = Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(imageDetails.url)
+                            )
+                            startActivity(browserIntent)
                         },
                 )
                 Spacer(modifier = Modifier.width(10.dp))
+                Icon(
+                    imageVector = Icons.Outlined.Landscape,
+                    contentDescription = "original-aspect-ratio",
+                    tint = Color.White,
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clickable {
+                            coroutineScope.launch {
+                                sheetState.bottomSheetState.collapse()
+                            }
+                            navigateOriginalRes(imageDetails.path1!!)
+                        },
+                )
+
             }
+            Spacer(modifier = Modifier.height(25.dp))
+            Divider(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(5.dp)
+                    .align(Alignment.CenterHorizontally)
+                    .clip(RoundedCornerShape(3.dp))
+                    .alpha(0.3f),
+                color = Color.LightGray
+            )
             // --uploader --resolution --views --category
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(text = imageDetails.uploader?.username ?: "", color = Color.White)
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = imageDetails.resolution ?: "", color = Color.White)
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = (imageDetails.views ?: "").toString(), color = Color.White)
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = imageDetails.category ?: "", color = Color.White)
+            RowWithIconAndText(Icons.Sharp.AccountCircle, imageDetails.uploader?.username ?: "")
+            RowWithIconAndText(Icons.Sharp.HdrPlus, imageDetails.resolution ?: "")
+            RowWithIconAndText(Icons.Sharp.Fingerprint, (imageDetails.views ?: "").toString())
+            RowWithIconAndText(Icons.Sharp.Category, imageDetails.category ?: "")
         }
+    }
+
+    @Composable
+    fun RowWithIconAndText(icon: ImageVector, text: String) {
+        Spacer(modifier = Modifier.height(20.dp))
+        Row {
+            Icon(
+                imageVector = icon,
+                contentDescription = "profile",
+                tint = Color.White
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(text = text, color = Color.White)
+        }
+
     }
 
     private fun addBookmark(isBookmark: Boolean, imageDetails: ImageDetails) {
@@ -273,20 +311,19 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private fun setWallpaper(imageUrlFull: String, id: String, uri: Uri) {
-
+    private fun setWallpaper(imageDetails: ImageDetails) {
         Glide.with(this)
             .asBitmap()
-            .load(imageUrlFull)
+            .load(imageDetails.path1!!)
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(
                     resource: Bitmap,
                     transition: Transition<in Bitmap>?
                 ) {
                     CoroutineScope(Dispatchers.IO).launch {
-                        bookMarkViewModel.downloadImage(resource, id)
+                        bookMarkViewModel.downloadImage(resource, imageDetails.id1!!)
                         withContext(Dispatchers.Main) {
-                            startWallpaperIntent(uri)
+                            startWallpaperIntent(requireContext().getUriForId(imageDetails.id1))
                         }
                     }
                 }

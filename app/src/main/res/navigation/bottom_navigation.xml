@@ -9,31 +9,37 @@
     <fragment
         android:id="@+id/new_bottom"
         android:name="tk.zedlabs.wallportal.ui.fragment.NewFragment"
-        android:label="fragment_new"
-        tools:layout="@layout/fragment_new">
+        android:label="fragment_new">
         <action
             android:id="@+id/newToDetails"
-            app:destination="@id/detailActivity" />
+            app:destination="@id/detailActivity"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
 
     <fragment
         android:id="@+id/popular_bottom"
         android:name="tk.zedlabs.wallportal.ui.fragment.PopularFragment"
-        android:label="fragment_popular"
-        tools:layout="@layout/fragment_popular">
+        android:label="fragment_popular">
         <action
             android:id="@+id/popularToDetails"
-            app:destination="@id/detailActivity" />
+            app:destination="@id/detailActivity"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@android:anim/fade_out"/>
     </fragment>
 
     <fragment
         android:id="@+id/bookmarks_bottom"
         android:name="tk.zedlabs.wallportal.ui.fragment.BookmarksFragment"
-        android:label="fragment_bookmarks"
-        tools:layout="@layout/fragment_saved">
+        android:label="fragment_bookmarks">
         <action
             android:id="@+id/bookmarkToDet"
-            app:destination="@id/detailActivity" />
+            app:destination="@id/detailActivity"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@android:anim/fade_out"/>
     </fragment>
 
     <fragment
@@ -44,15 +50,17 @@
     <fragment
         android:id="@+id/detailActivity"
         android:name="tk.zedlabs.wallportal.ui.fragment.DetailFragment"
-        android:label="activity_image_details"
-        tools:layout="@layout/activity_image_details">
+        android:label="activity_image_details">
         <argument
             android:name="id"
             android:defaultValue=" "
             app:argType="string" />
         <action
             android:id="@+id/detailsToOR"
-            app:destination="@id/originalResolutionFragment" />
+            app:destination="@id/originalResolutionFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment
