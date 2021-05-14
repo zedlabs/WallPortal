@@ -4,17 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import tk.zedlabs.wallportal.R
+import tk.zedlabs.wallportal.ui.util.LoadingBox
 import tk.zedlabs.wallportal.ui.util.TopBar
 import tk.zedlabs.wallportal.ui.wallpaperLists.WallpaperListItem
 import tk.zedlabs.wallportal.util.Constants.PAGE_SIZE
@@ -45,8 +52,11 @@ class NewFragment : Fragment() {
     @Composable
     fun WallpaperList() {
         val newWallpapers = postViewModel.newList.value
-        val loading = postViewModel.loading.value
+        val loading = postViewModel.loadingNew.value
         val page = postViewModel.pageNew.value
+        if (loading && page == 1) {
+            LoadingBox()
+        }
         LazyColumn {
             itemsIndexed(
                 items = newWallpapers

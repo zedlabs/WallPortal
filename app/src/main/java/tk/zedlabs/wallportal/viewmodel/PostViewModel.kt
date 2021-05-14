@@ -23,7 +23,8 @@ class PostViewModel @Inject constructor(
     val pageNew  = mutableStateOf(1)
     val pagePopular  = mutableStateOf(1)
 
-    val loading = mutableStateOf(false)
+    val loadingNew = mutableStateOf(true)
+    val loadingPop = mutableStateOf(true)
 
     private var postListScrollPosition = 0
     private var postListNewScrollPosition = 0
@@ -35,12 +36,12 @@ class PostViewModel @Inject constructor(
 
     fun loadInitData(){
         viewModelScope.launch {
-            loading.value = true
             val newResult = repository.getNewList(1)
             newList.value = newResult
+            loadingNew.value = false
             val popResult = repository.getPopularList(1)
             popList.value = popResult
-            loading.value = false
+            loadingPop.value = false
         }
     }
 
@@ -61,7 +62,7 @@ class PostViewModel @Inject constructor(
     fun nextPageNew(){
         viewModelScope.launch {
             if((postListNewScrollPosition + 1) >= pageNew.value * PAGE_SIZE){
-                loading.value = true
+                loadingNew.value = true
                 //make loader appear
                 incrementNewPage()
                 Log.e("VM", "New: ${pageNew.value}")
@@ -70,14 +71,14 @@ class PostViewModel @Inject constructor(
                     val result = repository.getNewList(pageNew.value)
                     newList.value += result
                 }
-                loading.value = false
+                loadingNew.value = false
             }
         }
     }
     fun nextPagePop(){
         viewModelScope.launch {
             if((postListScrollPosition + 1) >= pagePopular.value * PAGE_SIZE){
-                loading.value = true
+                loadingPop.value = true
                 incrementPopularPage()
                 Log.e("VM", "Pop: ${pagePopular.value}")
 
@@ -85,7 +86,7 @@ class PostViewModel @Inject constructor(
                     val result = repository.getNewList(pagePopular.value)
                     popList.value += result
                 }
-                loading.value = false
+                loadingPop.value = false
             }
         }
     }
