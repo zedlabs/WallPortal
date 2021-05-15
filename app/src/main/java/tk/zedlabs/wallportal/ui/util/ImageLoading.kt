@@ -1,33 +1,21 @@
 package tk.zedlabs.wallportal.ui.util
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
-import com.skydoves.landscapist.glide.GlideImage
+import androidx.compose.ui.graphics.Color
+import com.skydoves.landscapist.ShimmerParams
+import com.skydoves.landscapist.coil.CoilImage
 
 @Composable
 fun LoadImage(url: String) {
-    GlideImage(
+    CoilImage(
         imageModel = url,
-        loading = {
-            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
-            }
-        },
-        requestBuilder = Glide
-            .with(LocalView.current)
-            .asBitmap()
-            .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL).centerCrop()),
+        shimmerParams = ShimmerParams(
+            baseColor = Color.DarkGray,
+            highlightColor = Color.LightGray,
+            durationMillis = 1000,
+        ),
         modifier = Modifier.fillMaxHeight(),
     )
-
-
 }
