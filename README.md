@@ -12,9 +12,9 @@
 ###### *Minimal Wallpapers for Android*
 [**Download**](https://github.com/zedlabs/WallPortal/releases/download/2020.2/v1.5.1.apk)
 
-native android wallpaper application written in kotlin using jetpack compose
+Native Android wallpaper application written in Kotlin using Jetpack Compose
 
-<img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/sc0.png" width="200" height="400">    <img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/sc1.png" width="200" height="400"> <img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/sc2.png" width="200" height="400"> <img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/sc3.png" width="200" height="400"> 
+<img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/new.png" width="200" height="400">    <img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/pop.png" width="200" height="400"> <img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/detCol.png" width="200" height="400"> <img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/detExp.png" width="200" height="400"> 
 
 * Tech-stack
     * [Kotlin](https://kotlinlang.org/) + [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - perform background operation
@@ -37,3 +37,4 @@ native android wallpaper application written in kotlin using jetpack compose
  * Todo
    * create more test cases
    * UI refactor in compose ✔
+   * Outrun theme ✔
