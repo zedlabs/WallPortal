@@ -1,4 +1,4 @@
-package tk.zedlabs.wallportal.viewmodel
+package tk.zedlabs.wallportal.ui.fragment
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf

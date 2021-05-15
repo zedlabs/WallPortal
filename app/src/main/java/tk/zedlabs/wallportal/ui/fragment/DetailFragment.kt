@@ -45,7 +45,6 @@ import tk.zedlabs.wallportal.ui.util.LoadImage
 import tk.zedlabs.wallportal.util.Resource
 import tk.zedlabs.wallportal.util.getUriForId
 import tk.zedlabs.wallportal.util.shortToast
-import tk.zedlabs.wallportal.viewmodel.BookmarkViewModel
 import android.content.Intent
 import androidx.compose.material.icons.sharp.*
 import androidx.compose.runtime.rememberCoroutineScope

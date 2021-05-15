@@ -19,7 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import tk.zedlabs.wallportal.R
 import tk.zedlabs.wallportal.ui.util.TopBar
 import tk.zedlabs.wallportal.ui.wallpaperLists.BookmarkListItem
-import tk.zedlabs.wallportal.viewmodel.BookmarkViewModel
 
 @AndroidEntryPoint
 class BookmarksFragment : Fragment() {

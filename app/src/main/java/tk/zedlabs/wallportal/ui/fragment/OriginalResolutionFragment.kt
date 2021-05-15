@@ -1,84 +1,68 @@
 package tk.zedlabs.wallportal.ui.fragment
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
+import com.bumptech.glide.request.RequestOptions
+import com.skydoves.landscapist.glide.GlideImage
 import dagger.hilt.android.AndroidEntryPoint
-import tk.zedlabs.wallportal.R
-import tk.zedlabs.wallportal.databinding.ActivityOriginalResolutionBinding
-import tk.zedlabs.wallportal.util.shortToast
 
 @AndroidEntryPoint
 class OriginalResolutionFragment : Fragment() {
 
     private val navArgs: OriginalResolutionFragmentArgs by navArgs()
 
-    private var _binding: ActivityOriginalResolutionBinding? = null
-
-    // This property is only valid between onCreateView and onDestroyView.
-    private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = ActivityOriginalResolutionBinding.inflate(inflater, container, false)
-        return binding.root
+    ): View {
+
+        return ComposeView(requireContext()).apply {
+            setContent {
+                ImageDetails(navArgs.urlFull)
+            }
+        }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        Glide
-            .with(this)
-            .asBitmap()
-            .load(navArgs.urlFull)
-            .fitCenter()
-            .listener(object : RequestListener<Bitmap?> {
-
-                override fun onResourceReady(
-                    resource: Bitmap?, model: Any?, target: Target<Bitmap?>?,
-                    dataSource: com.bumptech.glide.load.DataSource?, isFirstResource: Boolean
-                ): Boolean {
-                    if (resource != null) {
-                        binding.textViewLoading.visibility = View.GONE
-                        binding.progressBar.visibility = View.GONE
-                        binding.orResCl.setBackgroundColor(
-                            Palette.from(resource).generate().getDarkVibrantColor(
-                                ContextCompat.getColor(context!!, R.color.grey)
-                            )
-                        )
-                    }
-                    return false
+    @Composable
+    fun ImageDetails(url: String) {
+        GlideImage(
+            imageModel = url,
+            contentScale = ContentScale.Fit,
+            loading = {
+                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
                 }
-
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Bitmap?>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    requireContext().shortToast(e?.message ?: "")
-                    binding.textViewLoading.text = getString(R.string.failed_to_load)
-                    return false
-                }
-            })
-            .into(binding.imageViewOriginal)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+            },
+            requestBuilder = Glide
+                .with(LocalView.current)
+                .asBitmap()
+                .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
+                .thumbnail(0.1f)
+                .transition(withCrossFade()),
+            modifier = Modifier.fillMaxHeight(),
+            failure = {
+                Text(text = "Failed To Load Image")
+            }
+        )
     }
 
 }

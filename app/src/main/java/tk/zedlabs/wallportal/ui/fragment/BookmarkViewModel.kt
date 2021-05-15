@@ -1,15 +1,11 @@
-package tk.zedlabs.wallportal.viewmodel
+package tk.zedlabs.wallportal.ui.fragment
 
 import android.graphics.Bitmap
-import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import tk.zedlabs.wallportal.models.ImageDetails
-import tk.zedlabs.wallportal.models.WallHavenResponse
 import tk.zedlabs.wallportal.persistence.BookmarkDao
 import tk.zedlabs.wallportal.persistence.BookmarkImage
 import tk.zedlabs.wallportal.repository.ImageDetailsRepository

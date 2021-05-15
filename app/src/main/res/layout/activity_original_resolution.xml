@@ -5,7 +5,7 @@
     android:id="@+id/or_res_cl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D4D4D4">
+    android:background="#000000">
 
     <ImageView
         android:id="@+id/image_view_original"
