@@ -38,3 +38,6 @@ Native Android wallpaper application written in Kotlin using Jetpack Compose
    * create more test cases
    * UI refactor in compose ✔
    * Outrun theme ✔
+
+
+Check out ``pre-beta`` for implementation without compose 
