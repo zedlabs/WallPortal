@@ -12,8 +12,7 @@
 ###### *Minimal Wallpapers for Android*
 [**Download**](https://github.com/zedlabs/WallPortal/releases/download/2020.2/v1.5.1.apk)
 
-the goal of this project is to create a responsive application and with optimized networking, a good place to see implementation.
-moved to wallhaven.cc api from unsplashed api due to rate limits.
+native android wallpaper application written in kotlin using jetpack compose
 
 <img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/sc0.png" width="200" height="400">    <img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/sc1.png" width="200" height="400"> <img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/sc2.png" width="200" height="400"> <img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/sc3.png" width="200" height="400"> 
 
@@ -28,6 +27,7 @@ moved to wallhaven.cc api from unsplashed api due to rate limits.
         * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - store and manage UI-related data in a lifecycle conscious way
         * [Paging3](https://developer.android.com/jetpack/androidx/releases/paging)
         * [ViewBinding](https://developer.android.com/topic/libraries/view-binding)
+        * [Compose]()
     * Tests - local and instrumented unit tests 
     * [PastelPlaceholders](https://github.com/zedlabs/pastelPlaceholders) - internal image placeholder library
 * Architecture
@@ -36,4 +36,4 @@ moved to wallhaven.cc api from unsplashed api due to rate limits.
  
  * Todo
    * create more test cases
-   * UI refactor in compose
+   * UI refactor in compose ✔
