@@ -16,4 +16,15 @@
     <color name="listBackground">#0D0E0E</color>
     <color name="titleColor">#FF58E9</color>
     <color name="shadowColor">#E4E4E4</color>
+
+    <!--Light Pastel Colors-->
+    <color name="pink">#FCD4D4</color>
+    <color name="orange">#FC9CA4</color>
+    <color name="orange_alternate">#FCD4C4</color>
+    <color name="green">#ACDCAC</color>
+    <color name="blue">#B4DCDC</color>
+    <color name="blue_mid">#7CD4D4</color>
+    <color name="brown">#CC9494</color>
+    <color name="green_mid">#A4D4B4</color>
+    <color name="pink_high">#DB89B2</color>
 </resources>

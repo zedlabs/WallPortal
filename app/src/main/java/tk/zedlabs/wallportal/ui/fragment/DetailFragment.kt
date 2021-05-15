@@ -105,22 +105,13 @@ class DetailFragment : Fragment() {
     @Composable
     fun DetailsContent(imageDetails: ImageDetails) {
         val isBookmark by bookMarkViewModel.isBookmark.observeAsState()
-        val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
-            bottomSheetState = rememberBottomSheetState(
-                initialValue = BottomSheetValue.Collapsed
-            )
-        )
         BottomSheetScaffold(
             sheetContent = {
-                ImageInformationAndOptions(
-                    imageDetails = imageDetails,
-                    sheetState = bottomSheetScaffoldState
-                )
+                ImageInformationAndOptions(imageDetails = imageDetails)
             },
             sheetBackgroundColor = colorResource(R.color.pastelPrimary).copy(alpha = 0.8f),
             sheetShape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
             sheetPeekHeight = 90.dp,
-            scaffoldState = bottomSheetScaffoldState
         ) {
             Box(
                 modifier = Modifier
@@ -177,9 +168,7 @@ class DetailFragment : Fragment() {
     @Composable
     fun ImageInformationAndOptions(
         imageDetails: ImageDetails,
-        sheetState: BottomSheetScaffoldState
     ) {
-        val coroutineScope = rememberCoroutineScope()
         //options icons row --downloads --setWallpaper --bookmark --externalLink
         Column(
             modifier = Modifier
@@ -241,12 +230,7 @@ class DetailFragment : Fragment() {
                     tint = Color.White,
                     modifier = Modifier
                         .size(30.dp)
-                        .clickable {
-                            coroutineScope.launch {
-                                sheetState.bottomSheetState.collapse()
-                            }
-                            navigateOriginalRes(imageDetails.path1!!)
-                        },
+                        .clickable { navigateOriginalRes(imageDetails.path1!!) },
                 )
 
             }

@@ -85,6 +85,9 @@ dependencies {
     implementation "com.google.android.material:material:$material"
     //landscapist-glide
     implementation "com.github.skydoves:landscapist-glide:1.2.0"
+    //accompanist
+//    implementation "com.google.accompanist:accompanist-glide:0.9.1"
+//    implementation "com.google.accompanist:accompanist-coil:0.9.1"
     //palette
     implementation 'com.android.support:palette-v7:30.0.0'
     //DI
