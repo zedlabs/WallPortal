@@ -17,6 +17,11 @@ class ImageDetailsRepository @Inject constructor(
     private val wallpaperService: JsonApi,
     private val dao: BookmarkDao
 ) {
+
+    fun getBookmarks(): Flow<List<BookmarkImage>> = dao.getAll()
+        .flowOn(Dispatchers.Main)
+        .conflate()
+
     //change to response type
     suspend fun getNewList(currentPage: Int): List<WallHavenResponse> {
         return wallpaperService.getImageList(
@@ -43,8 +48,20 @@ class ImageDetailsRepository @Inject constructor(
         return Resource.Success(response!!)
     }
 
-    fun getBookmarks(): Flow<List<BookmarkImage>> = dao.getAll()
-        .flowOn(Dispatchers.Main)
-        .conflate()
+    suspend fun checkBookmark(name: String) : Boolean = (dao.getItemByName(name).isNotEmpty())
+
+    suspend fun deleteBookmark(id: String) {
+        dao.deleteBookmark(id)
+    }
+
+    suspend fun setBookmark(imageDetails: ImageDetails) {
+        dao.insert(
+            BookmarkImage(
+                imageName = imageDetails.id1!!,
+                imageUrlFull = imageDetails.path1,
+                imageUrlRegular = imageDetails.thumbs?.small
+            )
+        )
+    }
 
 }

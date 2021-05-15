@@ -29,12 +29,9 @@ class PostViewModel @Inject constructor(
     private var postListScrollPosition = 0
     private var postListNewScrollPosition = 0
 
-    init {
-        //create the loading state
-        loadInitData()
-    }
+    init { loadInitData() }
 
-    fun loadInitData(){
+    private fun loadInitData(){
         viewModelScope.launch {
             val newResult = repository.getNewList(1)
             newList.value = newResult

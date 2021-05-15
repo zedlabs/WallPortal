@@ -47,7 +47,6 @@ import tk.zedlabs.wallportal.util.getUriForId
 import tk.zedlabs.wallportal.util.shortToast
 import android.content.Intent
 import androidx.compose.material.icons.sharp.*
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.coroutines.*
 

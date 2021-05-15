@@ -11,15 +11,6 @@ interface BookmarkDao {
     @Query("SELECT * FROM BookmarkImage")
     fun getAll(): Flow<List<BookmarkImage>>
 
-    @Query("SELECT imageUrlFull FROM BookmarkImage")
-    suspend fun getListFull(): List<String>
-
-    @Query("SELECT imageUrlRegular FROM BookmarkImage")
-    suspend fun getListRegular(): List<String>
-
-    @Query("SELECT imageName FROM BookmarkImage")
-    suspend fun getId(): List<String>
-
     @Query("SELECT * FROM BookmarkImage WHERE imageName==:name")
     suspend fun getItemByName(name: String): List<BookmarkImage>
 
