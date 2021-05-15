@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import tk.zedlabs.wallportal.models.WallHavenResponse
 import tk.zedlabs.wallportal.repository.ImageDetailsRepository
 import tk.zedlabs.wallportal.util.Constants.PAGE_SIZE
+import tk.zedlabs.wallportal.util.Resource
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,8 +21,8 @@ class PostViewModel @Inject constructor(
     val popList = mutableStateOf<List<WallHavenResponse>>(listOf())
 
     //current pagination page
-    val pageNew  = mutableStateOf(1)
-    val pagePopular  = mutableStateOf(1)
+    val pageNew = mutableStateOf(1)
+    val pagePopular = mutableStateOf(1)
 
     val loadingNew = mutableStateOf(true)
     val loadingPop = mutableStateOf(true)
@@ -31,57 +32,68 @@ class PostViewModel @Inject constructor(
 
     init { loadInitData() }
 
-    private fun loadInitData(){
+    private fun loadInitData() {
         viewModelScope.launch {
             val newResult = repository.getNewList(1)
-            newList.value = newResult
+            if (newResult is Resource.Success) {
+                newList.value += newResult.data as List<WallHavenResponse>
+            }
             loadingNew.value = false
+
             val popResult = repository.getPopularList(1)
-            popList.value = popResult
+            if (popResult is Resource.Success) {
+                popList.value += popResult.data as List<WallHavenResponse>
+            }
             loadingPop.value = false
         }
     }
 
-    private fun incrementNewPage(){
+    private fun incrementNewPage() {
         pageNew.value = pageNew.value + 1
     }
-    private fun incrementPopularPage(){
+
+    private fun incrementPopularPage() {
         pagePopular.value = pagePopular.value + 1
     }
 
-    fun onChangeNewScrollPosition(position: Int){
+    fun onChangeNewScrollPosition(position: Int) {
         postListNewScrollPosition = position
     }
-    fun onChangePopularScrollPosition(position: Int){
+
+    fun onChangePopularScrollPosition(position: Int) {
         postListScrollPosition = position
     }
 
-    fun nextPageNew(){
+    fun nextPageNew() {
         viewModelScope.launch {
-            if((postListNewScrollPosition + 1) >= pageNew.value * PAGE_SIZE){
+            if ((postListNewScrollPosition + 1) >= pageNew.value * PAGE_SIZE) {
                 loadingNew.value = true
-                //make loader appear
                 incrementNewPage()
                 Log.e("VM", "New: ${pageNew.value}")
 
-                if(pageNew.value > 1){
+                if (pageNew.value > 1) {
                     val result = repository.getNewList(pageNew.value)
-                    newList.value += result
+                    if (result is Resource.Success) {
+                        newList.value += result.data as List<WallHavenResponse>
+                    }
                 }
                 loadingNew.value = false
             }
         }
     }
-    fun nextPagePop(){
+
+    fun nextPagePop() {
         viewModelScope.launch {
-            if((postListScrollPosition + 1) >= pagePopular.value * PAGE_SIZE){
+            if ((postListScrollPosition + 1) >= pagePopular.value * PAGE_SIZE) {
                 loadingPop.value = true
                 incrementPopularPage()
                 Log.e("VM", "Pop: ${pagePopular.value}")
 
-                if(pagePopular.value > 1){
+                if (pagePopular.value > 1) {
                     val result = repository.getNewList(pagePopular.value)
-                    popList.value += result
+                    if (result is Resource.Success) {
+                        popList.value += result.data as List<WallHavenResponse>
+                    }
                 }
                 loadingPop.value = false
             }

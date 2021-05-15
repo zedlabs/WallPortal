@@ -22,21 +22,31 @@ class ImageDetailsRepository @Inject constructor(
         .flowOn(Dispatchers.Main)
         .conflate()
 
-    //change to response type
-    suspend fun getNewList(currentPage: Int): List<WallHavenResponse> {
-        return wallpaperService.getImageList(
-            Constants.queryParamNew,
-            Constants.sortingNew,
-            currentPage
-        ).body()?.data!!
+    suspend fun getNewList(currentPage: Int): Resource<List<WallHavenResponse>> {
+        val response = try {
+            wallpaperService.getImageList(
+                Constants.queryParamNew,
+                Constants.sortingNew,
+                currentPage
+            ).body()?.data
+        } catch (e: Exception) {
+            return Resource.Error("An unknown error occurred.")
+        }
+        return Resource.Success(response!!)
     }
 
-    suspend fun getPopularList(currentPage: Int): List<WallHavenResponse> {
-        return wallpaperService.getImageList(
-            Constants.queryParamPopular,
-            Constants.sortingPopular,
-            currentPage
-        ).body()?.data!!
+    suspend fun getPopularList(currentPage: Int): Resource<List<WallHavenResponse>> {
+        val response = try {
+            wallpaperService.getImageList(
+                Constants.queryParamPopular,
+                Constants.sortingPopular,
+                currentPage
+            ).body()?.data
+        } catch (e: Exception) {
+            return Resource.Error("An unknown error occurred.")
+        }
+        return Resource.Success(response!!)
+
     }
 
     suspend fun getWallpaperData(id: String): Resource<ImageDetails> {

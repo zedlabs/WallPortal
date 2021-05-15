@@ -77,12 +77,12 @@ class DetailFragment : Fragment() {
             initialValue = Resource.Loading()
         ) {
             value = bookMarkViewModel.getImageDetails(args.id)
-            bookMarkViewModel.checkBookmark(value.data?.id1!!)
         }.value
 
         when (imageDetails) {
             is Resource.Success -> {
                 DetailsContent(imageDetails.data!!)
+                bookMarkViewModel.checkBookmark(imageDetails.data.id1!!)
             }
             is Resource.Error -> {
                 Text(text = imageDetails.message!!, color = Color.Red)

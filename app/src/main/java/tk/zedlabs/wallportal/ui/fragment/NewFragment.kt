@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
 import androidx.fragment.app.Fragment
@@ -49,6 +51,9 @@ class NewFragment : Fragment() {
         val page = postViewModel.pageNew.value
         if (loading && page == 1) {
             LoadingBox()
+        }
+        if (newWallpapers.isEmpty()) {
+            Text(text = "No Data", color = Color.Red)
         }
         LazyColumn {
             itemsIndexed(
