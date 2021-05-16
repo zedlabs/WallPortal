@@ -51,7 +51,7 @@ class PopularFragment : Fragment() {
         if (loading && page == 1) {
             LoadingBox()
         }
-        if (newWallpapers.isEmpty()) {
+        if (newWallpapers.isEmpty() && !loading) {
             Text(text = "No Data", color = Color.Red)
         }
         LazyColumn {

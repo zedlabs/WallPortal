@@ -36,7 +36,7 @@ fun BookmarkListItem(item: BookmarkImage, onClick: () -> Unit) {
             .clip(RoundedCornerShape(10.dp))
             .clickable { onClick.invoke() }
     ) {
-        LoadImage(url = item.imageUrlRegular!!)
+        LoadImage(url = item.imageUrlFull!!)
     }
 
 }
