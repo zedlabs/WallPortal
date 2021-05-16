@@ -12,9 +12,9 @@ class WallHavenResponse {
     @Expose
      val url: String? = null
 
-    @SerializedName("short_url")
+    @SerializedName("uploader")
     @Expose
-     val shortUrl: String? = null
+    val uploader: Uploader? = null
 
     @SerializedName("views")
     @Expose
@@ -36,33 +36,13 @@ class WallHavenResponse {
     @Expose
      val category: String? = null
 
-    @SerializedName("dimension_x")
-    @Expose
-     val dimensionX: Int? = null
-
-    @SerializedName("dimension_y")
-    @Expose
-     val dimensionY: Int? = null
-
     @SerializedName("resolution")
     @Expose
      val resolution: String? = null
 
-    @SerializedName("ratio")
-    @Expose
-     val ratio: String? = null
-
     @SerializedName("file_size")
     @Expose
      val fileSize: Int? = null
-
-    @SerializedName("file_type")
-    @Expose
-     val fileType: String? = null
-
-    @SerializedName("created_at")
-    @Expose
-     val createdAt: String? = null
 
     @SerializedName("colors")
     @Expose
@@ -89,4 +69,15 @@ class Thumbs {
     @SerializedName("small")
     @Expose
      val small: String? = null
+}
+
+class Uploader {
+
+    @SerializedName("username")
+    @Expose
+    val username: String? = null
+
+    @SerializedName("group")
+    @Expose
+    val group: String? = null
 }

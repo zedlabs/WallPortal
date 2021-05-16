@@ -40,7 +40,6 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import dagger.hilt.android.AndroidEntryPoint
 import tk.zedlabs.wallportal.R
-import tk.zedlabs.wallportal.models.ImageDetails
 import tk.zedlabs.wallportal.ui.util.LoadImage
 import tk.zedlabs.wallportal.util.Resource
 import tk.zedlabs.wallportal.util.getUriForId
@@ -49,6 +48,7 @@ import android.content.Intent
 import androidx.compose.material.icons.sharp.*
 import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.coroutines.*
+import tk.zedlabs.wallportal.models.WallHavenResponse
 
 
 @ExperimentalMaterialApi
@@ -73,7 +73,7 @@ class DetailFragment : Fragment() {
 
     @Composable
     fun DetailsContentWrapper() {
-        val imageDetails = produceState<Resource<ImageDetails>>(
+        val imageDetails = produceState<Resource<WallHavenResponse>>(
             initialValue = Resource.Loading()
         ) {
             value = bookMarkViewModel.getImageDetails(args.id)
@@ -82,7 +82,7 @@ class DetailFragment : Fragment() {
         when (imageDetails) {
             is Resource.Success -> {
                 DetailsContent(imageDetails.data!!)
-                bookMarkViewModel.checkBookmark(imageDetails.data.id1!!)
+                bookMarkViewModel.checkBookmark(imageDetails.data.id!!)
             }
             is Resource.Error -> {
                 Text(text = imageDetails.message!!, color = Color.Red)
@@ -102,7 +102,7 @@ class DetailFragment : Fragment() {
     }
 
     @Composable
-    fun DetailsContent(imageDetails: ImageDetails) {
+    fun DetailsContent(imageDetails: WallHavenResponse) {
         val isBookmark by bookMarkViewModel.isBookmark.observeAsState()
         BottomSheetScaffold(
             sheetContent = {
@@ -117,7 +117,7 @@ class DetailFragment : Fragment() {
                     .fillMaxSize()
                     .background(colorResource(R.color.listBackground))
             ) {
-                LoadImage(url = imageDetails.path1!!)
+                LoadImage(url = imageDetails.path!!)
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.Top,
@@ -166,7 +166,7 @@ class DetailFragment : Fragment() {
 
     @Composable
     fun ImageInformationAndOptions(
-        imageDetails: ImageDetails,
+        imageDetails: WallHavenResponse,
     ) {
         //options icons row --downloads --setWallpaper --bookmark --externalLink
         Column(
@@ -196,7 +196,7 @@ class DetailFragment : Fragment() {
                     tint = Color.White,
                     modifier = Modifier
                         .size(30.dp)
-                        .clickable { download(imageDetails.path1!!, imageDetails.id1!!) },
+                        .clickable { download(imageDetails.path!!, imageDetails.id!!) },
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Icon(
@@ -229,7 +229,7 @@ class DetailFragment : Fragment() {
                     tint = Color.White,
                     modifier = Modifier
                         .size(30.dp)
-                        .clickable { navigateOriginalRes(imageDetails.path1!!) },
+                        .clickable { navigateOriginalRes(imageDetails.path!!) },
                 )
 
             }
@@ -265,29 +265,29 @@ class DetailFragment : Fragment() {
 
     }
 
-    private fun addBookmark(isBookmark: Boolean, imageDetails: ImageDetails) {
+    private fun addBookmark(isBookmark: Boolean, imageDetails: WallHavenResponse) {
         if (!isBookmark) {
             bookMarkViewModel.setBookmark(imageDetails)
             requireContext().shortToast("Bookmark Added!")
         } else {
-            bookMarkViewModel.deleteBookmark(imageDetails.id1!!)
+            bookMarkViewModel.deleteBookmark(imageDetails.id!!)
             requireContext().shortToast("Bookmark Removed")
         }
     }
 
-    private fun setWallpaper(imageDetails: ImageDetails) {
+    private fun setWallpaper(imageDetails: WallHavenResponse) {
         Glide.with(this)
             .asBitmap()
-            .load(imageDetails.path1!!)
+            .load(imageDetails.path!!)
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(
                     resource: Bitmap,
                     transition: Transition<in Bitmap>?
                 ) {
                     CoroutineScope(Dispatchers.IO).launch {
-                        bookMarkViewModel.downloadImage(resource, imageDetails.id1!!)
+                        bookMarkViewModel.downloadImage(resource, imageDetails.id!!)
                         withContext(Dispatchers.Main) {
-                            startWallpaperIntent(requireContext().getUriForId(imageDetails.id1))
+                            startWallpaperIntent(requireContext().getUriForId(imageDetails.id))
                         }
                     }
                 }

@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import tk.zedlabs.wallportal.models.ImageDetails
+import tk.zedlabs.wallportal.models.WallHavenResponse
 import tk.zedlabs.wallportal.persistence.BookmarkImage
 import tk.zedlabs.wallportal.repository.ImageDetailsRepository
 import tk.zedlabs.wallportal.util.FileUtils
@@ -22,11 +22,11 @@ class BookmarkViewModel @Inject constructor(
     val loading = mutableStateOf(false)
     val bookmarkList: LiveData<List<BookmarkImage>> = repository.getBookmarks().asLiveData()
 
-    suspend fun getImageDetails(id: String): Resource<ImageDetails> {
+    suspend fun getImageDetails(id: String): Resource<WallHavenResponse> {
         return repository.getWallpaperData(id)
     }
 
-    fun setBookmark(item: ImageDetails) {
+    fun setBookmark(item: WallHavenResponse) {
         isBookmark.value = true
         viewModelScope.launch {
             repository.setBookmark(item)

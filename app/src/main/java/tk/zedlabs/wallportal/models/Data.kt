@@ -7,5 +7,5 @@ class Data {
 
     @SerializedName("data")
     @Expose
-    val imageDetails : ImageDetails?= null
+    val imageDetails : WallHavenResponse?= null
 }

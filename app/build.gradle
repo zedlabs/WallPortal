@@ -47,10 +47,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    //implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    //implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "androidx.annotation:annotation:1.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
 
@@ -85,12 +85,12 @@ dependencies {
     implementation "com.google.android.material:material:$material"
     //landscapist-glide
     implementation "com.github.skydoves:landscapist-glide:1.2.1"
-    implementation "com.github.skydoves:landscapist-coil:1.2.1"
+   // implementation "com.github.skydoves:landscapist-coil:1.2.1"
     //accompanist
 //    implementation "com.google.accompanist:accompanist-glide:0.9.1"
 //    implementation "com.google.accompanist:accompanist-coil:0.9.1"
     //palette
-    implementation 'com.android.support:palette-v7:30.0.0'
+    //implementation 'com.android.support:palette-v7:30.0.0'
     //DI
     implementation "com.google.dagger:hilt-android:$hilt_ver"
     implementation "androidx.hilt:hilt-common:1.0.0"

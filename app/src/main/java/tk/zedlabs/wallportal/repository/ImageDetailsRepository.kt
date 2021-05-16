@@ -5,7 +5,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flowOn
 import tk.zedlabs.wallportal.data.JsonApi
-import tk.zedlabs.wallportal.models.ImageDetails
 import tk.zedlabs.wallportal.models.WallHavenResponse
 import tk.zedlabs.wallportal.persistence.BookmarkDao
 import tk.zedlabs.wallportal.persistence.BookmarkImage
@@ -49,7 +48,7 @@ class ImageDetailsRepository @Inject constructor(
 
     }
 
-    suspend fun getWallpaperData(id: String): Resource<ImageDetails> {
+    suspend fun getWallpaperData(id: String): Resource<WallHavenResponse> {
         val response = try {
             wallpaperService.getImageDetails(id).body()?.imageDetails
         } catch (e: Exception) {
@@ -64,11 +63,11 @@ class ImageDetailsRepository @Inject constructor(
         dao.deleteBookmark(id)
     }
 
-    suspend fun setBookmark(imageDetails: ImageDetails) {
+    suspend fun setBookmark(imageDetails: WallHavenResponse) {
         dao.insert(
             BookmarkImage(
-                imageName = imageDetails.id1!!,
-                imageUrlFull = imageDetails.path1,
+                imageName = imageDetails.id!!,
+                imageUrlFull = imageDetails.path,
                 imageUrlRegular = imageDetails.thumbs?.small
             )
         )

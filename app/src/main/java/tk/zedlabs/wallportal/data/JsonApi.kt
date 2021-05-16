@@ -5,7 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import tk.zedlabs.wallportal.models.Data
-import tk.zedlabs.wallportal.models.ImageDetails
 import tk.zedlabs.wallportal.models.MainResponse
 
 interface JsonApi {
