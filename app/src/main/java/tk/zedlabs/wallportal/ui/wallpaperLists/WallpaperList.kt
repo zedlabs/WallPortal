@@ -17,9 +17,9 @@ import tk.zedlabs.wallportal.ui.util.LoadImage
 fun WallpaperListItem(item: WallHavenResponse, onClick: () -> Unit) {
     Box(
         Modifier
-            .height(350.dp)
-            .padding(10.dp)
-            .clip(RoundedCornerShape(10.dp))
+            .height(260.dp)
+            .padding(2.dp)
+            .clip(RoundedCornerShape(2.dp))
             .clickable { onClick.invoke() }
     ) {
         LoadImage(url = item.thumbs?.small!!)

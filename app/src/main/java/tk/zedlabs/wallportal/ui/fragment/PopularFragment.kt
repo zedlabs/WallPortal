@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -23,6 +26,7 @@ import tk.zedlabs.wallportal.ui.wallpaperLists.WallpaperListItem
 import tk.zedlabs.wallportal.util.Constants
 
 //make popular for selected period of time similar to reddit community posts
+@ExperimentalFoundationApi
 @AndroidEntryPoint
 class PopularFragment : Fragment() {
     private val postViewModel: PostViewModel by viewModels()
@@ -43,6 +47,7 @@ class PopularFragment : Fragment() {
         }
     }
 
+    @ExperimentalFoundationApi
     @Composable
     fun WallpaperList() {
         val newWallpapers = postViewModel.popList.value
@@ -54,7 +59,7 @@ class PopularFragment : Fragment() {
         if (newWallpapers.isEmpty() && !loading) {
             Text(text = "No Data", color = Color.Red)
         }
-        LazyColumn {
+        LazyVerticalGrid(cells = GridCells.Fixed(2)) {
             itemsIndexed(
                 items = newWallpapers
             ) { index, item ->
@@ -69,6 +74,6 @@ class PopularFragment : Fragment() {
                 }
             }
         }
-    }
 
+    }
 }

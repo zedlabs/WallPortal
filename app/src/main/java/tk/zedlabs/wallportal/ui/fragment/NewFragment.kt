@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
@@ -23,6 +27,7 @@ import tk.zedlabs.wallportal.ui.wallpaperLists.WallpaperListItem
 import tk.zedlabs.wallportal.util.Constants.PAGE_SIZE
 
 // --refactor to search element and provide chips and search bar for selection
+@ExperimentalFoundationApi
 @AndroidEntryPoint
 class NewFragment : Fragment() {
 
@@ -44,6 +49,7 @@ class NewFragment : Fragment() {
         }
     }
 
+    @ExperimentalFoundationApi
     @Composable
     fun WallpaperList() {
         val newWallpapers = postViewModel.newList.value
@@ -55,7 +61,7 @@ class NewFragment : Fragment() {
         if (newWallpapers.isEmpty() && !loading) {
             Text(text = "No Data", color = Color.Red)
         }
-        LazyColumn {
+        LazyVerticalGrid(cells = GridCells.Fixed(2)) {
             itemsIndexed(
                 items = newWallpapers
             ) { index, item ->
