@@ -1,32 +1,38 @@
 package tk.zedlabs.wallportal.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ExperimentalComposeApi
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import tk.zedlabs.wallportal.R
+import tk.zedlabs.wallportal.models.WallHavenResponse
 import tk.zedlabs.wallportal.ui.util.LoadingBox
-import tk.zedlabs.wallportal.ui.util.TopBar
+import tk.zedlabs.wallportal.ui.util.TopBarNew
 import tk.zedlabs.wallportal.ui.wallpaperLists.WallpaperListItem
 import tk.zedlabs.wallportal.util.Constants.PAGE_SIZE
 
-// --refactor to search element and provide chips and search bar for selection
+@ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @AndroidEntryPoint
 class NewFragment : Fragment() {
@@ -39,29 +45,51 @@ class NewFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
+                val searchQuery = remember { mutableStateOf("") }
                 Scaffold(
-                    topBar = { TopBar() },
+                    topBar = {
+                        TopBarNew(
+                            searchQuery.value,
+                            {
+                                postViewModel.updateSearch(it)
+                                searchQuery.value = it
+                            },
+                            { postViewModel.loadInitData() },
+                            postViewModel.searchProgress.value
+                        )
+                    },
                     backgroundColor = colorResource(R.color.listBackground)
                 ) {
-                    WallpaperList()
+                    WallpaperListSetup()
                 }
             }
         }
     }
 
-    @ExperimentalFoundationApi
     @Composable
-    fun WallpaperList() {
+    fun WallpaperListSetup() {
         val newWallpapers = postViewModel.newList.value
         val loading = postViewModel.loadingNew.value
         val page = postViewModel.pageNew.value
+
         if (loading && page == 1) {
             LoadingBox()
         }
         if (newWallpapers.isEmpty() && !loading) {
-            Text(text = "No Data", color = Color.Red)
+            Text(
+                text = "No Images!",
+                color = Color.Red,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+            )
         }
+        WallpaperList(newWallpapers, page, loading)
+    }
+
+    @Composable
+    fun WallpaperList(newWallpapers: List<WallHavenResponse>, page: Int, loading: Boolean) {
         LazyVerticalGrid(cells = GridCells.Fixed(2)) {
+
             itemsIndexed(
                 items = newWallpapers
             ) { index, item ->
@@ -77,5 +105,4 @@ class NewFragment : Fragment() {
             }
         }
     }
-
 }

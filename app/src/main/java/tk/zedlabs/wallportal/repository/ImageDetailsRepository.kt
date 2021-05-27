@@ -21,10 +21,10 @@ class ImageDetailsRepository @Inject constructor(
         .flowOn(Dispatchers.Main)
         .conflate()
 
-    suspend fun getNewList(currentPage: Int): Resource<List<WallHavenResponse>> {
+    suspend fun getNewList(currentPage: Int, queryParam: String): Resource<List<WallHavenResponse>> {
         val response = try {
             wallpaperService.getImageList(
-                Constants.queryParamNew,
+                queryParam,
                 Constants.sortingNew,
                 currentPage
             ).body()?.data

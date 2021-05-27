@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import tk.zedlabs.wallportal.models.WallHavenResponse
 import tk.zedlabs.wallportal.repository.ImageDetailsRepository
+import tk.zedlabs.wallportal.util.Constants
 import tk.zedlabs.wallportal.util.Constants.PAGE_SIZE
 import tk.zedlabs.wallportal.util.Resource
 import javax.inject.Inject
@@ -20,6 +21,9 @@ class PostViewModel @Inject constructor(
     var newList = mutableStateOf<List<WallHavenResponse>>(listOf())
     val popList = mutableStateOf<List<WallHavenResponse>>(listOf())
 
+    var searchQuery = mutableStateOf(Constants.queryParamNew)
+    var searchProgress = mutableStateOf(false)
+
     //current pagination page
     val pageNew = mutableStateOf(1)
     val pagePopular = mutableStateOf(1)
@@ -30,15 +34,20 @@ class PostViewModel @Inject constructor(
     private var postListScrollPosition = 0
     private var postListNewScrollPosition = 0
 
-    init { loadInitData() }
+    init {
+        loadInitData()
+    }
 
-    private fun loadInitData() {
+    fun loadInitData() {
+        searchProgress.value = true
+        newList.value = emptyList()
         viewModelScope.launch {
-            val newResult = repository.getNewList(1)
+            val newResult = repository.getNewList(1, searchQuery.value)
             if (newResult is Resource.Success) {
-                newList.value += newResult.data as List<WallHavenResponse>
+                newList.value = newResult.data as List<WallHavenResponse>
             }
             loadingNew.value = false
+            searchProgress.value = false
 
             val popResult = repository.getPopularList(1)
             if (popResult is Resource.Success) {
@@ -46,6 +55,10 @@ class PostViewModel @Inject constructor(
             }
             loadingPop.value = false
         }
+    }
+
+    fun updateSearch(newQuery: String) {
+        searchQuery.value = newQuery
     }
 
     private fun incrementNewPage() {
@@ -72,7 +85,7 @@ class PostViewModel @Inject constructor(
                 Log.e("VM", "New: ${pageNew.value}")
 
                 if (pageNew.value > 1) {
-                    val result = repository.getNewList(pageNew.value)
+                    val result = repository.getNewList(pageNew.value, searchQuery.value)
                     if (result is Resource.Success) {
                         newList.value += result.data as List<WallHavenResponse>
                     }
@@ -90,7 +103,7 @@ class PostViewModel @Inject constructor(
                 Log.e("VM", "Pop: ${pagePopular.value}")
 
                 if (pagePopular.value > 1) {
-                    val result = repository.getNewList(pagePopular.value)
+                    val result = repository.getPopularList(pagePopular.value)
                     if (result is Resource.Success) {
                         popList.value += result.data as List<WallHavenResponse>
                     }
