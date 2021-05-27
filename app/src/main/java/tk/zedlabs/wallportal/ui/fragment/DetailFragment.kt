@@ -231,7 +231,15 @@ class DetailFragment : Fragment() {
                         .size(30.dp)
                         .clickable { navigateOriginalRes(imageDetails.path!!) },
                 )
-
+                Spacer(modifier = Modifier.width(10.dp))
+                Icon(
+                    imageVector = Icons.Outlined.Share,
+                    contentDescription = "share-image",
+                    tint = Color.White,
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clickable { shareImage(imageDetails.url!!) },
+                )
             }
             Spacer(modifier = Modifier.height(25.dp))
             Divider(
@@ -335,4 +343,13 @@ class DetailFragment : Fragment() {
         )
     }
 
+    private fun shareImage(url: String){
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, url)
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
+    }
 }
