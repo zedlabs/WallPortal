@@ -86,6 +86,8 @@ dependencies {
     //landscapist-glide
     implementation "com.github.skydoves:landscapist-glide:1.2.1"
    // implementation "com.github.skydoves:landscapist-coil:1.2.1"
+    //photoView
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     //accompanist
 //    implementation "com.google.accompanist:accompanist-glide:0.9.1"
 //    implementation "com.google.accompanist:accompanist-coil:0.9.1"
