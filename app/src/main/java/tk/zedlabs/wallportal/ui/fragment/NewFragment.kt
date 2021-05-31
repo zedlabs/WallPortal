@@ -1,12 +1,14 @@
 package tk.zedlabs.wallportal.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Scaffold
@@ -82,16 +84,12 @@ class NewFragment : Fragment() {
                 textAlign = TextAlign.Center,
             )
         }
-        WallpaperList(newWallpapers, page, loading)
-    }
-
-    @Composable
-    fun WallpaperList(newWallpapers: List<WallHavenResponse>, page: Int, loading: Boolean) {
         LazyVerticalGrid(cells = GridCells.Fixed(2)) {
 
             itemsIndexed(
                 items = newWallpapers
             ) { index, item ->
+                Log.e("LVG", "1.WallpaperListSetup : $index")
                 postViewModel.onChangeNewScrollPosition(index)
                 if ((index + 1) >= (page * PAGE_SIZE) && !loading) {
                     postViewModel.nextPageNew()

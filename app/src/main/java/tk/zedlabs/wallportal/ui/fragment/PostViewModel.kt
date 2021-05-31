@@ -41,8 +41,9 @@ class PostViewModel @Inject constructor(
     fun loadInitData() {
         searchProgress.value = true
         newList.value = emptyList()
+        pageNew.value = 1
         viewModelScope.launch {
-            val newResult = repository.getNewList(1, searchQuery.value)
+            val newResult = repository.getNewList(pageNew.value, searchQuery.value)
             if (newResult is Resource.Success) {
                 newList.value = newResult.data as List<WallHavenResponse>
             }
