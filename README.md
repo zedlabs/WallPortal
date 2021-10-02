@@ -29,7 +29,6 @@ Native Android wallpaper application written in Kotlin using Jetpack Compose
         * [ViewBinding](https://developer.android.com/topic/libraries/view-binding)
         * [Compose]()
     * Tests - local and instrumented unit tests 
-    * [PastelPlaceholders](https://github.com/zedlabs/pastelPlaceholders) - internal image placeholder library
 * Architecture
     * Model-View-ViewModel
     * [Android Architecture components](https://developer.android.com/topic/libraries/architecture) ([ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel), [LiveData](https://developer.android.com/topic/libraries/architecture/livedata), [Navigation](https://developer.android.com/jetpack/androidx/releases/navigation))
