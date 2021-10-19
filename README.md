@@ -10,7 +10,10 @@
   
  [![Kotlin Version](https://img.shields.io/badge/Kotlin-1.4.10-blue.svg)](https://kotlinlang.org)
 ###### *Minimal Wallpapers for Android*
-[**Download**](https://github.com/zedlabs/WallPortal/releases/download/2.0/app-release.apk)
+**Download from Play Store**
+
+<a href="https://play.google.com/store/apps/details?id=tk.zedlabs.wallaperapp2019" target="_blank">
+<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" alt="Get it on Google Play" height="70"/></a>
 
 Native Android wallpaper application written in Kotlin using Jetpack Compose
 
