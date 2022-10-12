@@ -35,10 +35,6 @@ Native Android wallpaper application written in Kotlin using Jetpack Compose
 * Architecture
     * Model-View-ViewModel
     * [Android Architecture components](https://developer.android.com/topic/libraries/architecture) ([ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel), [LiveData](https://developer.android.com/topic/libraries/architecture/livedata), [Navigation](https://developer.android.com/jetpack/androidx/releases/navigation))
- 
- * Todo
-   * UI refactor in compose ✔
-   * Outrun theme ✔
 
 
 Check out ``pre-beta`` for implementation without compose 
