@@ -1,4 +1,4 @@
-# WallPortal
+# WallPortal [NOT ACTIVELY MAINTAINED]
  <a title="GitHub Stars" target="_blank" href="https://github.com/zedlabs/WallPortal/stargazers">
   <img alt="GitHub Stars" src="https://img.shields.io/github/stars/zedlabs/Wallportal.svg?label=Stars&style=social">
   </a>  
