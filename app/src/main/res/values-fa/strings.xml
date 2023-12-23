@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Wallportal.</string>
+    <string name="popular">محبوب</string>
+    <string name="saved">ذخیره شده</string>
+    <string name="newImages">جدید</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="drawer_item_popular">محبوب</string>
+    <string name="drawer_item_new">جدید</string>
+    <string name="drawer_item_bookmarks">نشانک ها</string>
+    <string name="loading_wallpaper">در حال بارگیری تصویر</string>
+    <string name="bookmarks">نشانک ها</string>
+    <string name="remove_string">پاک کردن</string>
+    <string name="remove_from_bookmarks">پاک کردن نشانک</string>
+    <string name="image_already_bookmarked">تصویر قبلا نشانک شده</string>
+    <string name="remove_from_bookmarks_qm">پاک کردن از نشانک ها؟</string>
+    <string name="About_string">درباره</string>
+    <string name="large_image_warning">تصاویر با حجم بالا ممکن است دیرتر بارگیری شوند.</string>
+    <string name="download">بارگیری</string>
+    <string name="view_original">دیدن کیفیت اصلی</string>
+    <string name="add_to_bookmark">اضافه کردن به نشانک</string>
+    <string name="curated">جدید</string>
+    <string name="set_as_wallpaper">تنظیم به عنوان پس زمینهr</string>
+    <string name="no_internet">ارتباط اینترنتی قطع است، لطفا بعدا تلاش کنید.</string>
+    <string name="currently_offline">Currently Offline.</string>
+    <string name="failed_to_load">بارگیری تصویر فعلی ناموفق بود.</string>
+    <string name="bookmarks_is_empty">لیست نشانک خالی است</string>
+    <string name="added_success_bookmark">به نشانک ها اضافه شد!</string>
+    <string name="bookmark_activity">صفحه نشانک</string>
+    <string name="high_res_image">تصویر کیفیت بالا</string>
+    <string name="recycler_view_item">آیتم لیست</string>
+    <string name="settings">تنظیمات</string>
+</resources>
