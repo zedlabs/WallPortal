@@ -15,8 +15,6 @@
 <a href="https://play.google.com/store/apps/details?id=tk.zedlabs.wallaperapp2019" target="_blank">
 <img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" alt="Get it on Google Play" height="70"/></a>
 
-or buy from <a href="https://androidprojects.net" target="_blank">AndroidProjects.net</a>
-
 Native Android wallpaper application written in Kotlin using Jetpack Compose
 
 <img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/new.png" width="200" height="400">    <img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/pop.png" width="200" height="400"> <img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/detCol.png" width="200" height="400"> <img src="https://github.com/zedlabs/WallPortal/blob/master/screenshots/detExp.png" width="200" height="400"> 
@@ -40,3 +38,7 @@ Native Android wallpaper application written in Kotlin using Jetpack Compose
 
 
 - ``pre-beta`` branch - for implementation without compose 
+
+- Checkout other useful projects:
+
+  - Optimize your SWE Resume in 1-Click: <a href="https://www.sweresume.app/" target="_blank">SWEResume.app</a>
